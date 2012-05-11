@@ -13,6 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/temp_resource
 
 # Ignore other unneeded files.
 doc/
