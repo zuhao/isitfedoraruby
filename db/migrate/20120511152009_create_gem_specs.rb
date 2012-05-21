@@ -6,7 +6,7 @@ class CreateGemSpecs < ActiveRecord::Migration
       t.string :rubygems
       t.string :type
       t.string :version
-      t.boolean :has_rpm?
+      t.boolean :has_rpm
       t.integer :comments_count => {:default => 0}
       t.integer :want_count => {:default => 0}
       t.references :rpm_specs => {:default => nil}

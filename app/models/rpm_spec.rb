@@ -1,3 +1,4 @@
 class RpmSpec < ActiveRecord::Base
-  # attr_accessible :title, :body
+  belongs_to :gem_spec
+  has_many :rpm_comment, :dependent => :destroy, :order => 'created_at desc'
 end

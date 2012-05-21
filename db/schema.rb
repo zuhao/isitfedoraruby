@@ -11,37 +11,44 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511152032) do
+ActiveRecord::Schema.define(:version => 20120521135403) do
 
-  create_table "comments", :force => true do |t|
+  create_table "gem_comments", :force => true do |t|
     t.string   "name"
     t.string   "email"
     t.text     "text"
-    t.boolean  "works_for_me"
     t.boolean  "want_it"
-    t.boolean  "receive_update?"
-    t.integer  "rpm_specs_id"
+    t.boolean  "receive_update"
     t.integer  "gem_specs_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "gem_specs", :force => true do |t|
     t.string   "name",        :null => false
     t.string   "description"
     t.string   "rubygems"
-    t.string   "type"
     t.string   "version"
-    t.boolean  "has_rpm?"
+    t.boolean  "has_rpm"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "rpm_comments", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.text     "text"
+    t.boolean  "works_for_me"
+    t.boolean  "receive_update"
+    t.integer  "rpm_specs_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "rpm_specs", :force => true do |t|
     t.string   "name",          :null => false
     t.string   "description"
     t.string   "fedorapkg"
-    t.string   "type"
     t.string   "rpm_version"
     t.string   "patch_version"
     t.string   "patch_summary"
