@@ -1,3 +1,3 @@
 class GemComment < ActiveRecord::Base
-  belongs_to :gem_spec
+  belongs_to :gem
 end

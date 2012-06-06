@@ -1,5 +1,5 @@
 class RpmSpec < ActiveRecord::Base
-  belongs_to :gem_spec
+  belongs_to :gem
   has_many :rpm_comment, :dependent => :destroy, :order => 'created_at desc'
 
   def self.new_from_rpm_tuple(rpm_tuple)

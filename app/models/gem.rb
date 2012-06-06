@@ -1,6 +1,6 @@
 class GemSpec < ActiveRecord::Base
 
-  has_one :rpm_spec, :dependent => :destroy
+  has_one :rpm, :dependent => :destroy
   has_many :gem_comment, :dependent => :destroy, :order => 'created_at desc'
 
   def self.new_from_gem_tuple(gem_tuple)

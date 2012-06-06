@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120521135403) do
+ActiveRecord::Schema.define(:version => 20120606141845) do
 
   create_table "gem_comments", :force => true do |t|
     t.string   "name"
@@ -19,12 +19,12 @@ ActiveRecord::Schema.define(:version => 20120521135403) do
     t.text     "text"
     t.boolean  "want_it"
     t.boolean  "receive_update"
-    t.integer  "gem_specs_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "gem_id"
   end
 
-  create_table "gem_specs", :force => true do |t|
+  create_table "gems", :force => true do |t|
     t.string   "name",        :null => false
     t.string   "description"
     t.string   "rubygems"
@@ -40,12 +40,12 @@ ActiveRecord::Schema.define(:version => 20120521135403) do
     t.text     "text"
     t.boolean  "works_for_me"
     t.boolean  "receive_update"
-    t.integer  "rpm_specs_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "rpm_id"
   end
 
-  create_table "rpm_specs", :force => true do |t|
+  create_table "rpms", :force => true do |t|
     t.string   "name",          :null => false
     t.string   "description"
     t.string   "fedorapkg"
