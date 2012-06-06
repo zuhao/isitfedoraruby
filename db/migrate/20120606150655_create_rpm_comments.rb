@@ -6,7 +6,7 @@ class CreateRpmComments < ActiveRecord::Migration
       t.text :text
       t.boolean :works_for_me
       t.boolean :receive_update
-      t.references :rpm_specs
+      t.references :fedora_rpm
       t.timestamps
     end
   end

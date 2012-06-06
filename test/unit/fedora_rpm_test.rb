@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RpmSpecTest < ActiveSupport::TestCase
+class FedoraRpmTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -6,7 +6,7 @@ class CreateGemComments < ActiveRecord::Migration
       t.text :text
       t.boolean :want_it
       t.boolean :receive_update
-      t.references :gem_specs
+      t.references :ruby_gem
       t.timestamps
     end
   end

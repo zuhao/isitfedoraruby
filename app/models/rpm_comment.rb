@@ -1,3 +1,3 @@
 class RpmComment < ActiveRecord::Base
-  belongs_to :rpm
+  # attr_accessible :title, :body
 end

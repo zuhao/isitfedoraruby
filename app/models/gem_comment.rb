@@ -1,3 +1,3 @@
 class GemComment < ActiveRecord::Base
-  belongs_to :gem
+  # attr_accessible :title, :body
 end

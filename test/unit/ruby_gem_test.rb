@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GemSpecTest < ActiveSupport::TestCase
+class RubyGemTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
