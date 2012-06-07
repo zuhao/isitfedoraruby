@@ -19,5 +19,6 @@
 doc/
 *.swp
 *~
+nohup.out
 .project
 .DS_Store
