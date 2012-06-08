@@ -1,4 +1,6 @@
 Isitfedoraruby::Application.routes.draw do
+  get "rubygem/all"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
