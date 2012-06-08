@@ -7,7 +7,7 @@ class GemImporter
 
   def self.import
     Gem::SpecFetcher.fetcher.list[URI.parse(RUBYGEMS_URI)].each do |gem|
-      GemSpec.new_from_gem_tuple(gem)
+      RubyGem.new_from_gem_tuple(gem)
     end
   rescue Exception => ex 
       puts ex.message

@@ -10,7 +10,7 @@ class RpmImporter
   	URI.parse(FEDORAPKG_URI + QUERY).read.scan(/\/pkgdb\/acls\/name\/rubygem-.+\?/).each do |rpm_uri|
       rpm_uri = FEDORAPKG_URI + rpm_uri + SUFFIX
       rpm_spec = ActiveSupport::JSON.decode(URI.parse(rpm_uri).read)
-      RpmSpec.new_from_rpm_tuple(rpm_spec)
+      Rpm.new_from_rpm_tuple(rpm_spec)
   	end
   rescue Exception => ex 
   	puts ex.message

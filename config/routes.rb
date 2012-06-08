@@ -1,5 +1,8 @@
 Isitfedoraruby::Application.routes.draw do
+<<<<<<< HEAD
   get "rubygem/all"
+=======
+>>>>>>> create-models
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

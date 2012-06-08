@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120521135403) do
+ActiveRecord::Schema.define(:version => 20120606150655) do
+
+  create_table "fedora_rpms", :force => true do |t|
+    t.string   "name",          :null => false
+    t.string   "description"
+    t.string   "homepage"
+    t.string   "version"
+    t.string   "latest_patch"
+    t.string   "patch_summary"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "gem_comments", :force => true do |t|
     t.string   "name"
@@ -19,19 +30,9 @@ ActiveRecord::Schema.define(:version => 20120521135403) do
     t.text     "text"
     t.boolean  "want_it"
     t.boolean  "receive_update"
-    t.integer  "gem_specs_id"
+    t.integer  "ruby_gem_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-  end
-
-  create_table "gem_specs", :force => true do |t|
-    t.string   "name",        :null => false
-    t.string   "description"
-    t.string   "rubygems"
-    t.string   "version"
-    t.boolean  "has_rpm"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
   end
 
   create_table "rpm_comments", :force => true do |t|
@@ -40,20 +41,19 @@ ActiveRecord::Schema.define(:version => 20120521135403) do
     t.text     "text"
     t.boolean  "works_for_me"
     t.boolean  "receive_update"
-    t.integer  "rpm_specs_id"
+    t.integer  "fedora_rpm_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
 
-  create_table "rpm_specs", :force => true do |t|
-    t.string   "name",          :null => false
+  create_table "ruby_gems", :force => true do |t|
+    t.string   "name",        :null => false
     t.string   "description"
-    t.string   "fedorapkg"
-    t.string   "rpm_version"
-    t.string   "patch_version"
-    t.string   "patch_summary"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string   "homepage"
+    t.string   "version"
+    t.boolean  "has_rpm"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
 end
