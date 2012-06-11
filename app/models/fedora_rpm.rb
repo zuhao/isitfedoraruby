@@ -1,7 +1,10 @@
 class FedoraRpm < ActiveRecord::Base
-  # attr_accessible :title, :body
+  
   belongs_to :ruby_gem
   has_many :rpm_comment, :dependent => :destroy, :order => 'created_at desc'
+  has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
+  has_many :failure_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => false}
+  scope :popular, :order => 'rpm_comments_count desc'
 
   def self.new_from_rpm_tuple(rpm_tuple)
     spec = rpm_tuple["packageListings"][0]["package"]
@@ -18,8 +21,23 @@ class FedoraRpm < ActiveRecord::Base
     logger.info("Could not create rpm spec for #{spec["name"]}")
   end
 
+  def rpm_name
+    self.name
+  end
+
+  def works?
+    has_no_failure_comments? && has_working_comments?
+  end
+
+  def hotness
+    total = RpmComment.count
+    total = 1 if total == 0
+    RpmComment.working.count * 100 / total
+  end
+
 private
   
-  validates :name, :uniqueness => true
-  validates :name, :presence => true
+  validates_uniqueness_of :name
+  validates_presence_of :name
+
 end
