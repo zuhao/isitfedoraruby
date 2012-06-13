@@ -21,7 +21,7 @@ class RpmImporter
                               :last_commit_message => rpm_git_repo.branch.gcommit.message,
                               :author => rpm_git_repo.branch.gcommit.author.name,
                               :last_committer => rpm_git_repo.branch.gcommit.committer.name,
-                              :ruby_gem_id => RubyGem.find_by_name($1).id})
+                              :ruby_gem_id => RubyGem.find_by_name(rpm_git_repo.name.gsub(/rubygem-/,'')).id})
   rescue Exception => ex 
   	puts ex.message
   end

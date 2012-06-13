@@ -11,17 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120606150655) do
+ActiveRecord::Schema.define(:version => 20120613142106) do
 
   create_table "fedora_rpms", :force => true do |t|
-    t.string   "name",          :null => false
-    t.string   "description"
-    t.string   "homepage"
-    t.string   "version"
+    t.string   "name",                :null => false
+    t.string   "git_url"
     t.string   "latest_patch"
-    t.string   "patch_summary"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string   "last_commit_message"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "author"
+    t.string   "last_committer"
+    t.datetime "last_commit_date"
+    t.string   "last_commit_sha"
   end
 
   create_table "gem_comments", :force => true do |t|
