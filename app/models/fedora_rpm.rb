@@ -7,18 +7,22 @@ class FedoraRpm < ActiveRecord::Base
   scope :popular, :order => 'rpm_comments_count desc'
 
   def self.new_from_rpm_tuple(rpm_tuple)
-    spec = rpm_tuple["packageListings"][0]["package"]
-    f = find_or_initialize_by_name(spec["name"])
+    puts rpm_tuple
+    f = find_or_initialize_by_name(rpm_tuple['name'])
     if f.new_record?
-      f.description = spec["summary"]
-      f.homepage = 'https://admin.fedoraproject.org/pkgdb/acls/name/' + spec["name"]
+      f.git_url = rpm_tuple['git_url']
+      f.author = rpm_tuple['author']
+      f.last_committer = rpm_tuple['last_committer']
+      f.last_commit_message = rpm_tuple['last_commit_message']
+      f.last_commit_date = rpm_tuple['last_commit_date']
+      f.last_commit_sha = rpm_tuple['last_commit_sha']
       f.save!
       logger.info("Rpm #{f.name} imported")
     else
       logger.info("Rpm #{f.name} already existed")
     end
   rescue => e
-    logger.info("Could not create rpm spec for #{spec["name"]}")
+    logger.info("Could not import #{rpm_tuple['name']}")
   end
 
   def rpm_name

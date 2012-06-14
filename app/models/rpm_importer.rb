@@ -9,11 +9,14 @@ class RpmImporter
 
   def self.import 
     self.init
-  	URI.parse(FEDORAPKG_URI).read.scan(/rubygem-.+\.git/).each do |index|
+  	URI.parse(FEDORAPKG_URI).read.scan(/rubygem-.+\.git\s/).each do |index|
       rpm_git_uri = GIT_BASE_URI + index
       index.scan(/(.+)\.git/)
       @rpm_repos.add_remote($1, rpm_git_uri)
-  	end
+    end
+
+    # TODO: handle duplicates eg rubygem-foreigner.git vs rubygem-foreigner.git.sav
+  	
     @rpm_repos.remotes.each do|rpm_git_repo|
       rpm_git_repo.fetch
       Rpm.new_from_rpm_tuple({:name => rpm_git_repo.name,
@@ -21,7 +24,10 @@ class RpmImporter
                               :last_commit_message => rpm_git_repo.branch.gcommit.message,
                               :author => rpm_git_repo.branch.gcommit.author.name,
                               :last_committer => rpm_git_repo.branch.gcommit.committer.name,
+                              :last_commit_sha => rpm_git_repo.branch.gcommit.sha,
+                              :last_commit_date => rpm_git_repo.branch.gcommit.committer_date,
                               :ruby_gem_id => RubyGem.find_by_name(rpm_git_repo.name.gsub(/rubygem-/,'')).id})
+    end
   rescue Exception => ex 
   	puts ex.message
   end

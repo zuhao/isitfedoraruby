@@ -22,3 +22,5 @@ doc/
 nohup.out
 .project
 .DS_Store
+
+rpmgit/

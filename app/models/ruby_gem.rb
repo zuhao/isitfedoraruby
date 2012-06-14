@@ -20,7 +20,7 @@ class RubyGem < ActiveRecord::Base
       logger.info("Gem #{f.name} already existed")
     end
   rescue => e
-    logger.info("Could not create gem spec for #{gem_tuple[0]}")
+    logger.info("Could not import #{gem_tuple[0]}")
   end
 
   def gem_name
