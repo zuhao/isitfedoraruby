@@ -1,7 +1,8 @@
 class RubyGem < ActiveRecord::Base
-  # attr_accessible :title, :body
+  
   has_one :fedora_rpm, :dependent => :destroy
   has_many :gem_comment, :dependent => :destroy, :order => 'created_at desc'
+  scope :popular, :order => 'gem_comments_count desc'
 
   def self.new_from_gem_tuple(gem_tuple)
     require 'rubygems'
@@ -19,12 +20,26 @@ class RubyGem < ActiveRecord::Base
       logger.info("Gem #{f.name} already existed")
     end
   rescue => e
-    logger.info("Could not create gem spec for #{gem_tuple[0]}")
+    logger.info("Could not import #{gem_tuple[0]}")
+  end
+
+  def gem_name
+    self.name
+  end
+
+  def has_rpm?
+    self.has_rpm
+  end
+
+  def wantedness
+    total = GemComment.count
+    total = 1 if total == 0
+    GemComment.wanted.count * 100 / total
   end
 
 private
   
-  validates :name, :uniqueness => true
-  validates :name, :presence => true
+  validates_uniqueness_of :name
+  validates_presence_of :name
 
 end

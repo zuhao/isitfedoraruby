@@ -1,25 +1,55 @@
 class FedoraRpm < ActiveRecord::Base
-  # attr_accessible :title, :body
+  
   belongs_to :ruby_gem
   has_many :rpm_comment, :dependent => :destroy, :order => 'created_at desc'
+  has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
+  has_many :failure_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => false}
+  scope :popular, :order => 'rpm_comments_count desc'
 
   def self.new_from_rpm_tuple(rpm_tuple)
-    spec = rpm_tuple["packageListings"][0]["package"]
-    f = find_or_initialize_by_name(spec["name"])
+    rpm = rpm_tuple.split.first
+    f = find_or_initialize_by_name(rpm.gsub(/\.git/,''))
     if f.new_record?
-      f.description = spec["summary"]
-      f.homepage = 'https://admin.fedoraproject.org/pkgdb/acls/name/' + spec["name"]
+      f.name = rpm.gsub(/\.git/,'')
+      f.author = rpm_tuple.split.last.gsub(/\+/,' ')
+      f.git_url = "git://pkgs.fedoraproject.org/#{rpm}"
+      begin
+        rpm_spec = URI.parse("#{RpmImporter::RPM_SPEC_URI};p=#{rpm};f=#{rpm.gsub(/git$/,'spec')}").read
+        f.version = rpm_spec.scan(/\nVersion: .*\n/).first.split.last
+        f.homepage = rpm_spec.scan(/\nURL: .*\n/).first.split.last
+      rescue OpenURI::HTTPError
+        # some rpms do not have spec file
+      rescue NoMethodError
+        # some spec files do not have Version or URL
+      end
+      f.ruby_gem = RubyGem.find_by_name(f.name.gsub(/rubygem-/,''))
+      # TODO: more info can be extracted 
       f.save!
       logger.info("Rpm #{f.name} imported")
     else
       logger.info("Rpm #{f.name} already existed")
     end
   rescue => e
-    logger.info("Could not create rpm spec for #{spec["name"]}")
+    logger.info("Could not import #{rpm_tuple['name']}\n #{e.to_s}")
+  end
+
+  def rpm_name
+    self.name
+  end
+
+  def works?
+    has_no_failure_comments? && has_working_comments?
+  end
+
+  def hotness
+    total = RpmComment.count
+    total = 1 if total == 0
+    RpmComment.working.count * 100 / total
   end
 
 private
   
-  validates :name, :uniqueness => true
-  validates :name, :presence => true
+  validates_uniqueness_of :name
+  validates_presence_of :name
+
 end

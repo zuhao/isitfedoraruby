@@ -2,16 +2,14 @@ require 'open-uri'
 
 class RpmImporter
 
-  FEDORAPKG_URI = 'https://admin.fedoraproject.org'
-  QUERY = '/pkgdb/acls/list/?searchwords=rubygem-*&packages_tgp_limit=-1'
-  SUFFIX = 'tg_format=json'
+  BASE_URI = 'http://pkgs.fedoraproject.org/gitweb/?'
+  PKG_LIST_URI = BASE_URI + 'a=project_index'
+  RPM_SPEC_URI = BASE_URI + 'a=blob_plain'
 
-  def self.import 
-  	URI.parse(FEDORAPKG_URI + QUERY).read.scan(/\/pkgdb\/acls\/name\/rubygem-.+\?/).each do |rpm_uri|
-      rpm_uri = FEDORAPKG_URI + rpm_uri + SUFFIX
-      rpm_spec = ActiveSupport::JSON.decode(URI.parse(rpm_uri).read)
-      Rpm.new_from_rpm_tuple(rpm_spec)
-  	end
+  def self.import
+  	URI.parse(PKG_LIST_URI).read.scan(/rubygem-.+\.git\s.+/).each do |rpm|
+      FedoraRpm.new_from_rpm_tuple(rpm) 
+    end
   rescue Exception => ex 
   	puts ex.message
   end
