@@ -13,14 +13,14 @@ class FedoraRpm < ActiveRecord::Base
       f.name = rpm.gsub(/\.git/,'')
       f.author = rpm_tuple.split.last.gsub(/\+/,' ')
       f.git_url = "git://pkgs.fedoraproject.org/#{rpm}"
-      begin # some rpms do not have spec file
+      begin
         rpm_spec = URI.parse("#{RpmImporter::RPM_SPEC_URI};p=#{rpm};f=#{rpm.gsub(/git$/,'spec')}").read
         f.version = rpm_spec.scan(/\nVersion: .*\n/).first.split.last
         f.homepage = rpm_spec.scan(/\nURL: .*\n/).first.split.last
       rescue OpenURI::HTTPError
-      
+        # some rpms do not have spec file
       rescue NoMethodError
-      
+        # some spec files do not have Version or URL
       end
       f.ruby_gem = RubyGem.find_by_name(f.name.gsub(/rubygem-/,''))
       # TODO: more info can be extracted 

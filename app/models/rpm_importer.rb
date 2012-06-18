@@ -7,7 +7,7 @@ class RpmImporter
   RPM_SPEC_URI = BASE_URI + 'a=blob_plain'
 
   def self.import
-  	URI.parse(PKG_LIST_URI).read.scan(/rubygem-.+\.git.+/).each do |rpm|
+  	URI.parse(PKG_LIST_URI).read.scan(/rubygem-.+\.git\s.+/).each do |rpm|
       FedoraRpm.new_from_rpm_tuple(rpm) 
     end
   rescue Exception => ex 
