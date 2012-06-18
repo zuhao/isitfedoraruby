@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120614134039) do
+ActiveRecord::Schema.define(:version => 20120618141450) do
 
   create_table "fedora_rpms", :force => true do |t|
     t.string   "name",                :null => false
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(:version => 20120614134039) do
     t.string   "last_committer"
     t.datetime "last_commit_date"
     t.string   "last_commit_sha"
+    t.string   "homepage"
+    t.string   "version"
   end
 
   create_table "gem_comments", :force => true do |t|
