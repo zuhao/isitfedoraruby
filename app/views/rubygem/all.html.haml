@@ -1,2 +1,11 @@
-%h1 = Rubygem#all
-%p = Find me in app/views/rubygem/all.html.haml
+%table
+  %tr
+    %th Name
+    %th Version
+    %th Has Rpm?
+
+  - @gems.each do |gem|
+    %tr
+      %td= gem.name
+      %td= gem.version
+      %td= gem.has_rpm == false ? '' : gem.has_rpm
