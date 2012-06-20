@@ -1,0 +1,7 @@
+%h1= @rpm.name
+%p= link_to 'Homepage', @rpm.homepage
+/%p= link_to 'Git', @rpm.git_url
+/%p= "#{@rpm.description}"
+
+%p= button_to "Back to all rpms", fedorarpms_path, :method => :all
+%p= button_to "Back to all gems", rubygems_path, :method => :all

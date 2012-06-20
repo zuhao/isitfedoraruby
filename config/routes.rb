@@ -1,9 +1,18 @@
 Isitfedoraruby::Application.routes.draw do
 
-  #resources :rubygem
-  get "rubygem/show"
-  get "rubygem/all"
-
+  match 'rubygems/' => 'rubygems#all'
+  match 'rubygems/all' => 'rubygems#all'
+  match 'rubygems/:id' => 'rubygems#show'
+  match 'rubygems/:id/show' => 'rubygems#show'
+  
+  match 'fedorarpms/' => 'fedorarpms#all'
+  match 'fedorarpms/all' => 'fedorarpms#all'
+  match 'fedorarpms/:id' => 'fedorarpms#show'
+  match 'fedorarpms/:id/show' => 'fedorarpms#show'
+  
+  resources :fedorarpms
+  resources :rubygems
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

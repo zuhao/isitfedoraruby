@@ -1,0 +1,11 @@
+%table
+  %tr
+    %th Name
+    %th Version
+    %th Gem
+
+  - @rpms.each do |rpm|
+    %tr
+      %td= link_to rpm.name, fedorarpm_path(rpm.id)
+      %td= rpm.version
+      %td= if (rpm.ruby_gem != nil) then link_to 'View', rubygem_path(rpm.ruby_gem.id) end

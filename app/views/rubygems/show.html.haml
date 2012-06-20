@@ -1,0 +1,7 @@
+%h1= @gem.name
+%p= link_to 'Homepage', @gem.homepage
+%p Description: 
+%p= "#{@gem.description}"
+
+%p= button_to "Back to all gems", rubygems_path, :method => :all
+%p= button_to "Back to all rpms", fedorarpms_path, :method => :all
