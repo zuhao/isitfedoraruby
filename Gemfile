@@ -16,13 +16,13 @@ end
 
 gem 'jquery-rails'
 gem 'haml-rails'
-
-gem 'haml'
 gem 'execjs'
 
 group :test, :development do
-  gem 'rspec-rails', '~> 2.0'
+  gem 'rspec-rails'
+  gem 'guard-rspec'
   gem 'capybara'
+  gem 'growl'
 end
 
 group :production do

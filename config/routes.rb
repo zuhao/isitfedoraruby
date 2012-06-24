@@ -1,5 +1,8 @@
 Isitfedoraruby::Application.routes.draw do
 
+  get 'successes', :controller => 'static_pages', :action => 'successes'
+  get 'contribute', :controller => 'static_pages', :action => 'contribute'
+
   match '/' => 'home#show'
   post 'rubygems/:id', :controller => 'gemcomments', :action => 'create'
 
