@@ -1,7 +1,7 @@
 class FedoraRpm < ActiveRecord::Base
   
   belongs_to :ruby_gem
-  has_many :rpm_comment, :dependent => :destroy, :order => 'created_at desc'
+  has_many :rpm_comments, :dependent => :destroy, :order => 'created_at desc'
   has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
   has_many :failure_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => false}
   scope :popular, :order => 'rpm_comments_count desc'

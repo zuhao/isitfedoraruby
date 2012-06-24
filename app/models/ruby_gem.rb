@@ -1,7 +1,7 @@
 class RubyGem < ActiveRecord::Base
   
   has_one :fedora_rpm, :dependent => :destroy
-  has_many :gem_comment, :dependent => :destroy, :order => 'created_at desc'
+  has_many :gem_comments, :dependent => :destroy, :order => 'created_at desc'
   scope :popular, :order => 'gem_comments_count desc'
 
   def self.new_from_gem_tuple(gem_tuple)

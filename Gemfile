@@ -19,6 +19,16 @@ gem 'haml-rails'
 
 gem 'haml'
 gem 'execjs'
+
+group :test, :development do
+  gem 'rspec-rails', '~> 2.0'
+  gem 'capybara'
+end
+
+group :production do
+
+end
+
 # gem 'grit'
 # gem 'git' # ruby-git seems to have better support on remote repo than grit
 

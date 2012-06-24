@@ -1,0 +1,4 @@
+%h2 Add new comment
+- form_tag rubygem_path(params[:id]), :method => :post do
+	label :gem_comment, :name, 'Name'
+	text_field :gem_comment, :name

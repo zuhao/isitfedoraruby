@@ -1,0 +1,2 @@
+module GemcommentsHelper
+end

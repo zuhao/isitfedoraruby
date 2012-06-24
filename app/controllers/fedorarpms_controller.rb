@@ -1,12 +1,14 @@
 class FedorarpmsController < ApplicationController
 
-  def all
+  def index
     @page_title = 'All Rpm'
+    # @rpms = FedoraRpm.all
     @rpms = FedoraRpm.limit(100)
   end
 
   def show
-    @rpm = FedoraRpm.find_by_id(params[:id])
+    id = params[:id]
+    @rpm = FedoraRpm.find_by_id(id)
     @page_title = @rpm.name
   end
 

@@ -1,0 +1,2 @@
+module RpmcommentsHelper
+end

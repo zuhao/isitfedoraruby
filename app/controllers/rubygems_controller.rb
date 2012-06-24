@@ -1,12 +1,14 @@
 class RubygemsController < ApplicationController
   
-  def all
+  def index
     @page_title = 'All Gems'
+    # @gems = RubyGem.all
     @gems = RubyGem.limit(100)
   end
 
   def show
-    @gem = RubyGem.find_by_id(params[:id])
+    @id = params[:id]
+    @gem = RubyGem.find_by_id(@id, :include => :gem_comments)
     @page_title = @gem.name
   end
   
