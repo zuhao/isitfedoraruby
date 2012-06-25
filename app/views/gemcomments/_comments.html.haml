@@ -1,2 +1,8 @@
 %div
-  %p= gemcomment.name
+  %h3 Comments
+  - @gem.gem_comments.each do |comment|
+    %p Name: #{comment.name}
+    %p Email: #{comment.email}
+    %p Comment: #{comment.text}
+    %p= comment.description
+    %br

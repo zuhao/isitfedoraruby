@@ -17,6 +17,7 @@ end
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'execjs'
+gem 'will_paginate'
 
 group :test, :development do
   gem 'rspec-rails'

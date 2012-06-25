@@ -1,33 +1,12 @@
 %h2= @gem.name
+%p Wantedness: #{@gem.wantedness}%
 %p= link_to 'Homepage', @gem.homepage
-%p Description: 
+%p Description:
 %p= @gem.description
 
 %p
   = link_to "Back to gem list", rubygems_path, :method => :all
   = link_to "Back to rpm list", fedorarpms_path, :method => :all
 
-%h3 Comments
-- @gem.gem_comments.each do |comment|
-  %p Name: #{comment.name}
-  %p Email: #{comment.email}
-  %p Comment: #{comment.text}
-
-%h3 Add new comment
-= form_for :gem_comment do |f|
-  %p
-    = f.label :name, 'Name'
-    = f.text_field :name
-  %p
-    = f.label :email, 'Email'
-    = f.text_field :email
-  %p= f.label :text, 'Comment'
-  %p= f.text_area :text
-
-  /= f.submit
-
-
-
-
-/= render :partial => 'gemcomments/comments', :collection => @gem.gem_comments
-/= render :partial => 'gemcomments/new_comment', :locals => {:rubygem => @gem}
+= render :partial => 'gemcomments/comments'
+= render :partial => 'gemcomments/new_comment'

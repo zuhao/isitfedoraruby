@@ -1,12 +1,12 @@
 class GemComment < ActiveRecord::Base
-  
+  attr_accessible :name, :email, :text, :ruby_gem, :want_it, :receive_update
   belongs_to :ruby_gem
   scope :latest, :order => 'created_at desc'
   scope :wanted, where(:want_it => true)
   scope :receive_update, where(:receive_update == true && :email != nil)
   delegate :gem_name, :to => :ruby_gem
 
-  def initialize params = nil
+  def initialize params = nil, options = {}
     super
     self.want_it ||= true unless self.want_it == false
     self.receive_update ||= true unless self.receive_update == false
@@ -14,7 +14,7 @@ class GemComment < ActiveRecord::Base
 
   def description
     # requestor = self.name ||= 'Anonymous'
-    "#{name} wants #{gem_name}!"
+    "#{name} wants #{gem_name}!" if self.want_it
   end
 
 private

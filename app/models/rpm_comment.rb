@@ -1,12 +1,12 @@
 class RpmComment < ActiveRecord::Base
-  
+  attr_accessible :name, :email, :text, :works_for_me, :receive_update
   belongs_to :fedora_rpm
   scope :latest, :order => 'created_at desc'
   scope :working, where(:works_for_me => true)
   scope :receive_update, where(:receive_update == true && :email != nil)
   delegate :rpm_name, :to => :fedora_rpm
 
-  def initialize params = nil
+  def initialize params = nil, options = {}
     super
     self.works_for_me ||= true unless self.works_for_me == false
     self.receive_update ||= true unless self.receive_update == false

@@ -1,0 +1,19 @@
+%div
+  %h3 Add new comment
+  = form_for :rpm_comment do |f|
+    %p
+      = f.label :name, 'Name'
+      = f.text_field :name
+    %p
+      = f.label :email, 'Email'
+      = f.text_field :email
+    %p
+      = f.label :works_for_me, 'It works for me!'
+      = f.check_box :works_for_me
+    %p
+      = f.label :receive_update, 'Keep me updated!'
+      = f.check_box :receive_update
+    %p= f.label :text, 'Comment'
+    %p= f.text_area :text
+
+    = f.submit

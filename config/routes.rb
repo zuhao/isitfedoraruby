@@ -1,24 +1,25 @@
 Isitfedoraruby::Application.routes.draw do
 
-  get 'successes', :controller => 'static_pages', :action => 'successes'
-  get 'contribute', :controller => 'static_pages', :action => 'contribute'
+  root :to => 'home#show'
 
-  match '/' => 'home#show'
-  post 'rubygems/:id', :controller => 'gemcomments', :action => 'create'
+  match 'successes' => 'static_pages#successes'
+  match 'contribute' => 'static_pages#contribute'
 
   match 'rubygems/' => 'rubygems#index'
   match 'rubygems/all' => 'rubygems#index'
-  match 'rubygems/:id' => 'rubygems#show'
+  match 'rubygems/:id' => 'rubygems#show', :via => :get
+  match 'rubygems/:id' => 'gemcomments#create', :via => :post
   match 'rubygems/:id/show' => 'rubygems#show'
 
   match 'fedorarpms/' => 'fedorarpms#index'
   match 'fedorarpms/all' => 'fedorarpms#index'
-  match 'fedorarpms/:id' => 'fedorarpms#show'
+  match 'fedorarpms/:id' => 'fedorarpms#show', :via => :get
+  match 'fedorarpms/:id' => 'rpmcomments#create', :via => :post
   match 'fedorarpms/:id/show' => 'fedorarpms#show'
-  
+
   resources :fedorarpms
   resources :rubygems
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

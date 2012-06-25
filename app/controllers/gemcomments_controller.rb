@@ -5,8 +5,12 @@ class GemcommentsController < ApplicationController
 
   def create
     @gem = RubyGem.find_by_id(params[:id])
-    @comment = @gem.gem_comments.build(params[:gem_comment])
-    @comment.save!
+    @gem_comment = @gem.gem_comments.build(params[:gem_comment])
+    if @gem_comment.save
+      redirect_to rubygem_path(@gem)
+    else
+
+    end
   end
 
 end

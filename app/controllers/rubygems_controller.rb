@@ -1,9 +1,9 @@
 class RubygemsController < ApplicationController
-  
+
   def index
     @page_title = 'All Gems'
-    # @gems = RubyGem.all
-    @gems = RubyGem.limit(100)
+    @gems = RubyGem.paginate(:page => params[:page], :per_page => 100)
+    # @gems = RubyGem.limit(100)
   end
 
   def show
@@ -11,5 +11,5 @@ class RubygemsController < ApplicationController
     @gem = RubyGem.find_by_id(@id, :include => :gem_comments)
     @page_title = @gem.name
   end
-  
+
 end
