@@ -2,7 +2,7 @@ class FedorarpmsController < ApplicationController
 
   def index
     @page_title = 'All Rpm'
-    @rpms = FedoraRpm.paginate(:page => params[:page], :per_page => 100)
+    @rpms = FedoraRpm.paginate(:page => params[:page], :per_page => 50, :order => 'name')
     # @rpms = FedoraRpm.limit(100)
   end
 

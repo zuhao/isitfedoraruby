@@ -2,7 +2,7 @@ class RubygemsController < ApplicationController
 
   def index
     @page_title = 'All Gems'
-    @gems = RubyGem.paginate(:page => params[:page], :per_page => 100)
+    @gems = RubyGem.paginate(:page => params[:page], :per_page => 50, :order => 'name')
     # @gems = RubyGem.limit(100)
   end
 
