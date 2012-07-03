@@ -1,5 +1,5 @@
 class FedoraRpm < ActiveRecord::Base
-  
+
   belongs_to :ruby_gem
   has_many :rpm_comments, :dependent => :destroy, :order => 'created_at desc'
   has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
@@ -19,21 +19,21 @@ class FedoraRpm < ActiveRecord::Base
       rpm_spec = URI.parse("#{RpmImporter::RPM_SPEC_URI};p=#{rpm};f=#{rpm.gsub(/git$/,'spec')}").read
       f.version = rpm_spec.scan(/\nVersion: .*\n/).first.split.last
       f.homepage = rpm_spec.scan(/\nURL: .*\n/).first.split.last
-      # TODO: more info can be extracted 
+      # TODO: more info can be extracted
     rescue OpenURI::HTTPError
       # some rpms do not have spec file
     rescue NoMethodError
       # some spec files do not have Version or URL
     end
 
-    begin  
+    begin
       g = f.ruby_gem
       g.has_rpm = true
       g.save
     rescue NoMethodError
       # some rpm does not have corresponding gem
     end
-    
+
     f.save!
     logger.info("Rpm #{f.name} imported")
   rescue => e
@@ -49,13 +49,13 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def hotness
-    total = RpmComment.count
+    total = self.rpm_comments.count
     total = 1 if total == 0
-    RpmComment.working.count * 100 / total
+    self.rpm_comments.working.count * 100 / total
   end
 
 private
-  
+
   validates_uniqueness_of :name
   validates_presence_of :name
 

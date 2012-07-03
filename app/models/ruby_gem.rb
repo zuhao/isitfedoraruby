@@ -32,9 +32,9 @@ class RubyGem < ActiveRecord::Base
   end
 
   def wantedness
-    total = GemComment.count
+    total = self.gem_comments.count
     total = 1 if total == 0
-    GemComment.wanted.count * 100 / total
+    self.gem_comments.wanted.count * 100 / total
   end
 
 private

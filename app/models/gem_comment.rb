@@ -1,4 +1,5 @@
 class GemComment < ActiveRecord::Base
+
   attr_accessible :name, :email, :text, :ruby_gem, :want_it, :receive_update
   belongs_to :ruby_gem
   scope :latest, :order => 'created_at desc'

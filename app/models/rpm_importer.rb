@@ -8,9 +8,9 @@ class RpmImporter
 
   def self.import
   	URI.parse(PKG_LIST_URI).read.scan(/rubygem-.+\.git\s.+/).each do |rpm|
-      FedoraRpm.new_from_rpm_tuple(rpm) 
+      FedoraRpm.new_from_rpm_tuple(rpm)
     end
-  rescue Exception => ex 
+  rescue Exception => ex
   	puts ex.message
   end
 
