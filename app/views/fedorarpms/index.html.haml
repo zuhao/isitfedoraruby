@@ -1,5 +1,10 @@
 %h2 All Fedora Rpms
 
+%div
+  = form_for :fedora_rpm, :method => :get do |f|
+    = f.text_field :search, :value => params[:search].blank? ? 'rpm search' : params[:search], :onfocus => "if (this.value == 'rpm search') {this.value = ''}"
+    = f.submit "Search Rpm", :name => nil
+
 %table
   %thead
     %tr
@@ -13,4 +18,5 @@
         %td= link_to rpm.name, fedorarpm_path(rpm.id)
         %td= rpm.version
         %td= link_to 'View', rubygem_path(rpm.ruby_gem.id) if rpm.ruby_gem != nil
+
 = will_paginate @rpms

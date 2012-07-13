@@ -1,5 +1,10 @@
 %h2 All Ruby Gems
 
+%div
+  = form_tag :controller => 'rubygems', :action => 'index' do
+    = text_field_tag :search, params[:search] ||= '', :id => 'search_field'
+    = submit_tag "Search Gem", :name => nil
+
 %table
   %thead
     %tr
@@ -13,4 +18,5 @@
         %td= link_to gem.name, rubygem_path(gem.id)
         %td= gem.version
         %td= link_to 'View', fedorarpm_path(gem.fedora_rpm.id) if gem.fedora_rpm != nil
+
 = will_paginate @gems

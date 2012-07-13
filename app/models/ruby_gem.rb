@@ -23,6 +23,16 @@ class RubyGem < ActiveRecord::Base
     logger.info("Could not import #{gem_tuple[0]}")
   end
 
+  def self.search(search)
+    # search_cond = "%" + search.to_s + "%"
+    # search_cond = search.to_s
+    if search == nil || search.blank?
+      self
+    else
+      self.where("name LIKE ?", search.strip)
+    end
+  end
+
   def gem_name
     self.name
   end
