@@ -12,12 +12,14 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'therubyracer', :platform => :ruby
   gem 'uglifier', '>= 1.0.3'
+  gem 'bootstrap-sass', '~> 2.0.0'
 end
 
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'execjs'
-gem 'will_paginate'
+# gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :test, :development do
   gem 'rspec-rails'

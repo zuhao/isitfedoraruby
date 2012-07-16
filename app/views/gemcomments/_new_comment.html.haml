@@ -1,4 +1,5 @@
-%div
+%div.new.comment
+  %br
   %h3 Add new comment
   = form_for :gem_comment do |f|
     %p
@@ -17,4 +18,4 @@
     %p= f.label :text, 'Comment'
     %p= f.text_area :text
 
-    = f.submit
+    = f.submit 'Submit', :class => 'btn btn-primary'

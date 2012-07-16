@@ -1,12 +1,12 @@
-%h2= @rpm.name
+%h1= @rpm.name
 %p Hotness: #{@rpm.hotness}%
 %p= link_to 'Homepage', @rpm.homepage
 /%p Description
 /%p= "#{@rpm.description}"
 
-%p
-  = link_to "Back to rpm list", fedorarpms_path, :method => :all
-  = link_to "Back to gem list", rubygems_path, :method => :all
+/ %p
+/   = link_to "Back to rpm list", fedorarpms_path, :method => :all
+/   = link_to "Back to gem list", rubygems_path, :method => :all
 
 = render :partial => 'rpmcomments/comments'
 = render :partial => 'rpmcomments/new_comment'

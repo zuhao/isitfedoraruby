@@ -1,12 +1,12 @@
-%h2= @gem.name
+%h1= @gem.name
 %p Wantedness: #{@gem.wantedness}%
 %p= link_to 'Homepage', @gem.homepage
 %p Description:
-%p= @gem.description
+%p= @gem.description.blank? ? "#{@gem.name} does not have a description yet" : @gem.description
 
-%p
-  = link_to "Back to gem list", rubygems_path, :method => :all
-  = link_to "Back to rpm list", fedorarpms_path, :method => :all
+/ %p
+/   = link_to "Back to gem list", rubygems_path, :method => :all
+/   = link_to "Back to rpm list", fedorarpms_path, :method => :all
 
 = render :partial => 'gemcomments/comments'
 = render :partial => 'gemcomments/new_comment'

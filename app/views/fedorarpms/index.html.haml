@@ -1,4 +1,4 @@
-%h2 All Fedora Rpms
+%h1 All Fedora Rpms
 
 %div
   = form_for :fedora_rpm, :method => :get do |f|
@@ -19,4 +19,5 @@
         %td= rpm.version
         %td= link_to 'View', rubygem_path(rpm.ruby_gem.id) if rpm.ruby_gem != nil
 
-= will_paginate @rpms
+%div.pagination
+  = will_paginate @rpms
