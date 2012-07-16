@@ -20,6 +20,9 @@ gem 'haml-rails'
 gem 'execjs'
 # gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'curb'
+gem 'json'
+gem 'nokogiri'
 
 group :test, :development do
   gem 'rspec-rails'

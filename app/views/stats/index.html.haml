@@ -1,0 +1,49 @@
+%h1
+  Most popular rpms
+%table
+  %tr
+    %th
+      Gem / Fedora Version
+    %th
+      Upstream
+    -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+      %th
+        =t
+    %th
+      Up To Date?
+  -@rpms.each do |rpm|
+    %tr
+      %td
+        =rpm.name
+      %td
+        =rpm.ruby_gem.version if rpm.ruby_gem
+      -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+        %td
+          =rpm.version_for(t)
+      %td
+        =rpm.upto_date?.to_s
+
+%h1
+  Most popular gems
+%table
+  %tr
+    %th
+      Gem / Fedora Version
+    %th
+      Upstream
+    -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+      %th
+        =t
+    %th
+      Up To Date?
+  -@gems.each do |gem|
+    %tr
+      %td
+        =gem.name
+      %td
+        =gem.version
+      -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+        %td
+          =gem.version_in_fedora(t)
+      %td
+        =gem.upto_date_in_fedora?

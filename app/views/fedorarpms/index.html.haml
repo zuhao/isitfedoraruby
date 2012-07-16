@@ -9,14 +9,14 @@
   %thead
     %tr
       %th Name
-      %th Version
+      %th Versions
       %th Gem
 
   %tbody
     - @rpms.each do |rpm|
       %tr
         %td= link_to rpm.name, fedorarpm_path(rpm.id)
-        %td= rpm.version
+        %td= rpm.versions
         %td= link_to 'View', rubygem_path(rpm.ruby_gem.id) if rpm.ruby_gem != nil
 
 %div.pagination
