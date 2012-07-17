@@ -1,11 +1,6 @@
 %h1 All Fedora Rpms
 
-/ %div
-/   = form_for :fedora_rpm, :method => :get do |f|
-/     = f.text_field :search, :value => params[:search].blank? ? 'rpm search' : params[:search], :onfocus => "if (this.value == 'rpm search') {this.value = ''}"
-/     = f.submit "Search Rpm", :name => nil
-
-%table
+%table.table.table-striped.table-condensed
   %thead
     %tr
       %th Name

@@ -1,21 +1,22 @@
 %div.new.comment
-  %br
+
   %h3 Add new comment
-  = form_for :gem_comment do |f|
-    %p
-      = f.label :name, 'Name'
-      = f.text_field :name
-    %p
-      = f.label :email, 'Email'
-      = f.text_field :email
+
+  = form_for :gem_comment, :html => {:class => 'well'} do |f|
+    = f.label :name, 'Name'
+    = f.text_field :name
+    = f.label :email, 'Email'
+    = f.text_field :email
+
     - unless @gem.has_rpm
-      %p
-        = f.label :want_it, 'Yes I want it!'
+      = f.label :want_it do
         = f.check_box :want_it
-    %p
-      = f.label :receive_update, 'Keep me updated!'
+        Yes I want it!
+    = f.label :receive_update do
       = f.check_box :receive_update
-    %p= f.label :text, 'Comment'
-    %p= f.text_area :text
+      Keep me updated!
+
+    = f.label :text, 'Comment'
+    = f.text_area :text
 
     = f.submit 'Submit', :class => 'btn btn-primary'

@@ -1,8 +1,10 @@
-%div
+%div.comments
   %h3 Comments
   - @gem.gem_comments.each do |comment|
-    %p Name: #{comment.name}
-    %p Email: #{comment.email}
-    %p Comment: #{comment.text}
-    %p= comment.description
-    %br
+    %div.well
+      %label Name: #{comment.name}
+      %label Email: #{comment.email}
+      - if comment.want_it then
+        %div.alert.alert-success= comment.description
+      %label Comment:
+      %div.comments.text #{comment.text}

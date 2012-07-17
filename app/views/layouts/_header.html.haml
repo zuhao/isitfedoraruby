@@ -12,4 +12,4 @@
           %li
             = form_tag( { :controller => 'rubygems', :action => 'index' }, :class => 'form-search') do
               = text_field_tag :search, params[:search] ||= '', :id => 'search_field', :class => 'input-medium search-query'
-              = submit_tag "Search Gem", :name => nil, :class => 'btn btn-primary'
+              = submit_tag "Search", :name => nil, :class => 'btn btn-primary'

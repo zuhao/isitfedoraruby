@@ -1,8 +1,12 @@
-%div
+%div.comments
   %h3 Comments
   - @rpm.rpm_comments.each do |comment|
-    %p Name: #{comment.name}
-    %p Email: #{comment.email}
-    %p Comment: #{comment.text}
-    %p= comment.description
-    %br
+    %div.well
+      %label Name: #{comment.name}
+      %label Email: #{comment.email}
+      - if comment.works_for_me then
+        %div.alert.alert-success= comment.description
+      - else
+        %div.alert.alert-error= comment.description
+      %label Comment:
+      %div.comments.text #{comment.text}

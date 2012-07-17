@@ -20,6 +20,8 @@ section {
 
 textarea {
   resize: vertical;
+  width: 400px;
+  height: 200px;
 }
 
 button, input, select, textarea {
@@ -109,4 +111,29 @@ footer {
       margin-left: 10px;
     }
   }
+}
+
+/* table */
+
+table {
+  border: 1px solid $grayLight;
+}
+
+th, td {
+  border-right: 1px solid $grayLight;
+  padding-right: 5px;
+}
+
+/* comments */
+
+.new.comment {
+  padding-top: 10px;
+}
+
+.well {
+  width: 420px;
+}
+
+.comments.text {
+  overflow-x: scroll;
 }
