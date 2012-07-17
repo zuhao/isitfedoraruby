@@ -134,6 +134,10 @@ th, td {
   width: 420px;
 }
 
-.comments.text {
-  overflow-x: scroll;
+.comments{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .text {
+    overflow-x: scroll;
+  }
 }

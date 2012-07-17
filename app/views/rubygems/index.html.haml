@@ -12,7 +12,7 @@
       %tr
         %td= link_to gem.name, rubygem_path(gem.id)
         %td= gem.version
-        %td= link_to 'View', fedorarpm_path(gem.fedora_rpm.id) if gem.fedora_rpm != nil
+        %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.id) if gem.fedora_rpm != nil
 
 %div.pagination
   = will_paginate @gems

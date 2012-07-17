@@ -1,3 +1,5 @@
+require 'versionomy'
+
 class FedoraRpm < ActiveRecord::Base
 
   FEDORA_VERSIONS = {'rawhide'   => 'master',
@@ -25,10 +27,8 @@ class FedoraRpm < ActiveRecord::Base
   def upto_date?
     rv = rpm_versions.find { |rv| rv.fedora_version == 'rawhide' }
     return false if rv.nil? || ruby_gem.nil?
-    rv.rpm_version == ruby_gem.version # FIXME >= version, not just ==
+    Versionomy.parse(rv.rpm_version) >= Versionomy.parse(ruby_gem.version)
   end
-
-
 
   def self.new_from_rpm_tuple(rpm_tuple)
     # it comes in "rpm_name.git firstname+lastname" format
@@ -101,6 +101,16 @@ class FedoraRpm < ActiveRecord::Base
     total = self.rpm_comments.count
     total = 1 if total == 0
     self.rpm_comments.working.count * 100 / total
+  end
+
+  def self.search(search)
+    # search_cond = "%" + search.to_s + "%"
+    # search_cond = search.to_s
+    if search == nil || search.blank?
+      self
+    else
+      self.where("name LIKE ?", 'rubygem-' + search.strip)
+    end
   end
 
 private

@@ -10,6 +10,6 @@
           %li= link_to 'Success Stories', successes_path
           %li= link_to 'Contribute', contribute_path
           %li
-            = form_tag( { :controller => 'rubygems', :action => 'index' }, :class => 'form-search') do
+            = form_tag( { :controller => 'searches', :action => 'index' }, :class => 'form-search') do
               = text_field_tag :search, params[:search] ||= '', :id => 'search_field', :class => 'input-medium search-query'
               = submit_tag "Search", :name => nil, :class => 'btn btn-primary'

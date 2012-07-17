@@ -17,9 +17,11 @@ Isitfedoraruby::Application.routes.draw do
   match 'fedorarpms/:id' => 'rpmcomments#create', :via => :post
   match 'fedorarpms/:id/show' => 'fedorarpms#show'
 
+  match 'searches/' => 'searches#index'
+
   resources :fedorarpms
   resources :rubygems
-
+  resources :searches
   resources :stats
 
   # The priority is based upon order of creation:

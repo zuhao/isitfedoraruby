@@ -23,6 +23,7 @@ gem 'bootstrap-will_paginate'
 gem 'curb'
 gem 'json'
 gem 'nokogiri'
+gem 'versionomy'
 
 group :test, :development do
   gem 'rspec-rails'

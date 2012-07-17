@@ -1,8 +1,11 @@
 %h1= @gem.name
-%p Wantedness: #{@gem.wantedness}%
-%p= link_to 'Homepage', @gem.homepage
-%p Description:
-%p= @gem.description.blank? ? "#{@gem.name} does not have a description yet" : @gem.description
+%div.info
+  %label= link_to 'Homepage', @gem.homepage
+  %label= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.id) if @gem.fedora_rpm != nil
+  %label= "Wantedness: #{@gem.wantedness}%"
+  %label= "Version: #{@gem.version}"
+  %label= "Description:"
+  %label= @gem.description.blank? ? "#{@gem.name} does not have a description yet" : @gem.description
 
 / %p
 /   = link_to "Back to gem list", rubygems_path, :method => :all

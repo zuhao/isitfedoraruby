@@ -1,0 +1,24 @@
+%h1 Search Results
+
+%table.table.table-striped.table-condensed
+  %thead
+    %tr
+      %th Gem Name
+      %th Gem Version
+      %th Rpm Name
+      %th Rpm Versions
+
+  %tbody
+    - @results.each do |gem|
+      %tr
+        %td= link_to gem.name, rubygem_path(gem.id)
+        %td= gem.version
+        - if  gem.fedora_rpm != nil then
+          %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.id)
+          %td= gem.fedora_rpm.versions
+        -else
+          %td
+          %td
+
+%div.pagination
+  = will_paginate @results
