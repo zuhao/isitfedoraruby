@@ -5,8 +5,8 @@ namespace :database do
   end
 
   desc 'import rpms from fedora'
-  task :import_rpms => :environment do 
+  task :import_rpms => :environment do
     RpmImporter.import
   end
-  
+
 end

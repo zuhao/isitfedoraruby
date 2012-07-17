@@ -35,9 +35,9 @@ group :production do
 
 end
 
+# ruby-git seems to have better support on remote repo than grit
+# gem 'git'
 # gem 'grit'
-# gem 'git' # ruby-git seems to have better support on remote repo than grit
-
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

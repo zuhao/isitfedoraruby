@@ -22,11 +22,22 @@ textarea {
   resize: vertical;
 }
 
+button, input, select, textarea {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
 .center {
   text-align: center;
   h1 {
     margin-bottom: 10px;
   }
+}
+
+.form-search {
+  margin-bottom: 0px;
+  margin-left: 20px;
 }
 
 /* typography */
@@ -71,6 +82,8 @@ p {
     text-decoration: none;
   }
 }
+
+/* header */
 
 /* footer */
 

@@ -12,9 +12,9 @@ In order to install this web app, you can clone the repo from github, and run `r
 
 Before you run the web app, make sure you have both RubyGem and FedoraRpm info imported into the database. To do so, please run the following command.
 
-`rake import_gems` to import RubyGem info.
+`rake database:import_gems` to import RubyGem info.
 
-`rake import_rpms` to import FedoraRpm info.
+`rake database:import_rpms` to import FedoraRpm info.
 
 Please take note that the importing process can take a long time, depending on your network connection.
 

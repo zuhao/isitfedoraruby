@@ -5,7 +5,6 @@ class FedoraRpm < ActiveRecord::Base
                      'Fedora 16' => 'f16',
                      'Fedora 15' => 'f15'}
 
-
   belongs_to :ruby_gem
   has_many :rpm_versions, :dependent => :destroy
   has_many :rpm_comments, :dependent => :destroy, :order => 'created_at desc'
