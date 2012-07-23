@@ -24,6 +24,7 @@ gem 'curb'
 gem 'json'
 gem 'nokogiri'
 gem 'versionomy'
+gem 'gems'
 
 group :test, :development do
   gem 'rspec-rails'

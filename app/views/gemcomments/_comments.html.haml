@@ -4,7 +4,7 @@
     %div.well
       %label Name: #{comment.name}
       %label Email: #{comment.email}
-      - if comment.want_it then
+      - if comment.want_it
         %div.alert.alert-success= comment.description
       %label Comment:
       %div.comments.text #{comment.text}

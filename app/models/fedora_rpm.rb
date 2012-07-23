@@ -38,7 +38,7 @@ class FedoraRpm < ActiveRecord::Base
     gem_name = f.name.gsub(/rubygem-/,'')
 
     f.author = rpm_tuple.split.last.gsub(/\+/,' ')
-    f.git_url = "git://pkgs.fedoraproject.org/#{rpm}"
+    f.source_uri = "git://pkgs.fedoraproject.org/#{rpm}"
     f.ruby_gem = RubyGem.find_by_name(gem_name)
 
     if f.ruby_gem.nil?

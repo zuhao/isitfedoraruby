@@ -13,7 +13,7 @@
       %tr
         %td= link_to gem.name, rubygem_path(gem.id)
         %td= gem.version
-        - if  gem.fedora_rpm != nil then
+        - if  gem.fedora_rpm != nil
           %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.id)
           %td= gem.fedora_rpm.versions
         -else

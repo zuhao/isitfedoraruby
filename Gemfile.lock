@@ -57,6 +57,7 @@ GEM
     execjs (1.3.0)
       multi_json (~> 1.0)
     ffi (1.0.11)
+    gems (0.7.0)
     growl (1.0.3)
     guard (1.2.1)
       listen (>= 0.4.2)
@@ -177,6 +178,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   curb
   execjs
+  gems
   growl
   guard-rspec
   haml-rails

@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716155426) do
+ActiveRecord::Schema.define(:version => 20120723053651) do
 
   create_table "fedora_rpms", :force => true do |t|
     t.string   "name",                :null => false
-    t.string   "git_url"
+    t.string   "source_uri"
     t.string   "latest_patch"
     t.string   "last_commit_message"
     t.datetime "created_at",          :null => false
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20120716155426) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "downloads"
+    t.string   "source_uri"
   end
 
 end
