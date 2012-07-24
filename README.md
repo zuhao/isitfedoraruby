@@ -22,7 +22,7 @@ Before you run the web app, make sure you have both RubyGem and FedoraRpm info i
 
 `rake database:import_rpms[all]` to import all rpms in one go (highly NOT recommended).
 
-`rake database:import_rpms[batch, 2, 11]` to import rpms in batches, 2 per batch, 1 second delay.
+`rake database:import_rpms[batch, 2, 1]` to import rpms in batches, 2 per batch, 1 second delay.
 
 Please take note that the importing process can take a long time, depending on your network connection as well as the server load. Try to use batch mode to import and set reasonably small batch numbers, in order to lessen the burden to the servers.
 
