@@ -116,28 +116,53 @@ footer {
 /* table */
 
 table {
+  width: 100%;
   border: 1px solid $grayLight;
+  table-layout: auto;
 }
 
 th, td {
   border-right: 1px solid $grayLight;
   padding-right: 5px;
+  white-space: nowrap;
+}
+
+.dependency {
+  width: 450px;
 }
 
 /* comments */
 
 .new.comment {
   padding-top: 10px;
+  h3 {
+    margin-bottom: 20px;
+  }
 }
 
 .well {
   width: 420px;
 }
 
-.comments{
+.comments {
   padding-top: 20px;
   padding-bottom: 20px;
   .text {
     overflow-x: scroll;
   }
+  h3 {
+    margin-bottom: 20px;
+  }
+}
+
+/* miscellaneous */
+
+.label.label-info {
+  a {
+    color: white;
+  }
+}
+
+.progress {
+  width: 200px;
 }

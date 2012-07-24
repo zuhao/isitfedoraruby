@@ -30,44 +30,34 @@ class FedoraRpm < ActiveRecord::Base
     Versionomy.parse(rv.rpm_version) >= Versionomy.parse(ruby_gem.version)
   end
 
-  def self.new_from_rpm_tuple(rpm_tuple)
-    # it comes in "rpm_name.git firstname+lastname" format
-    rpm = rpm_tuple.split.first
-    f = find_or_initialize_by_name(rpm.gsub(/\.git/,''))
-    f.name = rpm.gsub(/\.git/,'')
-    gem_name = f.name.gsub(/rubygem-/,'')
-
-    f.author = rpm_tuple.split.last.gsub(/\+/,' ')
-    f.source_uri = "git://pkgs.fedoraproject.org/#{rpm}"
-    f.ruby_gem = RubyGem.find_by_name(gem_name)
-
-    if f.ruby_gem.nil?
-      f.ruby_gem = RubyGem.new_from_name(gem_name)
-    end
+  def self.new_from_name(rpm_name)
+    f = find_or_initialize_by_name(rpm_name)
+    gem_name = rpm_name.gsub(/rubygem-/,'')
+    f.ruby_gem = RubyGem.find_or_initialize_by_name(gem_name)
+    f.ruby_gem.has_rpm = true
+    f.ruby_gem.save
+    f.source_uri = "git://pkgs.fedoraproject.org/#{rpm_name}.git"
 
     begin
-      # pull number of commits from commit log
-      git_log = URI.parse("#{RpmImporter::GIT_LOG_URI};p=#{rpm}").read
-
-      # parse w/ nokogiri to determine how many commits there are
+      # parse commit log with nokogiri to determine how many commits there are
+      git_log = URI.parse("#{RpmImporter::GIT_LOG_URI};p=#{rpm_name}.git").read
       doc = Nokogiri::HTML(git_log)
       f.commits = doc.xpath("//a[@class='title']").size
 
-      FEDORA_VERSIONS.each { |title, git|
-        spec_url = "#{RpmImporter::RPM_SPEC_URI};p=#{rpm};f=#{rpm.gsub(/git$/,'spec')};hb=refs/heads/#{git}"
-        logger.info("reading spec from #{spec_url}")
+      FEDORA_VERSIONS.each do |version_title, version_git|
+        spec_url = "#{RpmImporter::RPM_SPEC_URI};p=#{rpm_name}.git;f=#{rpm_name}.spec;hb=refs/heads/#{version_git}"
+        puts "Reading spec from #{spec_url}"
         rpm_spec = URI.parse(spec_url).read
 
         rpm_version = rpm_spec.scan(/\nVersion: .*\n/).first.split.last
         rv = RpmVersion.new
         rv.rpm_version = rpm_version
-        rv.fedora_version = title
+        rv.fedora_version = version_title
         f.rpm_versions << rv
-        if title == 'rawhide'
+        if version_title == 'rawhide'
           f.homepage = rpm_spec.scan(/\nURL: .*\n/).first.split.last
         end
-      }
-
+      end
       # TODO: more info can be extracted
     rescue OpenURI::HTTPError
       # some rpms do not have spec file
@@ -75,18 +65,10 @@ class FedoraRpm < ActiveRecord::Base
       # some spec files do not have Version or URL
     end
 
-    begin
-      g = f.ruby_gem
-      g.has_rpm = true
-      g.save
-    rescue NoMethodError
-      # some rpm does not have corresponding gem
-    end
-
     f.save!
-    logger.info("Rpm #{f.name} imported")
+    puts "Rpm #{rpm_name} imported"
   rescue => e
-    logger.info("Could not import #{rpm_tuple.split.first} due to error #{e}")
+    puts "Could not import #{rpm_name} due to error #{e}"
   end
 
   def rpm_name
@@ -95,6 +77,18 @@ class FedoraRpm < ActiveRecord::Base
 
   def works?
     has_no_failure_comments? && has_working_comments?
+  end
+
+  def get_rpm_dependencies
+    dep = []
+    self.ruby_gem.dependencies.each do |d|
+      rpm_name = "rubygem-#{d.dependent}"
+      dep << { :id => FedoraRpm.find_by_name(rpm_name).id,
+               :name => rpm_name,
+               :version => d.dependent_version,
+               :environment => d.environment }
+    end
+    return dep
   end
 
   def hotness

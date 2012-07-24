@@ -17,7 +17,7 @@ class GemImporter
     puts ex.message
   end
 
-  def self.import_batch (batch_number = 50, delay = 10)
+  def self.import_batch(batch_number = 50, delay = 10)
     self.import_gems_list unless File.exists?(GEMS_LIST_FILE)
     counter = 0
     File.open(GEMS_LIST_FILE, 'r').each do |f|

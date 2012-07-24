@@ -14,7 +14,6 @@ class GemComment < ActiveRecord::Base
   end
 
   def description
-    # requestor = self.name ||= 'Anonymous'
     "#{name} wants #{gem_name}!" if self.want_it
   end
 

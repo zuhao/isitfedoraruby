@@ -1,10 +1,31 @@
 %h1= @rpm.name
 %div.info
-  %label= link_to 'Homepage', @rpm.homepage
-  %label= link_to 'RubyGem', rubygem_path(@rpm.ruby_gem.id), :method => :get
+  %label= link_to 'Homepage URI', @rpm.homepage
+  %label= link_to 'Source Code URI', @rpm.source_uri
+  %span.label.label-info= link_to 'RubyGem', rubygem_path(@rpm.ruby_gem.id)
   %label= "Hotness: #{@rpm.hotness}%"
+  %label
+    = "Up to date: "
+    - if @rpm.upto_date?
+      %span.label.label-success= 'Yes'
+    - else
+      %span.label.label-important= 'No'
+
   %label= "Versions: #{@rpm.versions}"
-  %label= "Up to date: #{@rpm.upto_date? ? 'Yes' : 'No'}"
+  %label= "Dependencies:"
+
+  %table.table.table-striped.table-condensed.dependency
+    %thead
+      %tr
+        %th Dependent
+        %th Version
+        %th Environment
+    %tbody
+      - @dependencies.each do |d|
+        %tr
+          %td= link_to d[:name], fedorarpm_path(d[:id])
+          %td= d[:version]
+          %td= d[:environment]
 
 = render :partial => 'rpmcomments/comments'
 = render :partial => 'rpmcomments/new_comment'

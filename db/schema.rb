@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120723053651) do
+ActiveRecord::Schema.define(:version => 20120724124409) do
+
+  create_table "dependencies", :force => true do |t|
+    t.string   "environment"
+    t.string   "dependent",         :null => false
+    t.string   "dependent_version"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "package_id"
+    t.string   "package_type"
+  end
 
   create_table "fedora_rpms", :force => true do |t|
     t.string   "name",                :null => false

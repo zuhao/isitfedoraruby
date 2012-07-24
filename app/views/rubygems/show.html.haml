@@ -1,11 +1,28 @@
 %h1= @gem.name
 %div.info
-  %label= link_to 'Homepage', @gem.homepage
-  %label= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.id) if @gem.fedora_rpm != nil
+  %label= link_to 'Homepage URI', @gem.homepage
+  %label= link_to 'Source Code URI', @gem.source_uri
+  - if @gem.fedora_rpm != nil
+    %span.label.label-info= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.id) 
   %label= "Wantedness: #{@gem.wantedness}%"
   %label= "Version: #{@gem.version}"
   %label= "Description:"
   %label= @gem.description.blank? ? "#{@gem.name} does not have a description yet" : @gem.description
+
+  %label= "Dependencies:"
+
+  %table.table.table-striped.table-condensed.dependency
+    %thead
+      %tr
+        %th Dependent
+        %th Version
+        %th Environment
+    %tbody
+      - @dependencies.each do |d|
+        %tr
+          %td= link_to d[:name], rubygem_path(d[:id])
+          %td= d[:version]
+          %td= d[:environment]
 
 = render :partial => 'gemcomments/comments'
 = render :partial => 'gemcomments/new_comment'
