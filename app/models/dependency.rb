@@ -4,7 +4,6 @@ class Dependency < ActiveRecord::Base
 
 private
 
-  validates_uniqueness_of :dependent, :scope => :environment
   validates_presence_of :dependent
 
 end
