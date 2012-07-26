@@ -1,9 +1,9 @@
 %h1= @gem.name
 %div.info
-  %label= link_to 'Homepage URI', @gem.homepage
-  %label= link_to 'Source Code URI', @gem.source_uri
+  %label= link_to 'Homepage URI', @gem.homepage if @gem.homepage != nil
+  %label= link_to 'Source Code URI', @gem.source_uri if @gem.source_uri != nil
   - if @gem.fedora_rpm != nil
-    %span.label.label-info= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.id) 
+    %span.label.label-info= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.id)
   %label= "Wantedness: #{@gem.wantedness}%"
   %label= "Version: #{@gem.version}"
   %label= "Description:"

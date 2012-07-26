@@ -27,6 +27,7 @@ class FedoraRpm < ActiveRecord::Base
   def upto_date?
     rv = rpm_versions.find { |rv| rv.fedora_version == 'rawhide' }
     return false if rv.nil? || ruby_gem.nil?
+    return true if ruby_gem.version == nil
     Versionomy.parse(rv.rpm_version) >= Versionomy.parse(ruby_gem.version)
   end
 
@@ -82,11 +83,13 @@ class FedoraRpm < ActiveRecord::Base
   def get_rpm_dependencies
     dep = []
     self.ruby_gem.dependencies.each do |d|
-      rpm_name = "rubygem-#{d.dependent}"
-      dep << { :id => FedoraRpm.find_by_name(rpm_name).id,
-               :name => rpm_name,
-               :version => d.dependent_version,
-               :environment => d.environment }
+      rpm = FedoraRpm.find_by_name("rubygem-#{d.dependent}")
+      if rpm != nil
+        dep << {:id => rpm.id,
+                :name => rpm.name,
+                :version => d.dependent_version,
+                :environment => d.environment}
+      end
     end
     return dep
   end

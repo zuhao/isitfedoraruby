@@ -1,7 +1,7 @@
 %h1= @rpm.name
 %div.info
-  %label= link_to 'Homepage URI', @rpm.homepage
-  %label= link_to 'Source Code URI', @rpm.source_uri
+  %label= link_to 'Homepage URI', @rpm.homepage if @rpm.homepage != nil
+  %label= link_to 'Source Code URI', @rpm.source_uri if @rpm.source_uri != nil
   %span.label.label-info= link_to 'RubyGem', rubygem_path(@rpm.ruby_gem.id)
   %label= "Hotness: #{@rpm.hotness}%"
   %label
