@@ -9,7 +9,8 @@ class RubygemsController < ApplicationController
     @id = params[:id]
     @gem = RubyGem.find_by_id(@id, :include => :gem_comments)
     @page_title = @gem.name
-    @dependencies = @gem.get_gem_dependencies
+    @dependencies = @gem.dependency_packages
+    @dependents   = @gem.dependent_packages
   end
 
 end

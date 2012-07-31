@@ -12,6 +12,7 @@ class FedoraRpm < ActiveRecord::Base
   has_many :rpm_comments, :dependent => :destroy, :order => 'created_at desc'
   has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
   has_many :failure_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => false}
+  has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
   scope :popular, :order => 'rpm_comments_count desc'
 
   def versions
@@ -31,45 +32,70 @@ class FedoraRpm < ActiveRecord::Base
     Versionomy.parse(rv.rpm_version) >= Versionomy.parse(ruby_gem.version)
   end
 
-  def self.new_from_name(rpm_name)
-    f = find_or_initialize_by_name(rpm_name)
-    gem_name = rpm_name.gsub(/rubygem-/,'')
-    f.ruby_gem = RubyGem.find_or_initialize_by_name(gem_name)
-    f.ruby_gem.has_rpm = true
-    f.ruby_gem.save
-    f.source_uri = "git://pkgs.fedoraproject.org/#{rpm_name}.git"
-
+  def retrieve_commits
     begin
+      puts "Importing rpm #{name} commits"
       # parse commit log with nokogiri to determine how many commits there are
-      git_log = URI.parse("#{RpmImporter::GIT_LOG_URI};p=#{rpm_name}.git").read
+      git_log = URI.parse("#{RpmImporter::GIT_LOG_URI};p=#{name}.git").read
       doc = Nokogiri::HTML(git_log)
-      f.commits = doc.xpath("//a[@class='title']").size
+      self.commits = doc.xpath("//a[@class='title']").size
+    rescue Exception => e
+      puts "Could not retrieve commits for #{name}"
+    end
+  end
 
-      FEDORA_VERSIONS.each do |version_title, version_git|
-        spec_url = "#{RpmImporter::RPM_SPEC_URI};p=#{rpm_name}.git;f=#{rpm_name}.spec;hb=refs/heads/#{version_git}"
-        puts "Reading spec from #{spec_url}"
+  def retrieve_versions
+    puts "Importing rpm #{name} versions"
+    self.rpm_versions.clear
+    self.dependencies.clear
+    FEDORA_VERSIONS.each do |version_title, version_git|
+      spec_url = "#{RpmImporter::RPM_SPEC_URI};p=#{name}.git;f=#{name}.spec;hb=refs/heads/#{version_git}"
+      puts "Reading spec from #{spec_url}"
+      begin
         rpm_spec = URI.parse(spec_url).read
 
         rpm_version = rpm_spec.scan(/\nVersion: .*\n/).first.split.last
         rv = RpmVersion.new
         rv.rpm_version = rpm_version
         rv.fedora_version = version_title
-        f.rpm_versions << rv
+        self.rpm_versions << rv
         if version_title == 'rawhide'
-          f.homepage = rpm_spec.scan(/\nURL: .*\n/).first.split.last
-        end
-      end
-      # TODO: more info can be extracted
-    rescue OpenURI::HTTPError
-      # some rpms do not have spec file
-    rescue NoMethodError
-      # some spec files do not have Version or URL
-    end
+          self.homepage = rpm_spec.scan(/\nURL: .*\n/).first.split.last
 
-    f.save!
-    puts "Rpm #{rpm_name} imported"
-  rescue => e
-    puts "Could not import #{rpm_name} due to error #{e}"
+          rpm_spec.split("\n").each { |line|
+            mr = line.match(/^Requires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
+	    if mr.nil?
+              mr = line.match(/^BuildRequires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
+	    end
+
+            if mr
+	      d = Dependency.new
+	      d.dependent = mr.captures.first
+	      d.dependent_version = mr.captures.last
+	      self.dependencies << d
+            end
+	  }
+        end
+          
+      rescue Exception => e
+        puts "Could not retrieve version of #{name} for #{version_title}"
+      end
+    end
+      # TODO: more info can be extracted
+  end
+
+  def retrieve_gem
+    gem_name = name.gsub(/rubygem-/,'')
+    self.ruby_gem = RubyGem.find_or_initialize_by_name(gem_name)
+    self.ruby_gem.has_rpm = true
+  end
+
+  def update_from_source
+    retrieve_commits
+    retrieve_versions
+    retrieve_gem
+    self.updated_at = Time.now
+    save!
   end
 
   def rpm_name
@@ -78,20 +104,6 @@ class FedoraRpm < ActiveRecord::Base
 
   def works?
     has_no_failure_comments? && has_working_comments?
-  end
-
-  def get_rpm_dependencies
-    dep = []
-    self.ruby_gem.dependencies.each do |d|
-      rpm = FedoraRpm.find_by_name("rubygem-#{d.dependent}")
-      if rpm != nil
-        dep << {:id => rpm.id,
-                :name => rpm.name,
-                :version => d.dependent_version,
-                :environment => d.environment}
-      end
-    end
-    return dep
   end
 
   def hotness
@@ -108,6 +120,18 @@ class FedoraRpm < ActiveRecord::Base
     else
       self.where("name LIKE ?", 'rubygem-' + search.strip)
     end
+  end
+
+  def dependency_packages
+    self.dependencies.collect { |d|
+      FedoraRpm.find_by_name 'rubygem-' + d.dependent
+    }.compact
+  end
+
+  def dependent_packages
+    Dependency.find_all_by_dependent(self.name).collect { |d|
+      d.package
+    }
   end
 
 private

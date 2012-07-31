@@ -7,37 +7,42 @@ class RubyGem < ActiveRecord::Base
   has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
   scope :popular, :order => 'gem_comments_count desc'
 
-  def self.new_from_name(gem_name)
-    f = find_or_initialize_by_name(gem_name)
-
+  def retrieve_metadata
     # use RubyGems.org's API wrapper to get metadata
-    metadata = Gems.info(f.name)
-    f.description = metadata['info'].to_s
-    f.homepage = metadata['homepage_uri'].to_s
-    f.source_uri = metadata['source_code_uri'].to_s
-    f.version = metadata['version'].to_s
-    f.downloads = metadata['downloads'].to_i
-    f.has_rpm = false
+    metadata = Gems.info(name)
+    return if !metadata || metadata.nil?
+    self.description = metadata['info'].to_s
+    self.homepage = metadata['homepage_uri'].to_s
+    self.source_uri = metadata['source_code_uri'].to_s
+    self.version = metadata['version'].to_s
+    self.downloads = metadata['downloads'].to_i
 
     # pull and store dependencies
-    f.dependencies.clear
+    self.dependencies.clear
     metadata['dependencies'].each do |environment, dependencies|
-      unless dependencies.empty?
+      unless dependencies.nil? || dependencies.empty?
         dependencies.each do |dep|
           d = Dependency.new
           d.environment = environment
           d.dependent = dep['name']
           d.dependent_version = dep['requirements']
-          f.dependencies << d
+          self.dependencies << d
         end
       end
-    end
+    end unless metadata['dependencies'].nil?
+  end
 
-    f.save!
-    puts "Gem #{f.name} imported"
-  rescue => e
-    puts "Could not import #{gem_name} due to error #{e}"
-    return nil
+  def retrieve_rpm
+    rpm_name = 'rubygem-' + self.name
+    self.fedora_rpm = FedoraRpm.find_by_name(rpm_name)
+    self.has_rpm = true unless self.fedora_rpm.nil?
+  end
+
+  def update_from_source
+    retrieve_metadata
+    retrieve_rpm
+    self.updated_at = Time.now
+    save!
   end
 
   def self.search(search)
@@ -58,17 +63,6 @@ class RubyGem < ActiveRecord::Base
     self.has_rpm
   end
 
-  def get_gem_dependencies
-    dep = []
-    self.dependencies.each do |d|
-      dep << { :id => RubyGem.find_by_name(d.dependent).id,
-               :name => d.dependent,
-               :version => d.dependent_version,
-               :environment => d.environment }
-    end
-    return dep
-  end
-
   def wantedness
     total = self.gem_comments.count
     total = 1 if total == 0
@@ -83,6 +77,18 @@ class RubyGem < ActiveRecord::Base
   def upto_date_in_fedora?
     return false if fedora_rpm.nil?
     fedora_rpm.upto_date?
+  end
+
+  def dependency_packages
+    self.dependencies.collect { |d|
+      RubyGem.find_by_name d.dependent
+    }.compact
+  end
+
+  def dependent_packages
+    Dependency.find_all_by_dependent(self.name).collect { |d|
+      d.package
+    }
   end
 
 private
