@@ -6,8 +6,8 @@ class FedorarpmsController < ApplicationController
   end
 
   def show
-    @id = params[:id]
-    @rpm = FedoraRpm.find_by_id(@id, :include => :rpm_comments)
+    @name = params[:name]
+    @rpm = FedoraRpm.find_by_name(@name, :include => :rpm_comments)
     @page_title = @rpm.name
     @dependencies = @rpm.dependency_packages
     @dependents = @rpm.dependent_packages

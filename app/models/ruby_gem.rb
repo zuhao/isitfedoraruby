@@ -20,15 +20,13 @@ class RubyGem < ActiveRecord::Base
     # pull and store dependencies
     self.dependencies.clear
     metadata['dependencies'].each do |environment, dependencies|
-      unless dependencies.nil? || dependencies.empty?
-        dependencies.each do |dep|
-          d = Dependency.new
-          d.environment = environment
-          d.dependent = dep['name']
-          d.dependent_version = dep['requirements']
-          self.dependencies << d
-        end
-      end
+      dependencies.each do |dep|
+        d = Dependency.new
+        d.environment = environment
+        d.dependent = dep['name']
+        d.dependent_version = dep['requirements']
+        self.dependencies << d
+      end unless dependencies.nil? || dependencies.empty?
     end unless metadata['dependencies'].nil?
   end
 
@@ -81,7 +79,7 @@ class RubyGem < ActiveRecord::Base
 
   def dependency_packages
     self.dependencies.collect { |d|
-      RubyGem.find_by_name d.dependent
+      RubyGem.find_by_name(d.dependent)
     }.compact
   end
 

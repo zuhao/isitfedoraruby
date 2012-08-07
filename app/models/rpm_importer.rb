@@ -15,7 +15,7 @@ class RpmImporter
       f.update_from_source
     }
   rescue Exception => ex
-	puts ex.message
+    puts ex.message
   end
 
   def self.import_batch(batch_number = 2, delay = 1)

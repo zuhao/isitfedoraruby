@@ -2,7 +2,7 @@
 %div.info
   %label= link_to 'Homepage URI', @rpm.homepage if @rpm.homepage != nil
   %label= link_to 'Source Code URI', @rpm.source_uri if @rpm.source_uri != nil
-  %span.label.label-info= link_to 'RubyGem', rubygem_path(@rpm.ruby_gem.id)
+  %span.label.label-info= link_to 'RubyGem', rubygem_path(@rpm.ruby_gem.name) if @rpm.ruby_gem != nil
   %label= "Hotness: #{@rpm.hotness}%"
   %label
     = "Up to date: "
@@ -23,7 +23,7 @@
     %tbody
       - @dependencies.each do |d|
         %tr
-          %td= link_to d.name, fedorarpm_path(d.id)
+          %td= link_to d.name, fedorarpm_path(d.name)
           %td= d.versions
           %td= d.ruby_gem.version
 

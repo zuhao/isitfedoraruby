@@ -3,8 +3,8 @@ require 'rubygems'
 class GemImporter
 
   RUBYGEMS_URI = 'http://rubygems.org/'
-  API_ENDPOINT = 'api/v1/gems/'
-  DOWNLOADS_ENDPOINT = 'api/v1/downloads/all.json' # top 50 downloads of all time
+  # API_ENDPOINT = RUBYGEMS_URI + 'api/v1/gems/'
+  TOP_DOWNLOADS_URI = RUBYGEMS_URI + 'api/v1/downloads/all.json' # top 50 downloads of all time
 
   def self.import_all
     total = 0
@@ -41,7 +41,7 @@ class GemImporter
     if selection == :all
       gems = Gem::SpecFetcher.fetcher.list[URI.parse(RUBYGEMS_URI)].collect { |g| g.first }
     elsif selection == :top
-      downloads = JSON.parse(Curl::Easy.http_get(RUBYGEMS_URI + DOWNLOADS_ENDPOINT).body_str)
+      downloads = JSON.parse(Curl::Easy.http_get(TOP_DOWNLOADS_URI).body_str)
       downloads['gems'].each { |g|
         name = g[0]['full_name'].split('-')
         name.delete_at(-1)

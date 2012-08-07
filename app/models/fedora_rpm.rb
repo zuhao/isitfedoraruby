@@ -64,24 +64,21 @@ class FedoraRpm < ActiveRecord::Base
 
           rpm_spec.split("\n").each { |line|
             mr = line.match(/^Requires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
-	    if mr.nil?
+            if mr.nil?
               mr = line.match(/^BuildRequires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
-	    end
-
-            if mr
-	      d = Dependency.new
-	      d.dependent = mr.captures.first
-	      d.dependent_version = mr.captures.last
-	      self.dependencies << d
             end
-	  }
+            if mr
+              d = Dependency.new
+              d.dependent = mr.captures.first
+              d.dependent_version = mr.captures.last
+              self.dependencies << d
+            end
+          }
         end
-          
       rescue Exception => e
         puts "Could not retrieve version of #{name} for #{version_title}"
       end
     end
-      # TODO: more info can be extracted
   end
 
   def retrieve_gem

@@ -2,8 +2,7 @@
 %div.info
   %label= link_to 'Homepage URI', @gem.homepage if @gem.homepage != nil
   %label= link_to 'Source Code URI', @gem.source_uri if @gem.source_uri != nil
-  - if @gem.fedora_rpm != nil
-    %span.label.label-info= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.id)
+  %span.label.label-info= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.name) if @gem.fedora_rpm != nil
   %label= "Wantedness: #{@gem.wantedness}%"
   %label= "Version: #{@gem.version}"
   %label= "Description:"
@@ -20,7 +19,7 @@
     %tbody
       - @dependencies.each do |d|
         %tr
-          %td= link_to d.name, rubygem_path(d.id)
+          %td= link_to d.name, rubygem_path(d.name)
           %td= d.version
           %td= d.fedora_rpm.versions
 

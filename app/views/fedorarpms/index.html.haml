@@ -11,10 +11,10 @@
   %tbody
     - @rpms.each do |rpm|
       %tr
-        %td= link_to rpm.name, fedorarpm_path(rpm.id)
+        %td= link_to rpm.name, fedorarpm_path(rpm.name)
         %td= rpm.versions
         %td= rpm.upto_date? ? 'Yes' : 'No'
-        %td= link_to rpm.ruby_gem.name, rubygem_path(rpm.ruby_gem.id) if rpm.ruby_gem != nil
+        %td= link_to rpm.ruby_gem.name, rubygem_path(rpm.ruby_gem.name) if rpm.ruby_gem != nil
 
 %div.pagination
   = will_paginate @rpms
