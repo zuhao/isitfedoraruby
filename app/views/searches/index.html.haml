@@ -11,10 +11,10 @@
   %tbody
     - @results.each do |gem|
       %tr
-        %td= link_to gem.name, rubygem_path(gem.id)
+        %td= link_to gem.name, rubygem_path(gem.name)
         %td= gem.version
         - if  gem.fedora_rpm != nil
-          %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.id)
+          %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.name)
           %td= gem.fedora_rpm.versions
         -else
           %td

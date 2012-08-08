@@ -7,6 +7,10 @@ class RubyGem < ActiveRecord::Base
   has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
   scope :popular, :order => 'gem_comments_count desc'
 
+  def to_param
+    name
+  end
+
   def retrieve_metadata
     # use RubyGems.org's API wrapper to get metadata
     metadata = Gems.info(name)

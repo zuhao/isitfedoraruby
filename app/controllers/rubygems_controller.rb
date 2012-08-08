@@ -6,7 +6,7 @@ class RubygemsController < ApplicationController
   end
 
   def show
-    @id = params[:name]
+    @name = params[:name]
     @gem = RubyGem.find_by_name(@name, :include => :gem_comments)
     @page_title = @gem.name
     @dependencies = @gem.dependency_packages

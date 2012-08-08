@@ -16,6 +16,10 @@ class FedoraRpm < ActiveRecord::Base
   has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
   scope :popular, :order => 'rpm_comments_count desc'
 
+  def to_param
+    name
+  end
+
   def versions
     rpm_versions.collect { |rv| rv.rpm_version + " (" + rv.fedora_version + ")" }.join(", ")
   end
@@ -57,6 +61,13 @@ class FedoraRpm < ActiveRecord::Base
         rpm_spec = URI.parse(spec_url).read
 
         rpm_version = rpm_spec.scan(/\nVersion: .*\n/).first.split.last
+        if !version_valid?(rpm_version)
+          if rpm_version.include?('%{majorver}')
+            rpm_version = rpm_spec.scan(/%global majorver .*\n/).first.split.last
+          else
+            rpm_version = nil
+          end
+        end
         rv = RpmVersion.new
         rv.rpm_version = rpm_version
         rv.fedora_version = version_title
@@ -81,6 +92,13 @@ class FedoraRpm < ActiveRecord::Base
         puts "Could not retrieve version of #{name} for #{version_title}"
       end
     end
+  end
+
+  def version_valid?(version)
+    Versionomy.parse(version)
+    true
+  rescue Versionomy::Errors::ParseError
+    false
   end
 
   def retrieve_gem

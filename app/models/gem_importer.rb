@@ -47,8 +47,6 @@ class GemImporter
         gems << name
       }
     end
-
-    # TODO: is there a 'lighter' way to fetch the list of all gem names?
     gems.each do |gem_name|
       puts "Importing gem #{gem_name}"
       if RubyGem.find_by_name(gem_name).nil?
