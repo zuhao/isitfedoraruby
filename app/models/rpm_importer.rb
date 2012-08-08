@@ -2,10 +2,8 @@ require 'open-uri'
 
 class RpmImporter
 
-  BASE_URI = 'http://pkgs.fedoraproject.org/gitweb/?'
-  PKG_LIST_URI = BASE_URI + 'a=project_index'
-  RPM_SPEC_URI = BASE_URI + 'a=blob_plain'
-  GIT_LOG_URI  = BASE_URI + 'a=log'
+  BASE_URI = 'http://pkgs.fedoraproject.org/cgit/'
+  PKG_LIST_URI = BASE_URI + '?q=rubygem-'
 
   def self.import_all
     total = 0
@@ -18,7 +16,7 @@ class RpmImporter
     puts ex.message
   end
 
-  def self.import_batch(batch_number = 2, delay = 1)
+  def self.import_batch(batch_number = 50, delay = 10)
     counter = 0 ; total = 0
     rpms = FedoraRpm.find(:all)
     rpms.each { |f|
@@ -36,18 +34,25 @@ class RpmImporter
   end
 
   def self.import_rpms_list
-    puts "Importing rpm list"
-    URI.parse(PKG_LIST_URI).read.scan(/rubygem-.+\.git\s.+/).each do |rpm|
-      rpm_name = rpm.split.first.gsub(/\.git/,'')
-      puts "Importing rpm #{rpm_name}"
-      if FedoraRpm.find_by_name(rpm_name).nil?
-        r = FedoraRpm.new
-        r.name = rpm_name
-        r.source_uri = "git://pkgs.fedoraproject.org/#{rpm_name}.git"
-        r.save!
-      else
-        puts "rpm #{rpm_name} already imported"
-      end
+    offset = 0
+    loop do
+      list_page = URI.parse(PKG_LIST_URI + '&ofs=' + offset.to_s).read
+      doc = Nokogiri::HTML(list_page)
+      rpms = doc.xpath("//tr/td[@class='toplevel-repo']/a/@title")
+      break if rpms.empty?
+      rpms.each { |rpm|
+        rpm_name = rpm.value.gsub(/\.git/,'')
+        puts "Importing rpm #{rpm_name}"
+        if FedoraRpm.find_by_name(rpm_name).nil?
+          r = FedoraRpm.new
+          r.name = rpm_name
+          r.source_uri = "git://pkgs.fedoraproject.org/#{rpm}"
+          r.save!
+        else
+          puts "rpm #{rpm_name} already imported"
+        end
+      }
+      offset += 50
     end
     puts "Rpms list imported."
   rescue Exception => ex
@@ -56,8 +61,7 @@ class RpmImporter
 
   def self.update_rpms(days_since_last_update)
     seconds_since_last_update = 60 * 60 * 24 * days_since_last_update
-    rpms = FedoraRpm.find :all, :conditions => 
-      ["DATETIME(updated_at) < '#{(Time.now - seconds_since_last_update).utc}'"]
+    rpms = FedoraRpm.find :all, :conditions => ["DATETIME(updated_at) < '#{(Time.now - seconds_since_last_update).utc}'"]
     rpms.each { |rpm|
       puts "Updating rpm #{rpm.name}"
       rpm.update_from_source

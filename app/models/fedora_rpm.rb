@@ -3,6 +3,7 @@ require 'versionomy'
 class FedoraRpm < ActiveRecord::Base
 
   FEDORA_VERSIONS = {'rawhide'   => 'master',
+                     'Fedora 18' => 'f18',
                      'Fedora 17' => 'f17',
                      'Fedora 16' => 'f16',
                      'Fedora 15' => 'f15'}
@@ -36,9 +37,10 @@ class FedoraRpm < ActiveRecord::Base
     begin
       puts "Importing rpm #{name} commits"
       # parse commit log with nokogiri to determine how many commits there are
-      git_log = URI.parse("#{RpmImporter::GIT_LOG_URI};p=#{name}.git").read
+      log_uri = RpmImporter::BASE_URI + name + '.git/log/'
+      git_log = URI.parse(log_uri).read
       doc = Nokogiri::HTML(git_log)
-      self.commits = doc.xpath("//a[@class='title']").size
+      self.commits = doc.xpath("//tr/td[@class='commitgraph']").select { |x| x.text == '* '}.size
     rescue Exception => e
       puts "Could not retrieve commits for #{name}"
     end
@@ -49,7 +51,7 @@ class FedoraRpm < ActiveRecord::Base
     self.rpm_versions.clear
     self.dependencies.clear
     FEDORA_VERSIONS.each do |version_title, version_git|
-      spec_url = "#{RpmImporter::RPM_SPEC_URI};p=#{name}.git;f=#{name}.spec;hb=refs/heads/#{version_git}"
+      spec_url = "#{RpmImporter::BASE_URI}#{name}.git/plain/#{name}.spec?h=#{version_git}"
       puts "Reading spec from #{spec_url}"
       begin
         rpm_spec = URI.parse(spec_url).read

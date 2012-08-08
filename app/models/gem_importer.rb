@@ -35,8 +35,6 @@ class GemImporter
   end
 
   def self.import_gems_list(selection = :all)
-    puts "Importing gem list"
-
     gems = []
     if selection == :all
       gems = Gem::SpecFetcher.fetcher.list[URI.parse(RUBYGEMS_URI)].collect { |g| g.first }
@@ -68,8 +66,7 @@ class GemImporter
 
   def self.update_gems(days_since_last_update)
     seconds_since_last_update = 60 * 60 * 24 * days_since_last_update
-    gems = RubyGem.find :all, :conditions => 
-      ["DATETIME(updated_at) < '#{(Time.now - seconds_since_last_update).utc}'"]
+    gems = RubyGem.find :all, :conditions => ["DATETIME(updated_at) < '#{(Time.now - seconds_since_last_update).utc}'"]
     gems.each { |gem|
       puts "Updating gem #{gem.name}"
       gem.update_from_source
