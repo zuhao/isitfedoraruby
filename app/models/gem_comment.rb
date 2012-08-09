@@ -9,8 +9,8 @@ class GemComment < ActiveRecord::Base
 
   def initialize params = nil, options = {}
     super
-    self.want_it ||= true unless self.want_it == false
-    self.receive_update ||= true unless self.receive_update == false
+    self.want_it ||= false
+    self.receive_update ||= false
   end
 
   def description

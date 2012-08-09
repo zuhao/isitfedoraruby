@@ -12,19 +12,22 @@
       %span.label.label-important= 'No'
 
   %label= "Versions: #{@rpm.versions}"
+  %label= "Git Commits: #{@rpm.commits}"
   %label= "Depends on:"
 
   %table.table.table-striped.table-condensed.dependency
     %thead
       %tr
         %th Package
-        %th Version
-        %th RubyGem Version
+        -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+          %th= t
+        %th Gem Version
     %tbody
       - @dependencies.each do |d|
         %tr
           %td= link_to d.name, fedorarpm_path(d.name)
-          %td= d.versions
+          -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+            %td= d.version_for(t)
           %td= d.ruby_gem.version
 
 = render :partial => 'rpmcomments/comments'

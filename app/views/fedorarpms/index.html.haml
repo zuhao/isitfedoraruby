@@ -1,10 +1,12 @@
-%h1 All Fedora Rpms
+%div.page-header
+  %h1 All Fedora Rpms
 
 %table.table.table-striped.table-condensed
   %thead
     %tr
       %th Name
-      %th Versions
+      -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+        %th= t
       %th Up to date?
       %th Gem
 
@@ -12,7 +14,8 @@
     - @rpms.each do |rpm|
       %tr
         %td= link_to rpm.name, fedorarpm_path(rpm.name)
-        %td= rpm.versions
+        -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+          %td= rpm.version_for(t)
         %td= rpm.upto_date? ? 'Yes' : 'No'
         %td= link_to rpm.ruby_gem.name, rubygem_path(rpm.ruby_gem.name) if rpm.ruby_gem != nil
 

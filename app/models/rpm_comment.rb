@@ -8,8 +8,8 @@ class RpmComment < ActiveRecord::Base
 
   def initialize params = nil, options = {}
     super
-    self.works_for_me ||= true unless self.works_for_me == false
-    self.receive_update ||= true unless self.receive_update == false
+    self.works_for_me ||= false
+    self.receive_update ||= false
   end
 
   def description

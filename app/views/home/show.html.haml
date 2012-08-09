@@ -1,6 +1,16 @@
-%div.center.hero-unit
+%div.page-header
   %h1 Is It Fedora Ruby
   %h2
     This is the home page for the
     = link_to 'Is It Fedora Ruby', root_path
     web application.
+
+%div.row
+  %div.span6
+    = render :partial => 'stats/most_popular_gems'
+  %div.span6
+    = render :partial => 'stats/most_popular_rpms'
+  %div.span6
+    = render :partial => 'stats/most_wanted_gems'
+  %div.span6
+    = render :partial => 'stats/most_recent_rpms'

@@ -24,7 +24,7 @@ Import gems and rpms in batches (recommended).
 
 `rake database:import_gems[batch, 50, 10]` to import gems in batches, 50 per batch, 10 seconds delay.
 
-`rake database:import_rpms[batch, 50, 10]` to import rpms in batches, 50 per batch, 10 second delay.
+`rake database:import_rpms[batch, 50, 10]` to import rpms in batches, 50 per batch, 10 seconds delay.
 
 Or, import them in one go (not recommended).
 

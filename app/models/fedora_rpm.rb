@@ -14,7 +14,8 @@ class FedoraRpm < ActiveRecord::Base
   has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
   has_many :failure_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => false}
   has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
-  scope :popular, :order => 'rpm_comments_count desc'
+  scope :most_popular, :order => 'commits desc'
+  scope :most_recent, :order => 'last_commit_date desc'
 
   def to_param
     name
@@ -45,6 +46,12 @@ class FedoraRpm < ActiveRecord::Base
       git_log = URI.parse(log_uri).read
       doc = Nokogiri::HTML(git_log)
       self.commits = doc.xpath("//tr/td[@class='commitgraph']").select { |x| x.text == '* '}.size
+
+      # parse last commit time
+      commit_uri = RpmImporter::BASE_URI + name + '.git/commit/'
+      git_commit = URI.parse(commit_uri).read
+      doc = Nokogiri::HTML(git_commit)
+      self.last_commit_date = DateTime.parse(doc.xpath("//table[@class='commit-info']/tr/td[@class='right']")[1].text)
     rescue Exception => e
       puts "Could not retrieve commits for #{name}"
     end
@@ -60,7 +67,7 @@ class FedoraRpm < ActiveRecord::Base
       begin
         rpm_spec = URI.parse(spec_url).read
 
-        rpm_version = rpm_spec.scan(/\nVersion: .*\n/).first.split.last
+        rpm_version = rpm_spec.scan(/\nVersion:\s*.*\n/).first.split.last
         if !version_valid?(rpm_version)
           if rpm_version.include?('%{majorver}')
             rpm_version = rpm_spec.scan(/%global majorver .*\n/).first.split.last
@@ -73,7 +80,7 @@ class FedoraRpm < ActiveRecord::Base
         rv.fedora_version = version_title
         self.rpm_versions << rv
         if version_title == 'rawhide'
-          self.homepage = rpm_spec.scan(/\nURL: .*\n/).first.split.last
+          self.homepage = rpm_spec.scan(/\nURL:\s*.*\n/).first.split.last
 
           rpm_spec.split("\n").each { |line|
             mr = line.match(/^Requires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)

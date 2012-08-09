@@ -5,7 +5,9 @@ class RubyGem < ActiveRecord::Base
   has_one :fedora_rpm, :dependent => :destroy
   has_many :gem_comments, :dependent => :destroy, :order => 'created_at desc'
   has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
-  scope :popular, :order => 'gem_comments_count desc'
+  scope :most_wanted, :joins => :gem_comments, :group => 'gem_comments.ruby_gem_id',
+        :order => 'count(gem_comments.want_it) desc', :having => 'gem_comments.want_it = "t"'
+  scope :most_popular, :order => 'downloads desc'
 
   def to_param
     name
@@ -69,6 +71,10 @@ class RubyGem < ActiveRecord::Base
     total = self.gem_comments.count
     total = 1 if total == 0
     self.gem_comments.wanted.count * 100 / total
+  end
+
+  def wanted_count
+    self.gem_comments.wanted.count
   end
 
   def version_in_fedora(fedora_version)

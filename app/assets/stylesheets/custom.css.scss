@@ -166,3 +166,11 @@ th, td {
 .progress {
   width: 200px;
 }
+
+.stats {
+  h2 {
+    color: $grayDarker;
+    letter-spacing: 0.5px;
+    word-spacing: 2px;
+  }
+}
