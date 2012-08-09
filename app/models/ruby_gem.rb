@@ -5,8 +5,10 @@ class RubyGem < ActiveRecord::Base
   has_one :fedora_rpm, :dependent => :destroy
   has_many :gem_comments, :dependent => :destroy, :order => 'created_at desc'
   has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
-  scope :most_wanted, :joins => :gem_comments, :group => 'gem_comments.ruby_gem_id',
-        :order => 'count(gem_comments.want_it) desc', :having => 'gem_comments.want_it = "t"'
+  scope :most_wanted, { :joins => 'INNER JOIN gem_comments ON gem_comments.ruby_gem_id = ruby_gems.id',
+                        :conditions => 'gem_comments.want_it = "t"',
+                        :group => 'ruby_gems.id',
+                        :order => 'count(gem_comments.id) desc' }
   scope :most_popular, :order => 'downloads desc'
 
   def to_param
