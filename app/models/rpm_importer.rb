@@ -41,7 +41,7 @@ class RpmImporter
       rpms = doc.xpath("//tr/td[@class='toplevel-repo']/a/@title")
       break if rpms.empty?
       rpms.each { |rpm|
-        rpm_name = rpm.value.gsub(/\.git/,'')
+        rpm_name = rpm.value.gsub(/\.git.*/,'')
         puts "Importing rpm #{rpm_name}"
         if FedoraRpm.find_by_name(rpm_name).nil?
           r = FedoraRpm.new

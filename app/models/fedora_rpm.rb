@@ -36,6 +36,8 @@ class FedoraRpm < ActiveRecord::Base
     return false if rv.nil? || ruby_gem.nil?
     return true if ruby_gem.version == nil
     Versionomy.parse(rv.rpm_version) >= Versionomy.parse(ruby_gem.version)
+  rescue Exception => e
+    return false
   end
 
   def retrieve_commits
