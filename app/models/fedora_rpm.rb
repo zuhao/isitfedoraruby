@@ -40,6 +40,28 @@ class FedoraRpm < ActiveRecord::Base
     return false
   end
 
+  def json_dependencies(packages = [])
+    children = []
+    dependency_packages.each { |p|
+      unless packages.include?(p)
+        packages << p
+        children << p.json_dependencies(packages)
+      end
+    }
+    {"name" => name.gsub(/rubygem-/,''), "children" => children}
+  end
+
+  def json_dependents(packages = [])
+    children = []
+    dependent_packages.each { |p|
+      unless packages.include?(p)
+        packages << p
+        children << p.json_dependents(packages)
+      end
+    }
+    {"name" => name.gsub(/rubygem-/,''), "children" => children}
+  end
+
   def retrieve_commits
     begin
       puts "Importing rpm #{name} commits"
@@ -155,9 +177,9 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def dependent_packages
-    Dependency.find_all_by_dependent(self.name).collect { |d|
-      d.package
-    }
+    Dependency.find_all_by_dependent(self.name.gsub(/rubygem-/,'')).collect { |d|
+      d.package if d.package.is_a?(FedoraRpm)
+    }.compact
   end
 
 private

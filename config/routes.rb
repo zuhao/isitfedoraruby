@@ -7,19 +7,15 @@ Isitfedoraruby::Application.routes.draw do
 
   match 'rubygems/' => 'rubygems#index'
   match 'rubygems/all' => 'rubygems#index'
-  match 'rubygems/:name' => 'rubygems#show', :via => :get
-  match 'rubygems/:name' => 'gemcomments#create', :via => :post
-  match 'rubygems/:name/show' => 'rubygems#show'
-
-  match 'fedorarpms/' => 'fedorarpms#index'
   match 'fedorarpms/all' => 'fedorarpms#index'
-  match 'fedorarpms/:name' => 'fedorarpms#show', :via => :get
-  match 'fedorarpms/:name' => 'rpmcomments#create', :via => :post
-  match 'fedorarpms/:name/show' => 'fedorarpms#show'
 
   match 'searches/' => 'searches#index'
 
-  resources :fedorarpms
+  resources :fedorarpms do
+    get :full_deps, :on => :member
+    get :full_dependencies, :on => :member
+    get :full_dependents,   :on => :member
+  end
   resources :rubygems
   resources :searches
   # resources :stats

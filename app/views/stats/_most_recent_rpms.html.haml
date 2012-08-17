@@ -13,4 +13,4 @@
           %td= link_to rpm.name, fedorarpm_path(rpm.name)
           %td= rpm.version_for 'rawhide'
           %td= rpm.commits
-          %td= "#{time_ago_in_words(rpm.last_commit_date)} ago"
+          %td= rpm.last_commit_date.nil? ? '' : "#{time_ago_in_words(rpm.last_commit_date)} ago"

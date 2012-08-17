@@ -19,7 +19,7 @@
           %td= rpm.version_for(t)
         %td= rpm.upto_date? ? 'Yes' : 'No'
         %td= rpm.commits
-        %td= time_ago_in_words(rpm.last_commit_date) + " ago"
+        %td= rpm.last_commit_date.nil? ? '' : time_ago_in_words(rpm.last_commit_date) + " ago"
         / %td= link_to rpm.ruby_gem.name, rubygem_path(rpm.ruby_gem.name) if rpm.ruby_gem != nil
 
 %div.pagination

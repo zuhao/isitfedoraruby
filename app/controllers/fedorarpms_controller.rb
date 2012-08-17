@@ -8,11 +8,35 @@ class FedorarpmsController < ApplicationController
   end
 
   def show
-    @name = params[:name]
+    @name = params[:id]
     @rpm = FedoraRpm.find_by_name(@name, :include => :rpm_comments)
     @page_title = @rpm.name
     @dependencies = @rpm.dependency_packages
     @dependents = @rpm.dependent_packages
+  end
+
+  def full_deps
+    @name = params[:id]
+    @rpm = FedoraRpm.find_by_name(@name)
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def full_dependencies
+    @name = params[:id]
+    @rpm = FedoraRpm.find_by_name(@name)
+    respond_to do |format|
+      format.json { render :json => @rpm.json_dependencies }
+    end
+  end
+
+  def full_dependents
+    @name = params[:id]
+    @rpm = FedoraRpm.find_by_name(@name)
+    respond_to do |format|
+      format.json { render :json => @rpm.json_dependents }
+    end
   end
 
 private

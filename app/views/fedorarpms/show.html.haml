@@ -2,6 +2,7 @@
 %div.info
   %label= link_to 'Homepage URI', @rpm.homepage if @rpm.homepage != nil
   %label= link_to 'Source Code URI', @rpm.source_uri if @rpm.source_uri != nil
+  %label= link_to 'Dependency Tree', :controller => 'fedorarpms', :action => 'full_deps'
   %span.label.label-info= link_to 'RubyGem', rubygem_path(@rpm.ruby_gem.name) if @rpm.ruby_gem != nil
   %label= "Hotness: #{@rpm.hotness}%"
   %label
