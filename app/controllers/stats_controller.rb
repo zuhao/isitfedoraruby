@@ -26,56 +26,56 @@ class StatsController < ApplicationController
       # most likely we can leverage the bundler api instead
       if !is_lock
         lines.each { |line|
-	  if line =~ /^gem\s+'([^']*)'$/
-	    # gem name only
-            dependencies << {:name => $1, :version => nil}
+          if line =~ /^gem\s+'([^']*)'$/
+            # gem name only
+           dependencies << {:name => $1, :version => nil}
 
-	  elsif line =~ /^gem\s+'([^']*)',\s*'([^']*)'.*$/
-	    # gem with possible version
+          elsif line =~ /^gem\s+'([^']*)',\s*'([^']*)'.*$/
+            # gem with possible version
             name = $1
             version = nil
-	    begin
-	      version = Versionomy.parse($2.split.last)
-	    rescue Versionomy::Errors::ParseError
-	    end
+            begin
+              version = Versionomy.parse($2.split.last)
+            rescue Versionomy::Errors::ParseError
+            end
             dependencies << {:name => name, :version => version}
 
-          #else # ignore
-	  end
-	}
+            #else # ignore
+          end
+        }
       else
         lines.each { |line|
-	  if line =~ /^\s*([^\s]*)\s*\(([^\)]*)\)$/
-	    # gem name / version
-	    name, version = $1, $2
-	    begin
-	      version = Versionomy.parse(version.split.last)
-	    rescue Versionomy::Errors::ParseError
-	    end
-	    dependencies << {:name => name, :version => version}
+          if line =~ /^\s*([^\s]*)\s*\(([^\)]*)\)$/
+            # gem name / version
+            name, version = $1, $2
+            begin
+              version = Versionomy.parse(version.split.last)
+            rescue Versionomy::Errors::ParseError
+            end
+            dependencies << {:name => name, :version => version}
           end
-	}
+        }
       end
 
       dependencies.each { |dep|
-	unless @result.find { |res| res[:name] == dep[:name] }
+        unless @result.find { |res| res[:name] == dep[:name] }
           dep_fully_satisfied = true
           rpm = FedoraRpm.find_by_name("rubygem-" + dep[:name])
           if !rpm
             dep_fully_satisfied = false
             @result << {:name => dep[:name], :success => false, :message => "#{dep[:name]} not found in Fedora"}
 
-	  elsif !dep[:version].nil?
-	    rpm.rpm_versions.each { |rv|
+          elsif !dep[:version].nil?
+            rpm.rpm_versions.each { |rv|
               if Versionomy.parse(rv.rpm_version) < dep[:version]
-	        dep_fully_satisfied = false
+                dep_fully_satisfied = false
                 @result << {:name => dep[:name], :success => false, :message => "#{dep[:name]} (#{dep[:version]}) is too old in #{rv.fedora_version} (which has #{rv.rpm_version})"}
 
-	      else # TODO comment: (?)
+              else # TODO comment: (?)
                 @result << {:name => dep[:name], :success => true, :message => "#{dep[:name]} (#{dep[:version]}) is sufficient in #{rv.fedora_version}!"}
-              end
-	    }
-	  end
+             end
+            }
+          end
 
           if dep_fully_satisfied
             @result << {:name => dep[:name], :success => true, :message => "#{dep[:name]} is in Fedora!"}
