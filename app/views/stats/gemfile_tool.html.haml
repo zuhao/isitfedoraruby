@@ -1,0 +1,28 @@
+-if @result
+  %h3
+    = link_to "Back", gemfile_tool_stats_path
+  - @result.each do |res|
+    %span{:class => res[:success] ? 'gemfile_tool_result_success' : 'gemfile_tool_result_fail'}
+      = res[:message]
+
+-else
+  %h2
+    Test your Gemfile or Gemfile.lock against Fedora
+  %h2
+    Upload it
+  %div{:style => 'clear: both'}
+  .gemfile_input_container
+    %form{:method => :post, :action => :gemfile_tool, :enctype => 'multipart/form-data'}
+      %input{:type => :file, :id => 'gemfile', :name => 'gemfile'}
+      %br
+      %input{:type => :submit, :value => :upload}
+
+
+  %h2
+    ="or Paste it"
+  .gemfile_input_container
+    %form{:method => :post, :action => :gemfile_tool}
+      %textarea{:id => 'gemfile', :name => 'gemfile', :rows => 50}
+      %br
+      %input{:type => :submit, :value => :submit}
+  %div{:style => 'clear: both'}

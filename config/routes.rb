@@ -18,7 +18,11 @@ Isitfedoraruby::Application.routes.draw do
   end
   resources :rubygems
   resources :searches
-  # resources :stats
+
+  resources :stats do
+    get :gemfile_tool, :on => :collection
+    post :gemfile_tool, :on => :collection
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

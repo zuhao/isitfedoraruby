@@ -174,3 +174,17 @@ th, td {
     word-spacing: 2px;
   }
 }
+
+.gemfile_input_container {
+  margin-top: 10px;
+}
+
+.gemfile_tool_result_success {
+  color: green;
+  display: block;
+}
+
+.gemfile_tool_result_fail {
+  color: red;
+  display: block;
+}
