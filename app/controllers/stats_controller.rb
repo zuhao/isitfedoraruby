@@ -67,13 +67,15 @@ class StatsController < ApplicationController
 
           elsif !dep[:version].nil?
             rpm.rpm_versions.each { |rv|
-              if Versionomy.parse(rv.rpm_version) < dep[:version]
-                dep_fully_satisfied = false
-                @result << {:name => dep[:name], :success => false, :message => "#{dep[:name]} (#{dep[:version]}) is too old in #{rv.fedora_version} (which has #{rv.rpm_version})"}
+              unless rv.rpm_version.nil?
+                if Versionomy.parse(rv.rpm_version) < dep[:version]
+                  dep_fully_satisfied = false
+                  @result << {:name => dep[:name], :success => false, :message => "#{dep[:name]} (#{dep[:version]}) is too old in #{rv.fedora_version} (which has #{rv.rpm_version})"}
 
-              else # TODO comment: (?)
-                @result << {:name => dep[:name], :success => true, :message => "#{dep[:name]} (#{dep[:version]}) is sufficient in #{rv.fedora_version}!"}
-             end
+                else # TODO comment: (?)
+                  @result << {:name => dep[:name], :success => true, :message => "#{dep[:name]} (#{dep[:version]}) is sufficient in #{rv.fedora_version}!"}
+                end
+              end
             }
           end
 
