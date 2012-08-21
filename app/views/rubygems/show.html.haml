@@ -2,7 +2,8 @@
 %div.info
   %label= link_to 'Homepage URI', @gem.homepage if @gem.homepage != nil
   %label= link_to 'Source Code URI', @gem.source_uri if @gem.source_uri != nil
-  %span.label.label-info= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.name) if @gem.fedora_rpm != nil
+  - if @gem.fedora_rpm != nil
+    %span.label.label-info= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.name)
   %label= "Wantedness: #{@gem.wantedness}%"
   %label= "Version: #{@gem.version}"
   %label= "Total Downloads: #{number_with_delimiter(@gem.downloads)}"

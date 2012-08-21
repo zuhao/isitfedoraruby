@@ -122,6 +122,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12)
       json (~> 1.4)
+    recaptcha (0.3.4)
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
@@ -186,6 +187,7 @@ DEPENDENCIES
   json
   nokogiri
   rails (= 3.2.3)
+  recaptcha
   rspec-rails
   sass-rails (~> 3.2.3)
   sqlite3

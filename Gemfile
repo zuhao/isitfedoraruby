@@ -25,6 +25,7 @@ gem 'json'
 gem 'nokogiri'
 gem 'versionomy'
 gem 'gems'
+gem 'recaptcha', :require => 'recaptcha/rails'
 
 group :test, :development do
   gem 'rspec-rails'

@@ -2,6 +2,9 @@
 
   %h3 Add new comment
 
+  - unless flash[:error].nil?
+    %div.alert.alert-error= flash[:error]
+
   = form_for :gem_comment, :html => {:class => 'well'} do |f|
     = f.label :name, 'Name'
     = f.text_field :name
@@ -18,5 +21,7 @@
 
     = f.label :text, 'Comment'
     = f.text_area :text
+
+    = recaptcha_tags :display => {:theme => 'white'}
 
     = f.submit 'Submit', :class => 'btn btn-primary'
