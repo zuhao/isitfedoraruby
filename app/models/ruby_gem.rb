@@ -54,10 +54,11 @@ class RubyGem < ActiveRecord::Base
   def self.search(search)
     # search_cond = "%" + search.to_s + "%"
     # search_cond = search.to_s
-    if search == nil || search.blank?
+    s = search.gsub(/rubygem-/,'')
+    if s == nil || s.blank?
       self
     else
-      self.where("name LIKE ?", search.strip)
+      self.where("name LIKE ?", s.strip)
     end
   end
 

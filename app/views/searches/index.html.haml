@@ -6,7 +6,7 @@
       %th Gem Name
       %th Gem Version
       %th Rpm Name
-      %th Rpm Versions
+      %th Rpm Version (Rawhide)
 
   %tbody
     - @results.each do |gem|
@@ -15,7 +15,7 @@
         %td= gem.version
         - if  gem.fedora_rpm != nil
           %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.name)
-          %td= gem.fedora_rpm.versions
+          %td= gem.fedora_rpm.version_for('rawhide')
         -else
           %td
           %td
