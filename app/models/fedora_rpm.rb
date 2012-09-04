@@ -11,6 +11,7 @@ class FedoraRpm < ActiveRecord::Base
   belongs_to :ruby_gem
   has_many :rpm_versions, :dependent => :destroy
   has_many :rpm_comments, :dependent => :destroy, :order => 'created_at desc'
+  has_many :bugs, :dependent => :destroy, :order => 'bz_id desc'
   has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
   has_many :failure_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => false}
   has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
@@ -19,6 +20,10 @@ class FedoraRpm < ActiveRecord::Base
 
   def to_param
     name
+  end
+
+  def bugzilla_url
+    "https://bugzilla.redhat.com/buglist.cgi?short_desc=.*#{name}.*&o1=equals&classification=Fedora&query_format=advanced&short_desc_type=regexp"
   end
 
   def versions
@@ -138,10 +143,27 @@ class FedoraRpm < ActiveRecord::Base
     self.ruby_gem.has_rpm = true
   end
 
+  def retrieve_bugs
+    puts "Importing rpm #{name} bugs"
+    self.bugs.clear
+
+    bugzilla_search = URI.parse(bugzilla_url).read
+    doc = Nokogiri::HTML(bugzilla_search)
+
+    # get bugs and their titles
+    bugs = doc.xpath("//td[@class='bz_short_desc_column']/a").collect { |bz| [bz.attr('href').gsub('show_bug.cgi?id=', ''), bz.text.strip] }
+    bugs.each { |bug|
+      arb = Bug.new :name => bug.last, :bz_id => bug.first
+      arb.is_review = true if arb.name =~ /^Review Request.*#{name}\s.*$/
+      self.bugs << arb
+    }
+  end
+
   def update_from_source
     retrieve_commits
     retrieve_versions
     retrieve_gem
+    retrieve_bugs
     self.updated_at = Time.now
     save!
   end
