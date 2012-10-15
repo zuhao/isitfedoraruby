@@ -23,6 +23,10 @@ class FedoraRpm < ActiveRecord::Base
     name
   end
 
+  def shortname
+    name.gsub(/rubygem-/, '')
+  end
+
   def bugzilla_url
     "https://bugzilla.redhat.com/buglist.cgi?short_desc=.*#{name}.*&o1=equals&classification=Fedora&query_format=advanced&short_desc_type=regexp"
   end
