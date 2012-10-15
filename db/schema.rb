@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015122648) do
+ActiveRecord::Schema.define(:version => 20121015133744) do
 
   create_table "bugs", :force => true do |t|
     t.string   "name"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20121015122648) do
     t.string   "fedora_version"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.boolean  "is_patched"
   end
 
   create_table "ruby_gems", :force => true do |t|

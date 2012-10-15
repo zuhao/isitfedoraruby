@@ -32,7 +32,7 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def versions
-    rpm_versions.collect { |rv| rv.rpm_version + " (" + rv.fedora_version + ")" }.join(", ")
+    rpm_versions.collect { |rv| rv.rpm_version + " (" + rv.fedora_version + "/" + (rv.is_patched ? "" : "not ") +"patched)" }.join(", ")
   end
 
   def version_for(fedora_version)
@@ -48,6 +48,11 @@ class FedoraRpm < ActiveRecord::Base
     Versionomy.parse(rv.rpm_version) >= Versionomy.parse(ruby_gem.version)
   rescue Exception => e
     return false
+  end
+
+  def patched?
+    rv = rpm_versions.find { |rv| rv.is_patched }
+    return !rv.nil?
   end
 
   def json_dependencies(packages = [])
@@ -100,6 +105,7 @@ class FedoraRpm < ActiveRecord::Base
       puts "Reading spec from #{spec_url}"
       begin
         rpm_spec = URI.parse(spec_url).read
+        is_patched = (rpm_spec.scan(/\nPatch0:\s*.*\n/).size != 0)
 
         rpm_version = rpm_spec.scan(/\nVersion:\s*.*\n/).first.split.last
         if !version_valid?(rpm_version)
@@ -112,6 +118,7 @@ class FedoraRpm < ActiveRecord::Base
         rv = RpmVersion.new
         rv.rpm_version = rpm_version
         rv.fedora_version = version_title
+        rv.is_patched = is_patched
         self.rpm_versions << rv
         if version_title == 'rawhide'
           self.homepage = rpm_spec.scan(/\nURL:\s*.*\n/).first.split.last
