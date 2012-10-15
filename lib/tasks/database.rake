@@ -49,13 +49,16 @@ namespace :database do
   end
 
   desc 'update rpms previously retrieved '
-  task :update_rpms, [:days_since_last_update] => :environment do |t, args|
-     args.with_defaults(:days_since_last_update => 7)
+  task :update_rpms, [:mode, :days_since_last_update] => :environment do |t, args|
+     args.with_defaults(:mode => 'all', :days_since_last_update => 7)
+
      days = args.days_since_last_update.to_i
      unless days.nil? || days.is_a?(Fixnum)
        raise ArgumentError, "invalid value for days since last update"
      end
-     RpmImporter.update_rpms(days)
+
+     mode = args.mode
+     RpmImporter.update_rpms(days, mode)
   end
 
   desc 'update gems previously retrieved '

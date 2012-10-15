@@ -1,7 +1,7 @@
 require 'versionomy'
+require 'xmlrpc/client'
 
 class FedoraRpm < ActiveRecord::Base
-
   FEDORA_VERSIONS = {'rawhide'   => 'master',
                      'Fedora 18' => 'f18',
                      'Fedora 17' => 'f17',
@@ -12,6 +12,7 @@ class FedoraRpm < ActiveRecord::Base
   has_many :rpm_versions, :dependent => :destroy
   has_many :rpm_comments, :dependent => :destroy, :order => 'created_at desc'
   has_many :bugs, :dependent => :destroy, :order => 'bz_id desc'
+  has_many :builds, :dependent => :destroy, :order => 'build_id desc'
   has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
   has_many :failure_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => false}
   has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
@@ -159,13 +160,56 @@ class FedoraRpm < ActiveRecord::Base
     }
   end
 
-  def update_from_source
+  def retrieve_builds
+    puts "Importing rpm #{name} builds"
+    self.builds.clear
+
+    @@koji_search ||= XMLRPC::Client.new2(Build::KOJI_API_URL)
+    builds = @@koji_search.call "search", name, "build", "regexp"
+    builds.each { |build|
+      bld = Build.new
+      bld.name = build['name']
+      bld.build_id = build['id']
+      self.builds << bld
+    }
+  end
+
+  def update_commits
     retrieve_commits
+    self.updated_at = Time.now
+    save!
+  end
+
+  def update_versions
     retrieve_versions
+    self.updated_at = Time.now
+    save!
+  end
+
+  def update_gem
     retrieve_gem
+    self.updated_at = Time.now
+    save!
+  end
+
+  def update_bugs
     retrieve_bugs
     self.updated_at = Time.now
     save!
+  end
+
+  def update_builds
+    retrieve_builds
+    self.updated_at = Time.now
+    save!
+  end
+
+  def update_from_source
+    update_commits
+    update_versions
+    update_gem
+    update_bugs
+    update_builds
   end
 
   def rpm_name

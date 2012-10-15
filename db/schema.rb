@@ -11,13 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904112311) do
+ActiveRecord::Schema.define(:version => 20121015122648) do
 
   create_table "bugs", :force => true do |t|
     t.string   "name"
     t.string   "bz_id"
     t.integer  "fedora_rpm_id"
     t.boolean  "is_review"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "builds", :force => true do |t|
+    t.string   "name"
+    t.string   "build_id"
+    t.integer  "fedora_rpm_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end

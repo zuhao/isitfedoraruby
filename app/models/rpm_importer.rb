@@ -59,12 +59,23 @@ class RpmImporter
     puts "Import failed due to eror #{ex}."
   end
 
-  def self.update_rpms(days_since_last_update)
+  def self.update_rpms(days_since_last_update, mode)
     seconds_since_last_update = 60 * 60 * 24 * days_since_last_update
     rpms = FedoraRpm.find :all, :conditions => ["DATETIME(updated_at) < '#{(Time.now - seconds_since_last_update).utc}'"]
     rpms.each { |rpm|
-      puts "Updating rpm #{rpm.name}"
-      rpm.update_from_source
+      puts "Updating rpm #{rpm.name} #{mode}"
+      case mode
+      when 'all' then
+        rpm.update_from_source
+      when 'commits' then
+        rpm.update_commits
+      when 'versions' then
+        rpm.update_versions
+      when 'bugs' then
+        rpm.update_bugs
+      when 'builds' then
+        rpm.update_builds
+      end
     }
   end
 
