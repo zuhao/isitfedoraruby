@@ -32,7 +32,7 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def versions
-    rpm_versions.collect { |rv| rv.rpm_version + " (" + rv.fedora_version + "/" + (rv.is_patched ? "" : "not ") +"patched)" }.join(", ")
+    rpm_versions.collect { |rv| rv.rpm_version.to_s + " (" + rv.fedora_version.to_s + "/" + (rv.is_patched ? "" : "not ") +"patched)" }.join(", ")
   end
 
   def version_for(fedora_version)
