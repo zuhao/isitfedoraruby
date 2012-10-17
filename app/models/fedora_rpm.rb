@@ -259,6 +259,16 @@ class FedoraRpm < ActiveRecord::Base
     }.compact
   end
 
+  def self.build_rpms(spec_file)
+    rpms = []
+    buildroot = "#{Rails.root}/public/rpmbuild"
+    output = `/usr/bin/rpmbuild --define="%_topdir #{buildroot}" -ba #{spec_file}`
+    output.each_line { |l|
+      rpms << $1 if l =~ /Wrote: (.*)/
+    }
+    rpms
+  end
+
 private
 
   validates_uniqueness_of :name

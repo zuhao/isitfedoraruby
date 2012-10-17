@@ -22,6 +22,11 @@ Isitfedoraruby::Application.routes.draw do
   resources :rubygems
   resources :searches
 
+  resources :builds do
+    get :import, :on => :collection
+    post :import, :on => :collection
+  end
+
   resources :stats do
     get :gemfile_tool, :on => :collection
     post :gemfile_tool, :on => :collection

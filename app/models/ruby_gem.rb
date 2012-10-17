@@ -11,8 +11,28 @@ class RubyGem < ActiveRecord::Base
                         :order => 'count(gem_comments.id) desc' }
   scope :most_popular, :order => 'downloads desc'
 
+  # FIXME version metadata should be stored in local db
+  attr_accessor :versions
+
   def to_param
     name
+  end
+
+  def self.load_or_create(name)
+    gem = RubyGem.find_by_name(name)
+    if gem.nil?
+      gem = RubyGem.new
+      gem.name = name
+      return nil unless gem.on_rubygems?
+      gem.save!
+    end
+    gem
+  end
+
+  def on_rubygems?
+    # use RubyGems.org's API wrapper to get metadata
+    metadata = Gems.info(name)
+    return metadata != false
   end
 
   def retrieve_metadata
@@ -42,6 +62,10 @@ class RubyGem < ActiveRecord::Base
     rpm_name = 'rubygem-' + self.name
     self.fedora_rpm = FedoraRpm.find_by_name(rpm_name)
     self.has_rpm = true unless self.fedora_rpm.nil?
+  end
+
+  def retrieve_versions
+    Gems.versions self.name
   end
 
   def update_from_source
@@ -100,6 +124,45 @@ class RubyGem < ActiveRecord::Base
     Dependency.find_all_by_dependent(self.name).collect { |d|
       d.package
     }
+  end
+
+  def uri_for_version(version)
+    "http://rubygems.org/gems/#{name}-#{version}.gem"
+  end
+
+  def local_gem_for_version(version)
+    "#{Rails.root}/public/rpmbuild/SOURCES/#{name}-#{version}.gem"
+  end
+
+  def download
+    download_version(self.version)
+  end
+
+  def download_version(version)
+    local_gem = local_gem_for_version(version)
+    return if File.exists?(local_gem) # just return if version already downloaded
+    c = Curl::Easy.new(uri_for_version(version))
+    c.follow_location = true
+    result = c.http_get
+    result = c.body_str.force_encoding('UTF-8')
+    File.open(local_gem, "w") { |f|
+      f.write result
+    }
+  end
+
+  def gem2rpm
+    version2rpm(self.version)
+  end
+
+  def version2rpm(version)
+    rpm_spec_file = "#{Rails.root}/public/rpmbuild/SPECS/rubygem-#{name}-#{version}.spec"
+    return rpm_spec_file if File.exists?(rpm_spec_file) # just return if already built
+
+    spec = `/usr/bin/gem2rpm #{local_gem_for_version(version)}`
+    File.open(rpm_spec_file, "w") { |f|
+      f.write spec
+    }
+    rpm_spec_file
   end
 
 private

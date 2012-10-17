@@ -15,6 +15,7 @@ group :assets do
   gem 'bootstrap-sass', '~> 2.0.0'
 end
 
+gem 'gem2rpm'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'execjs'
