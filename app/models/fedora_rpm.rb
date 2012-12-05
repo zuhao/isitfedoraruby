@@ -97,7 +97,7 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def retrieve_versions
-    puts "Importing rpm #{name} versions"
+    puts "Importing rpm #{name} versions and maintainer"
     self.rpm_versions.clear
     self.dependencies.clear
     FEDORA_VERSIONS.each do |version_title, version_git|
@@ -106,7 +106,7 @@ class FedoraRpm < ActiveRecord::Base
       begin
         rpm_spec = URI.parse(spec_url).read
         is_patched = (rpm_spec.scan(/\nPatch0:\s*.*\n/).size != 0)
-
+        
         rpm_version = rpm_spec.scan(/\nVersion:\s*.*\n/).first.split.last
         if !version_valid?(rpm_version)
           if rpm_version.include?('%{majorver}')
@@ -121,6 +121,19 @@ class FedoraRpm < ActiveRecord::Base
         rv.is_patched = is_patched
         self.rpm_versions << rv
         if version_title == 'rawhide'
+          #Import the maintainer's e-mail            
+          fedora_user_list = rpm_spec.scan(/<.*[@].*>/)
+          fedora_user_list.each do |user|
+            if user != "<rel-eng@lists.fedoraproject.org>" #We don't want to add Fedora Release Engineering
+              #Remove those "<>"
+              user[0] = ""
+              user.gsub!(">", "")                  
+              self.fedora_user = user
+              break
+            end
+          end
+          puts "Maintainer: #{self.fedora_user}"
+            
           self.homepage = rpm_spec.scan(/\nURL:\s*.*\n/).first.split.last
 
           rpm_spec.split("\n").each { |line|
@@ -136,8 +149,9 @@ class FedoraRpm < ActiveRecord::Base
             end
           }
         end
+
       rescue Exception => e
-        puts "Could not retrieve version of #{name} for #{version_title}"
+        puts "Could not retrieve version of #{name} for #{version_title}: #{e}"
       end
     end
   end
@@ -267,6 +281,10 @@ class FedoraRpm < ActiveRecord::Base
       rpms << $1 if l =~ /Wrote: (.*)/
     }
     rpms
+  end
+  
+  def get_obfuscated_fedora_user
+    return self.fedora_user.to_s.gsub("@", " AT ").gsub(".", " DOT ")
   end
 
 private

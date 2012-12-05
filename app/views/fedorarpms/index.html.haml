@@ -11,6 +11,7 @@
       %th= sortable "commits", "Git Commits"
       %th= sortable "last_commit_date", "Last Commit"
       %th= "Upstream Source Patched?"
+      %th= "Maintainer"
 
   %tbody
     - @rpms.each do |rpm|
@@ -23,6 +24,7 @@
         %td= rpm.last_commit_date.nil? ? '' : time_ago_in_words(rpm.last_commit_date) + " ago"
         %td= rpm.patched?
         / %td= link_to rpm.ruby_gem.name, rubygem_path(rpm.ruby_gem.name) if rpm.ruby_gem != nil
+        %td= rpm.get_obfuscated_fedora_user
 
 %div.pagination
   = will_paginate @rpms
