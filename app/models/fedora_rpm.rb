@@ -122,12 +122,12 @@ class FedoraRpm < ActiveRecord::Base
         self.rpm_versions << rv
         if version_title == 'rawhide'
           #Import the maintainer's e-mail            
-          fedora_user_list = rpm_spec.scan(/<.*>/)
+          fedora_user_list = rpm_spec.scan(/<.*[@].*>/)
           fedora_user_list.each do |user|
             if user != "<rel-eng@lists.fedoraproject.org>" #We don't want to add Fedora Release Engineering
               #Remove those "<>"
-              user[0] = ""    
-              user.gsub!(">", "")
+              user[0] = ""
+              user.gsub!(">", "")                  
               self.fedora_user = user
               break
             end
@@ -151,7 +151,7 @@ class FedoraRpm < ActiveRecord::Base
         end
 
       rescue Exception => e
-        puts "Could not retrieve version of #{name} for #{version_title}"
+        puts "Could not retrieve version of #{name} for #{version_title}: #{e}"
       end
     end
   end
@@ -281,6 +281,10 @@ class FedoraRpm < ActiveRecord::Base
       rpms << $1 if l =~ /Wrote: (.*)/
     }
     rpms
+  end
+  
+  def get_obfuscated_fedora_user
+    return self.fedora_user.to_s.gsub("@", " AT ").gsub(".", " DOT ")
   end
 
 private
