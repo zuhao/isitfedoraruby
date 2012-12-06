@@ -4,6 +4,7 @@ Isitfedoraruby::Application.routes.draw do
 
   match 'successes' => 'static_pages#successes'
   match 'contribute' => 'static_pages#contribute'
+  match 'about' => 'static_pages#about'
 
   match 'rubygems/' => 'rubygems#index'
   match 'rubygems/all' => 'rubygems#index'
