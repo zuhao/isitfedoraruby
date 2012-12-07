@@ -15,12 +15,13 @@ Isitfedoraruby::Application.routes.draw do
 
   match 'searches/' => 'searches#index'
 
-  resources :fedorarpms do
+  resources :fedorarpms, :constraints => { :id => /.*/ } do
     get :full_deps, :on => :member
     get :full_dependencies, :on => :member
     get :full_dependents,   :on => :member
+    get :by_owner, :on => :member
   end
-  resources :rubygems
+  resources :rubygems, :constraints => { :id => /.*/ }
   resources :searches
 
   resources :builds do
