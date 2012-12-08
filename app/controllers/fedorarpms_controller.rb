@@ -38,6 +38,11 @@ class FedorarpmsController < ApplicationController
       format.json { render :json => @rpm.json_dependents }
     end
   end
+  
+  def by_owner
+    @name = params[:id]
+    @rpms = FedoraRpm.find_by_sql("SELECT * FROM fedora_rpms WHERE fedora_user LIKE '" + @name + "@%' ORDER BY commits DESC")
+  end
 
 private
 
