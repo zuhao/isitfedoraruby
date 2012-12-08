@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015133744) do
+ActiveRecord::Schema.define(:version => 20121203163133) do
 
   create_table "bugs", :force => true do |t|
     t.string   "name"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20121015133744) do
     t.string   "homepage"
     t.integer  "ruby_gem_id"
     t.integer  "commits"
+    t.string   "fedora_user"
   end
 
   create_table "gem_comments", :force => true do |t|
