@@ -41,7 +41,9 @@ class FedorarpmsController < ApplicationController
   
   def by_owner
     @name = params[:id]
-    @rpms = FedoraRpm.find_by_sql("SELECT * FROM fedora_rpms WHERE fedora_user LIKE '" + @name + "@%' ORDER BY commits DESC")
+    # FIXME:
+    #@rpms = FedoraRpm.find_by_sql("SELECT * FROM fedora_rpms WHERE fedora_user LIKE '" + @name + "@%' ORDER BY commits DESC")
+    @rpms = FedoraRpm.all
   end
 
 private
