@@ -12,7 +12,7 @@
       %span.label.label-success= 'Yes'
     - else
       %span.label.label-important= 'No'
-  %p Maintainer: #{link_to @rpm.get_obfuscated_fedora_user, fedorarpm_path(@rpm.fedora_user.split("@").first + "/by_owner") if @rpm.fedora_user != nil}
+  %p Maintainer: #{link_to @rpm.obfuscated_fedora_user, fedorarpm_path(@rpm.fedora_user.split("@").first + "/by_owner") if @rpm.fedora_user != nil}
   %label= "Versions: #{@rpm.versions}"
   %label= "Git Commits: #{@rpm.commits}"
   %label= "Depends on:"

@@ -283,7 +283,7 @@ class FedoraRpm < ActiveRecord::Base
     rpms
   end
   
-  def get_obfuscated_fedora_user
+  def obfuscated_fedora_user
     return self.fedora_user.to_s.gsub("@", " AT ").gsub(".", " DOT ")
   end
 
