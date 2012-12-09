@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ `date +%H` == "02" ]
+then
+    	echo "Starting cron update" > $OPENSHIFT_DATA_DIR/last_update.log
+	echo "Cron update script running..."
+	echo "Updating gems..." >> $OPENSHIFT_DATA_DIR/last_update.log
+	bundle exec rake database:update_gems[2] >> $OPENSHIFT_DATA_DIR/last_update.log
+	echo "Updating RPMs..." >> $OPENSHIFT_DATA_DIR/last_update.log
+	bundle exec rake database:update_rpms[2] >> $OPENSHIFT_DATA_DIR/last_update.log
+	echo "Done!" >> $OPENSHIFT_DATA_DIR/last_update.log
+fi
