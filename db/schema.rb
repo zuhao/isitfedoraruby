@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203163133) do
+ActiveRecord::Schema.define(:version => 20121208152321) do
 
   create_table "bugs", :force => true do |t|
     t.string   "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20121203163133) do
     t.boolean  "is_review"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "last_updated"
   end
 
   create_table "builds", :force => true do |t|
