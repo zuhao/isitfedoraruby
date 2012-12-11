@@ -1,15 +1,15 @@
-en:
+wo:
   date:
     abbr_day_names:
-    - Sun
-    - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
+    - Dib
+    - Alt
+    - Tal
+    - All
+    - Alx
+    - Ajj
+    - Gaw
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mar
@@ -23,31 +23,31 @@ en:
     - Nov
     - Dec
     day_names:
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
+    - Dibèer
+    - Altine
+    - Talaata
+    - Allarba
+    - Alxamess
+    - Ajjouma
+    - Gaawu
     formats:
       default: ! '%Y-%m-%d'
       long: ! '%B %d, %Y'
       short: ! '%b %d'
     month_names:
-    - 
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - October
-    - November
-    - December
+    -
+    - Tamkharit
+    - Digui Gamou
+    - Gamou
+    - Raki Gamou
+    - Rakati Gamou
+    - Mamou Kor
+    - Ndeyou Kor
+    - Baraxlou
+    - Kor
+    - Kori
+    - Digui Tabaski
+    - Tabaski
     order:
     - :year
     - :month

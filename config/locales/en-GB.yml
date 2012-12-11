@@ -1,4 +1,4 @@
-en:
+en-GB:
   date:
     abbr_day_names:
     - Sun
@@ -31,9 +31,9 @@ en:
     - Friday
     - Saturday
     formats:
-      default: ! '%Y-%m-%d'
-      long: ! '%B %d, %Y'
-      short: ! '%b %d'
+      default: ! '%d-%m-%Y'
+      long: ! '%d %B, %Y'
+      short: ! '%d %b'
     month_names:
     - 
     - January
@@ -49,9 +49,9 @@ en:
     - November
     - December
     order:
-    - :year
-    - :month
     - :day
+    - :month
+    - :year
   datetime:
     distance_in_words:
       about_x_hours:
@@ -146,7 +146,7 @@ en:
         separator: .
         significant: false
         strip_insignificant_zeros: false
-        unit: $
+        unit: £
     format:
       delimiter: ! ','
       precision: 3
@@ -193,7 +193,7 @@ en:
     am: am
     formats:
       default: ! '%a, %d %b %Y %H:%M:%S %z'
-      long: ! '%B %d, %Y %H:%M'
+      long: ! '%d %B, %Y %H:%M'
       short: ! '%d %b %H:%M'
     pm: pm
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
