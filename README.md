@@ -22,9 +22,9 @@ Make sure you import the full lists of gems and rpms first, by running the follo
 
 Import gems and rpms in batches (recommended).
 
-`rake database:import_gems[batch, 50, 10]` to import gems in batches, 50 per batch, 10 seconds delay.
+`rake "database:import_gems[batch, 50, 10]"` to import gems in batches, 50 per batch, 10 seconds delay.
 
-`rake database:import_rpms[batch, 50, 10]` to import rpms in batches, 50 per batch, 10 seconds delay.
+`rake "database:import_rpms[batch, 50, 10]"` to import rpms in batches, 50 per batch, 10 seconds delay.
 
 Or, import them in one go (not recommended).
 
@@ -38,9 +38,9 @@ Please take note that the importing process can take a long time, depending on y
 
 If you already have gems and/or rpms imported, and only want to update them, run the following commands.
 
-`rake database:update_gems[7]` to update gems whose last update time was earlier than 7 days ago.
+`rake "database:update_gems[all, 7]"` to update gems whose last update time was earlier than 7 days ago.
 
-`rake database:update_rpms[7]` to update rpms whose last update time was earlier than 7 days ago.
+`rake "database:update_rpms[all, 7]"` to update rpms whose last update time was earlier than 7 days ago.
 
 ## Please Contribute! ##
 
