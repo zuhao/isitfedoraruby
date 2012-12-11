@@ -7,6 +7,11 @@ gem 'rails', '3.2.3'
 
 gem 'sqlite3'
 
+#i18n support
+gem 'fast_gettext'
+gem 'gettext_i18n_rails', '>= 0.4.3'
+gem 'rails-i18n'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -32,6 +37,8 @@ group :test, :development do
   gem 'guard-rspec'
   gem 'capybara'
   gem 'growl'
+  gem 'ruby_parser'
+  gem 'gettext', '>= 1.9.3', :require => false
 end
 
 group :production do
