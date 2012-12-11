@@ -1,12 +1,17 @@
 %div.stats.well
-  %h2 Most wanted gems
+  %h2 
+    = @page_most_wanted_gems
   %table.table.table-striped.table-condensed
     %thead
       %tr
-        %th Gem
-        %th Version
-        %th Wanted by
-        %th Downloads
+        %th 
+          = @page_gem
+        %th 
+          = @page_version
+        %th 
+          = @page_wanted_by
+        %th
+          = @page_downloads
     %tbody
       - @wanted_gems.each do |gem|
         %tr
