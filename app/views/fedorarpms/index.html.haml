@@ -24,7 +24,7 @@
         %td= rpm.last_commit_date.nil? ? '' : time_ago_in_words(rpm.last_commit_date) + " ago"
         %td= rpm.patched?
         / %td= link_to rpm.ruby_gem.name, rubygem_path(rpm.ruby_gem.name) if rpm.ruby_gem != nil
-        - if rpm.fedora_user.split("@").first != nil
+        - if rpm.fedora_user && rpm.fedora_user.split("@").first != nil
           %td= link_to rpm.obfuscated_fedora_user, fedorarpm_path(rpm.fedora_user.split("@").first + "/by_owner")
         - else
           %td= ""
