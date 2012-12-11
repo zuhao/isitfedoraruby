@@ -47,7 +47,7 @@ class FedorarpmsController < ApplicationController
 private
 
   def sort_column
-    %w[name commits last_commit_date].include?(params[:sort]) ? params[:sort] : "name"
+    %w[name commits last_commit_date fedora_user].include?(params[:sort]) ? params[:sort] : "name"
   end
 
   def sort_direction

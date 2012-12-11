@@ -11,7 +11,7 @@
       %th= sortable "commits", "Git Commits"
       %th= sortable "last_commit_date", "Last Commit"
       %th= "Upstream Source Patched?"
-      %th= "Maintainer"
+      %th= sortable "fedora_user", "Maintainer"
 
   %tbody
     - @rpms.each do |rpm|
