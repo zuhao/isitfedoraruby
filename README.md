@@ -18,6 +18,8 @@ Make sure you import the full lists of gems and rpms first, by running the follo
 
 `rake database:import_rpms[refresh_list]` to import Fedora Rpm list (without metadata).
 
+Do this regularly to have any new gems and/or rpms imported.
+
 ### Step 2 ###
 
 Import gems and rpms in batches (recommended).
