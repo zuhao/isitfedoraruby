@@ -4,6 +4,23 @@ class StatsController < ApplicationController
     @gems = RubyGem.order('downloads desc').limit(10)
   end
 
+  def user_rpms_data
+    @name = params[:stat_id]
+    @rpms = FedoraRpm.where("fedora_user LIKE ?", @name + "@%")
+    respond_to do |format|
+      format.json { render json: @rpms.to_json }
+    end
+  end
+
+  def user_rpms
+    @name = params[:stat_id]
+    @rpms = FedoraRpm.where("fedora_user LIKE ?", @name + "@%")
+    @rpms_json = @rpms.to_json
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def gemfile_tool
     if params[:gemfile]
       @gemfile = params[:gemfile]
