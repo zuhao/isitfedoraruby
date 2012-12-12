@@ -31,7 +31,6 @@
   node = selection.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")"; });
-  fill = d3.scale.category20c();
   node.append("circle")
       .attr("r", function(d) { return d.r; })
       .style("fill", function(d) { return color(d.name); });
