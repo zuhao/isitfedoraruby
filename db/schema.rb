@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121208152321) do
+ActiveRecord::Schema.define(:version => 20121212173207) do
 
   create_table "bugs", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,14 @@ ActiveRecord::Schema.define(:version => 20121208152321) do
     t.integer  "ruby_gem_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+  end
+
+  create_table "historical_gems", :force => true do |t|
+    t.integer  "gem_id"
+    t.string   "version"
+    t.string   "build_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rpm_comments", :force => true do |t|
