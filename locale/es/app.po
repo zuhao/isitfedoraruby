@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Nicolás Satragno <nsatragno@gnome.org>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: version 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-11 17:04-0300\n"
+"PO-Revision-Date: 2012-12-11 17:08-0300\n"
+"Last-Translator: Nicolás Satragno <nsatragno@gnome.org>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.5\n"
+
+msgid "Commits"
+msgstr "Cambios"
+
+msgid "Downloads"
+msgstr "Descargas"
+
+msgid "Gem"
+msgstr "Gema"
+
+msgid "Git commits"
+msgstr "Cambios en git"
+
+msgid "Is It Fedora Ruby"
+msgstr "Es Fedora Ruby"
+
+msgid "Most popular RPMs"
+msgstr "RPMs más populares"
+
+msgid "Most popular gems"
+msgstr "Gemas más populares"
+
+msgid "Most recent RPMs"
+msgstr "RPMs más recientes"
+
+msgid "Most wanted gems"
+msgstr "Gemas más requeridas"
+
+msgid "New: compare your gem file against Fedora!"
+msgstr "Nuevo: ¡compare su archivo de gema con Fedora!"
+
+msgid "RPM"
+msgstr "RPM"
+
+msgid "RPM Version"
+msgstr "Versión del RPM"
+
+msgid "Rawhide"
+msgstr "Rawhide"
+
+msgid "This is the homepage for the isitfedoraruby web application."
+msgstr "Esta es la página principal de la aplicación web isitfedoraruby"
+
+msgid "Updated"
+msgstr "Actualizado"
+
+msgid "Upstream"
+msgstr "Upstream"
+
+msgid "Version"
+msgstr "Versión"
+
+msgid "Wanted by"
+msgstr "Requerido por"
+
+msgid "Welcome"
+msgstr "Bienvenido"
