@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nohup $OPENSHIFT_REPO_DIR/script/update_db

@@ -11,6 +11,7 @@
       %th= sortable "commits", "Git Commits"
       %th= sortable "last_commit_date", "Last Commit"
       %th= "Upstream Source Patched?"
+      %th= sortable "fedora_user", "Maintainer"
 
   %tbody
     - @rpms.each do |rpm|
@@ -21,8 +22,13 @@
         %td= rpm.upto_date? ? 'Yes' : 'No'
         %td= rpm.commits
         %td= rpm.last_commit_date.nil? ? '' : time_ago_in_words(rpm.last_commit_date) + " ago"
-        %td= rpm.patched?
+        %td= rpm.patched? ?  link_to(image_tag("True.svg.med.png", :size => "15x20")) : link_to(image_tag("False.svg.med.png", :size => "15x20"))
         / %td= link_to rpm.ruby_gem.name, rubygem_path(rpm.ruby_gem.name) if rpm.ruby_gem != nil
+        - if rpm.fedora_user && rpm.fedora_user.split("@").first != nil
+          %td= link_to rpm.obfuscated_fedora_user, fedorarpm_path(rpm.fedora_user.split("@").first + "/by_owner")
+        - else
+          %td= ""
+        
 
 %div.pagination
   = will_paginate @rpms

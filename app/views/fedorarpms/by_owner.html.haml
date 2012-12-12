@@ -1,0 +1,19 @@
+%div.page-header
+  %h1 All Fedora Rpms maintained by #{@name}
+
+%table.table.table-striped.table-condensed
+  %thead
+    %tr
+      %th= sortable "Rpm"
+      %th= "Upstream"
+      %th= "Rawhide"
+      %th= "Git Commits"
+
+  %tbody
+    - @rpms.each do |rpm|
+      %tr
+        %td= link_to rpm.name, fedorarpm_path(rpm.name)
+        %td= rpm.ruby_gem.version if rpm.ruby_gem
+        %td= rpm.version_for 'rawhide'
+        %td= rpm.commits
+

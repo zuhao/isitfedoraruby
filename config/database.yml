@@ -6,12 +6,12 @@ development:
 
 test:
   adapter: sqlite3
-  database: db/test.sqlite3
+  database: db/test.sqlite3 #This points to the test db which we have in the repo
   pool: 5
   timeout: 5000
 
 production:
   adapter: sqlite3
-  database: db/production.sqlite3
+  database: <%=ENV['OPENSHIFT_DATA_DIR']%>production.sqlite3 #This points to the persistent data folder in OpenShift
   pool: 5
   timeout: 5000

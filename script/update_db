@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ `date +%H` == "02" ]
+then
+    	export RAILS_ENV="production"
+	echo "Starting cron update" > $OPENSHIFT_DATA_DIR/last_update.log
+	echo "Cron update script running..."
+
+	echo "Updating gem list..." >> $OPENSHIFT_DATA_DIR/last_update.log
+	rake "database:import_gems[refresh_list]" >> $OPENSHIFT_DATA_DIR/last_update.log 2>&1
+
+	echo "Updating RPMs list..." >> $OPENSHIFT_DATA_DIR
+	rake "database:import_rpms[refresh_list]" >> $OPENSHIFT_DATA_DIR/last_update.log 2>&1
+
+	echo "Updating gems..." >> $OPENSHIFT_DATA_DIR/last_update.log
+	rake "database:update_gems[all, 2]" >> $OPENSHIFT_DATA_DIR/last_update.log 2>&1
+
+	echo "Updating RPMs..." >> $OPENSHIFT_DATA_DIR/last_update.log
+	rake "database:update_rpms[all, 2]" >> $OPENSHIFT_DATA_DIR/last_update.log 2>&1
+
+	echo "Done!" >> $OPENSHIFT_DATA_DIR/last_update.log
+fi

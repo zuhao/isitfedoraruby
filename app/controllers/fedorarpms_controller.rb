@@ -38,11 +38,16 @@ class FedorarpmsController < ApplicationController
       format.json { render :json => @rpm.json_dependents }
     end
   end
+  
+  def by_owner
+    @name = params[:id]
+    @rpms = FedoraRpm.where("fedora_user LIKE ?", @name + "@%")
+  end
 
 private
 
   def sort_column
-    %w[name commits last_commit_date].include?(params[:sort]) ? params[:sort] : "name"
+    %w[name commits last_commit_date fedora_user].include?(params[:sort]) ? params[:sort] : "name"
   end
 
   def sort_direction
