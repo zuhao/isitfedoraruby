@@ -9,7 +9,7 @@ then
 	echo "Updating gem list..." >> $OPENSHIFT_DATA_DIR/last_update.log
 	rake "database:import_gems[refresh_list]" >> $OPENSHIFT_DATA_DIR/last_update.log 2>&1
 
-	echo "Updating RPMs list..." >> $OPENSHIFT_DATA_DIR
+	echo "Updating RPMs list..." >> $OPENSHIFT_DATA_DIR/last_update.log
 	rake "database:import_rpms[refresh_list]" >> $OPENSHIFT_DATA_DIR/last_update.log 2>&1
 
 	echo "Updating gems..." >> $OPENSHIFT_DATA_DIR/last_update.log
