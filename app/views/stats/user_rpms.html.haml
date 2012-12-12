@@ -6,6 +6,7 @@
 
 :javascript
   var r = 700
+    color = d3.scale.category20c();
   var bubble_layout = d3.layout.pack()
       .sort(null)
       .size([r,r])
@@ -30,9 +31,10 @@
   node = selection.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")"; });
+  fill = d3.scale.category20c();
   node.append("circle")
       .attr("r", function(d) { return d.r; })
-      .style("fill", function(d) { return (Math.floor((Math.random()*210)+45).toString(16))+(Math.floor((Math.random()*210)+45).toString(16))+(Math.floor((Math.random()*210)+45).toString(16)); });
+      .style("fill", function(d) { return color(d.name); });
 
   node.append("text")
       .on("click", function(d, i) { window.location = '/fedorarpms/rubygem-' + d.name; })
