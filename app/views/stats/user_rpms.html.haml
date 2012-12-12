@@ -20,23 +20,24 @@
   arr = [];
   for (i = 0; i < array.length; i++)
   {
-
-    arr[i] = { "name": array[i]["name"], "value": array[i]["commits"]}
+    arr[i] = { "name": array[i]["name"].split("rubygem-")[1], "value": array[i]["commits"]}
   }
+
 
   var selection = vis.selectAll("g.node")
                 .data(bubble_layout.nodes({children: arr}).filter(function(d) { return !d.children; }) ); 
-
   //Enter
   node = selection.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")"; });
-
   node.append("circle")
       .attr("r", function(d) { return d.r; })
-      .style("fill", function(d) { return color("hi"); });
+      .style("fill", function(d) { return (Math.floor((Math.random()*210)+45).toString(16))+(Math.floor((Math.random()*210)+45).toString(16))+(Math.floor((Math.random()*210)+45).toString(16)); });
 
   node.append("text")
+      .on("click", function(d, i) { window.location = '/fedorarpms/rubygem-' + d.name; })
+      .on("mouseover", function() { document.body.style.cursor = 'pointer'; })
+      .on("mouseout", function() { document.body.style.cursor = 'default'; })
       .attr("text-anchor", "middle")
       .attr("dy", ".3em")
       .style("font-color", "FFF")
