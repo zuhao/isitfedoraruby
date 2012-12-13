@@ -1,17 +1,12 @@
 %div.stats.well
-  %h2 
-    = @page_most_popular_gems
+  %h2 Most popular gems
   %table.table.table-striped.table-condensed
     %thead
       %tr
-        %th
-          = @page_gem
-        %th 
-          = @page_version
-        %th 
-          = @page_rpm_version
-        %th
-          = @page_downloads
+        %th Gem
+        %th Version
+        %th Rpm Version
+        %th Downloads
     %tbody
       - @popular_gems.each do |gem|
         %tr

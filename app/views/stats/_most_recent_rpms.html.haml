@@ -1,17 +1,12 @@
 %div.stats.well
-  %h2 
-    = @page_most_recent_rpms
+  %h2 Most recent rpms
   %table.table.table-striped.table-condensed
     %thead
       %tr
-        %th
-          = @page_rpm
-        %th
-          = @page_version
-        %th
-          = @page_commits
-        %th 
-          = @page_updated
+        %th Rpm
+        %th Version
+        %th Commits
+        %th Updated
     %tbody
       - @recent_rpms.each do |rpm|
         %tr

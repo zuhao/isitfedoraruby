@@ -1,17 +1,12 @@
 %div.stats.well
-  %h2 
-    = @page_most_popular_rpms
+  %h2 Most popular rpms
   %table.table.table-striped.table-condensed
     %thead
       %tr
-        %th
-          = @page_rpm
-        %th
-          = @page_upstream
-        %th
-          = @page_rawhide
-        %th 
-          = @page_git_commits
+        %th Rpm
+        %th Upsteam
+        %th Rawhide
+        %th Git Commits
     %tbody
       - @popular_rpms.each do |rpm|
         %tr
