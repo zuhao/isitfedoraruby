@@ -180,7 +180,10 @@ class FedoraRpm < ActiveRecord::Base
     bugs = doc.xpath("//td[@class='bz_short_desc_column']/a").collect { |bz| [bz.attr('href').gsub('show_bug.cgi?id=', ''), bz.text.strip] }
     bugs.each { |bug|
       update = doc.xpath("//tr[@id='b#{bug.first}']//td[@class='bz_changeddate_column']").text
-      arb = Bug.new :name => bug.last, :bz_id => bug.first, :last_updated => update
+      arb = Bug.new 
+      arb.name = bug.last
+      arb.bz_id = bug.first
+      arb.last_updated = update
       arb.is_review = true if arb.name =~ /^Review Request.*#{name}\s.*$/
       self.bugs << arb
     }
