@@ -1,12 +1,17 @@
 %div.stats.well
-  %h2 Most recent rpms
+  %h2 
+    = _('Most recent rpms')
   %table.table.table-striped.table-condensed
     %thead
       %tr
-        %th Rpm
-        %th Version
-        %th Commits
-        %th Updated
+        %th
+          = _('Rpm')
+        %th
+          = _('Version')
+        %th
+          = _('Commits')
+        %th
+          = _('Updated')
     %tbody
       - @recent_rpms.each do |rpm|
         %tr

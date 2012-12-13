@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-13 12:00-0300\n"
-"PO-Revision-Date: 2012-12-11 17:08-0300\n"
+"POT-Creation-Date: 2012-12-13 12:14-0300\n"
+"PO-Revision-Date: 2012-12-13 12:40-0300\n"
 "Last-Translator: Nicolás Satragno <nsatragno@gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -19,59 +19,80 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.5\n"
 
-#~ msgid "Commits"
-#~ msgstr "Cambios"
+msgid "This is the home page for the Is It Fedora Ruby web application"
+msgstr "Esta es la página principal de la aplicación web Is It Fedora Ruby"
 
-#~ msgid "Downloads"
-#~ msgstr "Descargas"
+msgid "*new* compare your Gemfile against Fedora"
+msgstr "*nuevo* compare su Gemfile con Fedora"
 
-#~ msgid "Gem"
-#~ msgstr "Gema"
+msgid "Gem"
+msgstr "Gema"
 
-#~ msgid "Git commits"
-#~ msgstr "Cambios en git"
+msgid "Version"
+msgstr "Versión"
 
-#~ msgid "Is It Fedora Ruby"
-#~ msgstr "Es Fedora Ruby"
+msgid "Rpm Version"
+msgstr "Versión del Rpm"
 
-#~ msgid "Most popular RPMs"
-#~ msgstr "RPMs más populares"
+msgid "Downloads"
+msgstr "Descargas"
 
-#~ msgid "Most popular gems"
-#~ msgstr "Gemas más populares"
+msgid "Rpm"
+msgstr "Rpm"
 
-#~ msgid "Most recent RPMs"
-#~ msgstr "RPMs más recientes"
+msgid "Upstream"
+msgstr "Upstream"
 
-#~ msgid "Most wanted gems"
-#~ msgstr "Gemas más requeridas"
+msgid "Rawhide"
+msgstr "Rawhide"
 
-#~ msgid "New: compare your gem file against Fedora!"
-#~ msgstr "Nuevo: ¡compare su archivo de gema con Fedora!"
+msgid "Git commits"
+msgstr "Cambios en git"
 
-#~ msgid "RPM"
-#~ msgstr "RPM"
+msgid "Commits"
+msgstr "Cambios"
 
-#~ msgid "RPM Version"
-#~ msgstr "Versión del RPM"
+msgid "Updated"
+msgstr "Actualizado"
 
-#~ msgid "Rawhide"
-#~ msgstr "Rawhide"
+msgid "Wanted by"
+msgstr "Requerido por"
 
-#~ msgid "This is the homepage for the isitfedoraruby web application."
-#~ msgstr "Esta es la página principal de la aplicación web isitfedoraruby"
+msgid "Most wanted gems"
+msgstr "Gemas más requeridas"
 
-#~ msgid "Updated"
-#~ msgstr "Actualizado"
+msgid "Most popular rpms"
+msgstr "Rpms más populares"
 
-#~ msgid "Upstream"
-#~ msgstr "Upstream"
+msgid "Most recent rpms"
+msgstr "Rpms más recientes"
 
-#~ msgid "Version"
-#~ msgstr "Versión"
+msgid "Most popular gems"
+msgstr "Gemas más populares"
 
-#~ msgid "Wanted by"
-#~ msgstr "Requerido por"
+msgid "Is It Fedora Ruby on Github"
+msgstr "Is It Fedora Ruby en Github"
 
-#~ msgid "Welcome"
-#~ msgstr "Bienvenido"
+msgid "About"
+msgstr "Acerca de"
+
+msgid "Contact"
+msgstr "Contacto"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "Ruby Gems"
+msgstr "Gemas de Ruby"
+
+msgid "Fedora Rpms"
+msgstr "Rpms de Fedora"
+
+msgid "Success Stories"
+msgstr "Historias de éxito"
+
+msgid "Contribute"
+msgstr "Contribuir"
+
+msgid "Search"
+msgstr "Buscar"

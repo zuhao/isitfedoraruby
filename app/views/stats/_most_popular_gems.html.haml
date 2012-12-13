@@ -1,12 +1,17 @@
 %div.stats.well
-  %h2 Most popular gems
+  %h2 
+    = _('Most popular gems')
   %table.table.table-striped.table-condensed
     %thead
       %tr
-        %th Gem
-        %th Version
-        %th Rpm Version
-        %th Downloads
+        %th 
+          = _('Gem')
+        %th 
+          = _('Version')
+        %th 
+          = _('Rpm Version')
+        %th
+          = _('Downloads')
     %tbody
       - @popular_gems.each do |gem|
         %tr

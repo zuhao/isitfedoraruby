@@ -4,12 +4,12 @@
       #logo= link_to 'FedoraRuby', root_path
       %nav
         %ul.nav.pull-right
-          %li= link_to 'Home', root_path
-          %li= link_to 'Ruby Gems', rubygems_path
-          %li= link_to 'Fedora Rpms', fedorarpms_path
-          %li= link_to 'Success Stories', successes_path
-          %li= link_to 'Contribute', contribute_path
+          %li= link_to _('Home'), root_path
+          %li= link_to _('Ruby Gems'), rubygems_path
+          %li= link_to _('Fedora Rpms'), fedorarpms_path
+          %li= link_to _('Success Stories'), successes_path
+          %li= link_to _('Contribute'), contribute_path
           %li
             = form_tag( { :controller => 'searches', :action => 'index' }, :class => 'form-search') do
               = text_field_tag :search, params[:search] ||= '', :id => 'search_field', :class => 'input-medium search-query'
-              = submit_tag "Search", :name => nil, :class => 'btn btn-primary'
+              = submit_tag _("Search"), :name => nil, :class => 'btn btn-primary'

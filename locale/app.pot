@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-13 12:00-0300\n"
-"PO-Revision-Date: 2012-12-11 16:29-0300\n"
+"POT-Creation-Date: 2012-12-13 12:14-0300\n"
+"PO-Revision-Date: 2012-12-13 12:14-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,3 +17,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+msgid "This is the home page for the Is It Fedora Ruby web application"
+msgstr ""
+
+msgid "*new* compare your Gemfile against Fedora"
+msgstr ""
+
+msgid "Gem"
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Rpm Version"
+msgstr ""
+
+msgid "Downloads"
+msgstr ""
+
+msgid "Rpm"
+msgstr ""
+
+msgid "Upstream"
+msgstr ""
+
+msgid "Rawhide"
+msgstr ""
+
+msgid "Git commits"
+msgstr ""
+
+msgid "Commits"
+msgstr ""
+
+msgid "Updated"
+msgstr ""
+
+msgid "Wanted by"
+msgstr ""
+
+msgid "Most wanted gems"
+msgstr ""
+
+msgid "Most popular rpms"
+msgstr ""
+
+msgid "Most recent rpms"
+msgstr ""
+
+msgid "Most popular gems"
+msgstr ""
+
+msgid "Is It Fedora Ruby on Github"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "Ruby Gems"
+msgstr ""
+
+msgid "Fedora Rpms"
+msgstr ""
+
+msgid "Success Stories"
+msgstr ""
+
+msgid "Contribute"
+msgstr ""
+
+msgid "Search"
+msgstr ""
