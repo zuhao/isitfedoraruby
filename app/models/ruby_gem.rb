@@ -10,6 +10,7 @@ class RubyGem < ActiveRecord::Base
                         :group => 'ruby_gems.id',
                         :order => 'count(gem_comments.id) desc' }
   scope :most_popular, :order => 'downloads desc'
+  has_many :historical_gems, :foreign_key => :gem_id
 
   # FIXME version metadata should be stored in local db
   attr_accessor :versions

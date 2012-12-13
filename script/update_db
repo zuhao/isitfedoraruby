@@ -5,6 +5,7 @@ then
     	export RAILS_ENV="production"
 	echo "Starting cron update" > $OPENSHIFT_DATA_DIR/last_update.log
 	echo "Cron update script running..."
+	cd $OPENSHIFT_REPO_DIR	#Cron runs the job in some other place
 
 	echo "Updating gem list..." >> $OPENSHIFT_DATA_DIR/last_update.log
 	rake "database:import_gems[refresh_list]" >> $OPENSHIFT_DATA_DIR/last_update.log 2>&1
