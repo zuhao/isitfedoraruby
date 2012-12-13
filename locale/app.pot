@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-11 17:04-0300\n"
+"POT-Creation-Date: 2012-12-13 12:00-0300\n"
 "PO-Revision-Date: 2012-12-11 16:29-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,60 +17,3 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-msgid "Commits"
-msgstr ""
-
-msgid "Downloads"
-msgstr ""
-
-msgid "Gem"
-msgstr ""
-
-msgid "Git commits"
-msgstr ""
-
-msgid "Is It Fedora Ruby"
-msgstr ""
-
-msgid "Most popular RPMs"
-msgstr ""
-
-msgid "Most popular gems"
-msgstr ""
-
-msgid "Most recent RPMs"
-msgstr ""
-
-msgid "Most wanted gems"
-msgstr ""
-
-msgid "New: compare your gem file against Fedora!"
-msgstr ""
-
-msgid "RPM"
-msgstr ""
-
-msgid "RPM Version"
-msgstr ""
-
-msgid "Rawhide"
-msgstr ""
-
-msgid "This is the homepage for the isitfedoraruby web application."
-msgstr ""
-
-msgid "Updated"
-msgstr ""
-
-msgid "Upstream"
-msgstr ""
-
-msgid "Version"
-msgstr ""
-
-msgid "Wanted by"
-msgstr ""
-
-msgid "Welcome"
-msgstr ""
