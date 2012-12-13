@@ -1,5 +1,6 @@
 %div.page-header
   %h1 All Fedora Rpms maintained by #{@name}
+  %h2= link_to 'See it in a nice bubble chart', stats_path + "/" + @name + "/user_rpms"
 
 %table.table.table-striped.table-condensed
   %thead

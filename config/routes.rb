@@ -29,7 +29,7 @@ Isitfedoraruby::Application.routes.draw do
     post :import, :on => :collection
   end
 
-  resources :stats do
+  resources :stats, :constraints => { :id => /.*/ } do
     get :gemfile_tool, :on => :collection
     get :user_rpms
     get :user_rpms_data
