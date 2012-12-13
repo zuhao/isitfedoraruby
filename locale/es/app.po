@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-13 12:14-0300\n"
-"PO-Revision-Date: 2012-12-13 12:40-0300\n"
+"PO-Revision-Date: 2012-12-13 16:21-0300\n"
 "Last-Translator: Nicolás Satragno <nsatragno@gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -96,3 +96,30 @@ msgstr "Contribuir"
 
 msgid "Search"
 msgstr "Buscar"
+
+msgid "All Fedora Rpms"
+msgstr "Todos los Rpms de Fedora"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Up to date?"
+msgstr "¿Actualizado?"
+
+msgid "Git Commits"
+msgstr "Cambios en git"
+
+msgid "Last Commit"
+msgstr "Último cambio"
+
+msgid "Upstream Source Patched?"
+msgstr "¿Fuente de upstream parcheada?"
+
+msgid "Maintainer"
+msgstr "Mantenedor"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"

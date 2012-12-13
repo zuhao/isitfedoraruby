@@ -94,3 +94,47 @@ msgstr ""
 
 msgid "Search"
 msgstr ""
+
+msgid "All Fedora Rpms"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Up to date?"
+msgstr ""
+
+msgid "Git Commits"
+msgstr ""
+
+msgid "Last Commit"
+msgstr ""
+
+msgid "Upstream Source Patched?"
+msgstr ""
+
+msgid "Maintainer"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+
