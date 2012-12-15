@@ -54,7 +54,7 @@ Nicolás Satragno is currently working on this
 - [ ] Fill how to contribute page (fork repo, make pull request, join #fedora-ruby on freenode, etc)
 
 ** TODO Add some nice 404, 503, etc. pages
-- You can find them in "public" folder
+- Animesh, Kendhia are currently working on these
 
 ** TODO Add decent robots.txt 
 
@@ -68,3 +68,24 @@ Nicolás Satragno is currently working on this
 -> Example: http://www.isitfedoraruby.com/fedorarpms/non-existent-rpm
 - [ ] Make a "non-existent-rpm" RPM does not exist sign
 - [ ] It would be totally awesome to have a "did you mean...?" sign
+
+** TODO improve import mechanism
+- Instead of scraping websites, we should use the APIs for git, bugzilla,
+  koji, fedora, and more
+
+** TODO start writing tests for application
+
+** TODO flush out batch gem conversion mechanism
+- The user should be able to convert a gem and all its dependencies
+  to rpms and setup a publically accessible yum repository with one
+  click of a button
+- May require improvements to gem2rpm
+
+** TODO flush out automated conversion mechanism
+- We can hook into the rubygems API to automatically run commands
+  such as gem2rpm on gem updates
+- May require improvements to gem2rpm
+
+** TODO gamification: implement badges for a maintainers contributions
+
+** TODO writeup content for the success stories and contribute sections
