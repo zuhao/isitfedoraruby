@@ -4,19 +4,19 @@
   %label= link_to 'Source Code URI', @gem.source_uri if @gem.source_uri != nil
   - if @gem.fedora_rpm != nil
     %span.label.label-info= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.name)
-  %label= "Wantedness: #{@gem.wantedness}%"
-  %label= "Version: #{@gem.version}"
-  %label= "Total Downloads: #{number_with_delimiter(@gem.downloads)}"
-  %label= "Description:"
-  %label= @gem.description.blank? ? "#{@gem.name} does not have a description yet" : @gem.description
+  %label= _('Wantedness: %{gem_wantedness}') % { :gem_wantedness => @gem.wantedness }
+  %label= _('Version: %{gem_version}') % { :gem_version => @gem.version}
+  %label= _('Total Downloads: %{total_downloads_number}') % { :total_downloads_number => number_with_delimiter(@gem.downloads) }
+  %label= _('Description:')
+  %label= @gem.description.blank? ? _('%{gem_name} does not have a description yet') % { :gem_name => @gem.name} : @gem.description
 
-  %label= "Depends on:"
+  %label= _('Depends on:')
 
   %table.table.table-striped.table-condensed.dependency
     %thead
       %tr
-        %th Package
-        %th Gem Version
+        %th= _('Package')
+        %th= _('Gem Version')
         -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
           %th= t
     %tbody

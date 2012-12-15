@@ -1,7 +1,7 @@
 .d3_chart_container
-  %h1= "Bubble Chart:"
-  %h2= "This graph shows the packages, which are represented by circles, that the user #{@name} owns."
-  %h2= "The size of each circle is proportional to the number of commits for that package."
+  %h1= _('Bubble Chart:')
+  %h2= _('This graph shows the packages, which are represented by circles, that the user %{user_name} owns.') % { :user_name => @name }
+  %h2= _('The size of each circle is proportional to the number of commits for that package.')
   #chart
 
 :javascript

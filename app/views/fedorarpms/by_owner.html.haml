@@ -1,14 +1,14 @@
 %div.page-header
-  %h1 All Fedora Rpms maintained by #{@name}
-  %h2= link_to 'See it in a nice bubble chart', stats_path + "/" + @name + "/user_rpms"
+  %h1= _('All Fedora Rpms maintained by %{name}') % { :name => @name}
+  %h2= link_to _('See it in a nice bubble chart'), stats_path + "/" + @name + "/user_rpms"
 
 %table.table.table-striped.table-condensed
   %thead
     %tr
-      %th= sortable "Rpm"
-      %th= "Upstream"
-      %th= "Rawhide"
-      %th= "Git Commits"
+      %th= sortable _('Rpm')
+      %th= _('Upstream')
+      %th= _('Rawhide')
+      %th= _('Git Commits')
 
   %tbody
     - @rpms.each do |rpm|

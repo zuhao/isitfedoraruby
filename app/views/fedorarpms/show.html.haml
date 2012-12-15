@@ -1,30 +1,30 @@
 %h1= @rpm.name
 %div.info
-  %label= link_to 'Homepage URI', @rpm.homepage if @rpm.homepage != nil
-  %label= link_to 'Source Code URI', @rpm.source_uri if @rpm.source_uri != nil
-  %label= link_to 'Dependency Tree', :controller => 'fedorarpms', :action => 'full_deps'
+  %label= link_to _('Homepage URI'), @rpm.homepage if @rpm.homepage != nil
+  %label= link_to _('Source Code URI'), @rpm.source_uri if @rpm.source_uri != nil
+  %label= link_to _('Dependency Tree'), :controller => 'fedorarpms', :action => 'full_deps'
   - if @rpm.ruby_gem != nil
-    %span.label.label-info= link_to 'RubyGem', rubygem_path(@rpm.ruby_gem.name)
-  %label= "Hotness: #{@rpm.hotness}%"
+    %span.label.label-info= link_to _('RubyGem'), rubygem_path(@rpm.ruby_gem.name)
+  %label= _("Hotness: %{rpm_hotness}%") % { :rpm_hotness => @rpm.hotness}
   %label
-    = "Up to date: "
+    = _('Up to date: ')
     - if @rpm.upto_date?
-      %span.label.label-success= 'Yes'
+      %span.label.label-success= _('Yes')
     - else
-      %span.label.label-important= 'No'
-    - if @rpm.fedora_user != ""
-      %p Maintainer: #{link_to @rpm.obfuscated_fedora_user, fedorarpm_path(@rpm.fedora_user.split("@").first + "/by_owner") if @rpm.fedora_user != nil}
-  %label= "Versions: #{@rpm.versions}"
-  %label= "Git Commits: #{@rpm.commits}"
-  %label= "Depends on:"
+      %span.label.label-important= _('No')
+    - if @rpm.fedora_user != nil
+      %p= link_to _('Maintainer: %{maintainer_email}') % { :maintainer_email => @rpm.obfuscated_fedora_user }, fedorarpm_path(@rpm.fedora_user.split("@").first + "/by_owner")
+  %label= _('Versions: %{rpm_versions}') % { :rpm_versions => @rpm.versions}
+  %label= _('Git Commits: %{rpm_commits}') % { :rpm_commits => @rpm.commits}
+  %label= _('Depends on:')
 
   %table.table.table-striped.table-condensed.dependency
     %thead
       %tr
-        %th Package
+        %th= _('Package')
         -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
           %th= t
-        %th Gem Version
+        %th= _('Gem Version')
     %tbody
       - @dependencies.each do |d|
         %tr
@@ -33,13 +33,13 @@
             %td= d.version_for(t)
           %td= d.ruby_gem.version
 
-  %label= "Bugs:"
+  %label= _('Bugs:')
   %table.table.table-striped.table-condensed.dependency
     %thead
       %tr
         %th BZ
-        %th Title
-        %th Review?
+        %th= _('Title')
+        %th= _('Review?')
     %tbody
       - @rpm.bugs.each do |b|
         %tr
@@ -50,12 +50,12 @@
           %td
             = b.is_review
 
-  %label= "Builds:"
+  %label= _('Builds:')
   %table.table.table-striped.table-condensed.dependency
     %thead
       %tr
-        %th Build ID
-        %th Title
+        %th= _('Build ID')
+        %th= _('Title')
     %tbody
       - @rpm.builds.each do |b|
         %tr

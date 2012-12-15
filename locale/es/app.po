@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-13 12:14-0300\n"
-"PO-Revision-Date: 2012-12-13 16:21-0300\n"
+"PO-Revision-Date: 2012-12-13 23:52-0300\n"
 "Last-Translator: Nicolás Satragno <nsatragno@gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -123,3 +123,162 @@ msgstr "Sí"
 
 msgid "No"
 msgstr "No"
+
+msgid "%{time_ago} ago"
+msgstr "Hace %{time_ago}"
+
+msgid "Homepage URI"
+msgstr "URI de la página principal"
+
+msgid "Source Code URI"
+msgstr "URI del código fuente"
+
+msgid "Dependency Tree"
+msgstr "Árbol de dependencias"
+
+msgid "RubyGem"
+msgstr "RubyGem"
+
+msgid "Hotness: %{rpm_hotness}%"
+msgstr "Popularidad: %{rpm_hotness}%"
+
+msgid "Up to date: "
+msgstr "Actualizada:"
+
+msgid "Maintainer: %{maintainer_email}"
+msgstr "Mantenedor: %{maintainer_email}"
+
+msgid "Versions: %{rpm_versions}"
+msgstr "Versión: %{rpm_versions}"
+
+msgid "Git Commits: %{rpm_commits}"
+msgstr "Cambios en git: %{rpm_commits}"
+
+msgid "Depends on:"
+msgstr "Depende de:"
+
+msgid "Package"
+msgstr "Paquete"
+
+msgid "Gem Version"
+msgstr "Versión de la gema"
+
+msgid "Bugs:"
+msgstr "Errores:"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Review?"
+msgstr "¿Revisión?"
+
+msgid "Builds:"
+msgstr "Construcciones:"
+
+msgid "Build ID"
+msgstr "ID de construcción"
+
+msgid "Dependent Packages:"
+msgstr "Paquetes dependientes:"
+
+msgid "All Fedora Rpms maintained by %{name}"
+msgstr "Todos los Rpms de Fedora mantenidos por %{name}"
+
+msgid "See it in a nice bubble chart"
+msgstr "Véalo en un lindo gráfico de burbujas"
+
+msgid "Gem / Fedora Version"
+msgstr "Gema / Versión de Fedora"
+
+msgid "Bubble Chart:"
+msgstr "Gráfico de burbujas:"
+
+msgid "This graph shows the packages, which are represented by circles, that the user %{user_name} owns."
+msgstr "Este gráfico muestra los paquetes, que están representados por círculos, que le pertenecen al usuario %{user_name}"
+
+msgid "The size of each circle is proportional to the number of commits for that package."
+msgstr "El tamaño de cada círculo es proporcional al número de commits para ese paquete"
+
+msgid "Test your Gemfile or Gemfile.lock against Fedora"
+msgstr "Pruebe su Gemfile o Gemfile.lock en Fedora"
+
+msgid "Upload it"
+msgstr "Súbalo"
+
+msgid "or Paste it"
+msgstr "o péguelo"
+
+msgid "upload"
+msgstr "subir"
+
+msgid "submit"
+msgstr "enviar"
+
+msgid "Back"
+msgstr "Atrás"
+
+msgid "All Ruby Gems"
+msgstr "Todas las gemas de Ruby"
+
+msgid "Fedora Rpm"
+msgstr "Rpm de Fedora"
+
+msgid "Wantedness: %{gem_wantedness}"
+msgstr "Se requiere: %{gem_wantedness}"
+
+msgid "Version: %{gem_version}"
+msgstr "Versión: %{gem_version}"
+
+msgid "Total Downloads: %{total_downloads_number}"
+msgstr "Descargas totales: %{total_downloads_number}"
+
+msgid "Description:"
+msgstr "Descripción:"
+
+msgid "%{gem_name} does not have a description yet"
+msgstr "%{gem_name} todavía no tiene una descripción"
+
+msgid "Comments"
+msgstr "Comentarios"
+
+msgid "Name: %{comment_name}"
+msgstr "Nombre: %{comment_name}"
+
+msgid "Email: %{comment_email}"
+msgstr "Correo-e: %{comment_email}"
+
+msgid "Comment:"
+msgstr "Comentario:"
+
+msgid "Email"
+msgstr "Correo-e"
+
+msgid "Add new comment"
+msgstr "Añadir comentario nuevo"
+
+msgid "Yes I want it!"
+msgstr "¡Sí, la quiero!"
+
+msgid "Keep me updated!"
+msgstr "¡Mantenme actualizado!"
+
+msgid "Submit"
+msgstr "Enviar"
+
+msgid "RubyGems -> RPMs"
+msgstr "RubyGems -> RPMs"
+
+msgid "Dependencies:"
+msgstr "Dependencias:"
+
+msgid "build with koji"
+msgstr "construir con koji"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Name of Gem to Import:"
+msgstr "Nombre de la gema que importar:"
+
+msgid "Select verison of gem %{gem_name} to import"
+msgstr "Seleccione la versión de la gema %{gem_name} que importar"

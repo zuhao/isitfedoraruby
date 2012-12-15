@@ -1,27 +1,27 @@
 %div.new.comment
 
-  %h3 Add new comment
+  %h3= _('Add new comment')
 
   - unless flash[:error].nil?
     %div.alert.alert-error= flash[:error]
 
   = form_for :gem_comment, :html => {:class => 'well'} do |f|
-    = f.label :name, 'Name'
+    = f.label :name, _('Name')
     = f.text_field :name
-    = f.label :email, 'Email'
+    = f.label :email, _('Email')
     = f.text_field :email
 
     - unless @gem.has_rpm
       = f.label :want_it do
         = f.check_box :want_it
-        Yes I want it!
+        = _('Yes I want it!')
     = f.label :receive_update do
       = f.check_box :receive_update
-      Keep me updated!
+      = _('Keep me updated!')
 
-    = f.label :text, 'Comment'
+    = f.label :text, s_('Comment')
     = f.text_area :text
 
     = recaptcha_tags :display => {:theme => 'white'}
 
-    = f.submit 'Submit', :class => 'btn btn-primary'
+    = f.submit _('Submit'), :class => 'btn btn-primary'

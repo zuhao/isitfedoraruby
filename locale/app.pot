@@ -122,7 +122,163 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-msgid ""
+msgid "%{time_ago} ago"
+msgstr ""
+
+msgid "Homepage URI"
+msgstr ""
+
+msgid "Source Code URI"
+msgstr ""
+
+msgid "Dependency Tree"
+msgstr ""
+
+msgid "RubyGem"
+msgstr ""
+
+msgid "Hotness: %{rpm_hotness}%"
+msgstr ""
+
+msgid "Up to date: "
+msgstr ""
+
+msgid "Maintainer: %{maintainer_email}"
+msgstr ""
+
+msgid "Versions: %{rpm_versions}"
+msgstr ""
+
+msgid "Git Commits: %{rpm_commits}"
+msgstr ""
+
+msgid "Depends on:"
+msgstr ""
+
+msgid "Package"
+msgstr ""
+
+msgid "Gem Version"
+msgstr ""
+
+msgid "Bugs:"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Review?"
+msgstr ""
+
+msgid "Builds:"
+msgstr ""
+
+msgid "Build ID"
+msgstr ""
+
+msgid "Dependent Packages:"
+msgstr ""
+
+msgid "All Fedora Rpms maintained by %{name}"
+msgstr ""
+
+msgid "See it in a nice bubble chart"
+msgstr ""
+
+msgid "Gem / Fedora Version"
+msgstr ""
+
+msgid "Bubble Chart:"
+msgstr ""
+
+msgid "This graph shows the packages, which are represented by circles, that the user %{user_name} owns."
+msgstr ""
+
+msgid "The size of each circle is proportional to the number of commits for that package."
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Test your Gemfile or Gemfile.lock against Fedora"
+msgstr ""
+
+msgid "Upload it"
+msgstr ""
+
+msgid "or Paste it"
+msgstr ""
+
+msgid "upload"
+msgstr ""
+
+msgid "submit"
+msgstr ""
+
+msgid "All Ruby Gems"
+msgstr ""
+
+msgid "Fedora Rpm"
+msgstr ""
+
+msgid "Wantedness: %{gem_wantedness}"
+msgstr ""
+
+msgid "Version: %{gem_version}"
+msgstr ""
+
+msgid "Total Downloads: %{total_downloads_number}"
+msgstr ""
+
+msgid "Description:"
+msgstr ""
+
+msgid "%{gem_name} does not have a description yet"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+msgid "Name: %{comment_name}"
+msgstr ""
+
+msgid "Email: %{comment_email}"
+msgstr ""
+
+msgid "Comment:"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Add new comment"
+msgstr ""
+
+msgid "Yes I want it!"
+msgstr ""
+
+msgid "Keep me updated!"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "RubyGems -> RPMs"
+msgstr ""
+
+msgid "Dependencies:"
+msgstr ""
+
+msgid "build with koji"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Name of Gem to Import:"
+msgstr ""
+
+msgid "Select verison of gem %{gem_name} to import"
 msgstr ""
 
 msgid ""
@@ -137,4 +293,16 @@ msgstr ""
 msgid ""
 msgstr ""
 
+msgid ""
+msgstr ""
 
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+v

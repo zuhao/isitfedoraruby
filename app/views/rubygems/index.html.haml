@@ -1,13 +1,13 @@
 %div.page-header
-  %h1 All Ruby Gems
+  %h1= _('All Ruby Gems')
 
 %table.table.table-striped.table-condensed
   %thead
     %tr
-      %th= sortable "name"
-      %th Gem Version
-      %th= sortable "downloads"
-      %th Rpm
+      %th= sortable "name", _('Name')
+      %th= _('Gem Version')
+      %th= sortable 'downloads', _('Downloads')
+      %th= _('Rpm')
 
   %tbody
     - @gems.each do |gem|

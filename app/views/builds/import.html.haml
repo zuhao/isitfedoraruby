@@ -1,5 +1,5 @@
 %h2
-  ="RubyGems -> RPMs"
+  = _('RubyGems -> RPMs')
 -if @errors
   - @errors.each do |e|
     .error
@@ -7,11 +7,11 @@
 - if @gem
   -if @version
     = link_to "#{@gem.name} #{@version}", @gem.uri_for_version(@version)
-    = link_to "back", :controller => :builds, :action => :import
+    = link_to _('Back'), :controller => :builds, :action => :import
     %br
     - @packages.each do |p|
       - if @packages.size > 1 && p == @packages[1]
-        Dependencies:
+        _('Dependencies:')
         %br
       Spec File:
       = link_to p[:spec_name], p[:spec_path]
@@ -20,18 +20,18 @@
     %form{:method => :post, :action => :import}
       %input{:type => :hidden, :id => 'gem', :value => @gem.name}
       %input{:type => :hidden, :id => 'version', :value => @version}
-      %input{:type => :button, :value => :"build with koji", :disabled => "true"}
+      %input{:type => :button, :value => _('build with koji'), :disabled => "true"}
 
   -else
-    = "Select verison of gem #{@gem.name} to import"
-    = link_to "back", :controller => :builds, :action => :import
+    = _('Select verison of gem %{gem_name} to import') % { :gem_name => @gem.name}
+    = link_to _('Back'), :controller => :builds, :action => :import
     %form{:method => :post, :action => :import}
       %input{:type => :hidden, :name => 'gem', :value => @gem.name}
       = select_tag :version, options_for_select(@versions.map { |v| [v, v] })
-      %input{:type => :submit, :value => :next}
+      %input{:type => :submit, :value => _('Next')}
 
 -else
-  Name of Gem to Import:
+  = _('Name of Gem to Import:')
   %form{:method => :post, :action => :import}
     %input{:type => :text, :id => 'gem', :name => 'gem'}
-    %input{:type => :submit, :value => :next}
+    %input{:type => :submit, :value => _('Next')}

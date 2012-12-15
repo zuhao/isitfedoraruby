@@ -1,10 +1,10 @@
 %div.comments
-  %h3 Comments
+  %h3= _('Comments')
   - @gem.gem_comments.each do |comment|
     %div.well
-      %label Name: #{comment.name}
-      %label Email: #{comment.email}
+      %label= _('Name: %{comment_name}') % { :comment_name => comment.name}
+      %label= _('Email: %{comment_email}') % { :comment_email => comment.email}
       - if comment.want_it
         %div.alert.alert-success= comment.description
-      %label Comment:
+      %label= _('Comment:')
       %div.comments.text #{comment.text}
