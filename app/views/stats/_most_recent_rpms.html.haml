@@ -10,7 +10,7 @@
     %tbody
       - @recent_rpms.each do |rpm|
         %tr
-          %td= link_to rpm.shortname, fedorarpm_path(rpm.name)
+          %td= link_to rpm.shortname.truncate(25), fedorarpm_path(rpm.name)
           %td= rpm.version_for 'rawhide'
           %td= rpm.commits
           %td= rpm.last_commit_date.nil? ? '' : "#{time_ago_in_words(rpm.last_commit_date)} ago"
