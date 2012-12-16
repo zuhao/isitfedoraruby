@@ -8,7 +8,7 @@ class StatsController < ApplicationController
     @name = params[:stat_id]
     @rpms = FedoraRpm.where("fedora_user LIKE ?", @name + "@%")
     respond_to do |format|
-      format.json { render json }
+	    format.json { render json: @rpms.to_json }
     end
   end
 
