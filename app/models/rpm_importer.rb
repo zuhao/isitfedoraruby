@@ -12,7 +12,8 @@ class RpmImporter
       puts "Updating #{f.name} (#{total += 1}/#{rpms.size})..."
       f.update_from_source
     }
-    
+    rescue Exception => ex
+      puts ex.message    
   end
   
   def self.import_all
