@@ -5,6 +5,17 @@ class RpmImporter
   BASE_URI = 'http://pkgs.fedoraproject.org/cgit/'
   PKG_LIST_URI = BASE_URI + '?q=rubygem-'
 
+  def self.import_oldest(number)
+    total = 0
+    rpms = FedoraRpm.order("updated_at ASC").limit(number)
+    rpms.each { |f|
+      puts "Updating #{f.name} (#{total += 1}/#{rpms.size})..."
+      f.update_from_source
+    }
+    rescue Exception => ex
+      puts ex.message    
+  end
+  
   def self.import_all
     total = 0
     rpms = FedoraRpm.find(:all)
