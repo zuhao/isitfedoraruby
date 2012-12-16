@@ -17,9 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+
 msgid "This is the home page for the Is It Fedora Ruby web application"
 msgstr ""
 
+#.TRANSLATORS: Leave the href=/stats/gemfile_tool unchanged
 msgid "*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora"
 msgstr ""
 
@@ -95,6 +98,7 @@ msgstr ""
 msgid "Contribute"
 msgstr ""
 
+#.TRANSLATORS: This is the tag of the "search" button
 msgid "Search"
 msgstr ""
 
@@ -125,6 +129,8 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+#.TRANSLATORS: %{time_ago} is a dynamically changed by a timestamp, automatically translated.
+#.Example: "One week ago".
 msgid "%{time_ago} ago"
 msgstr ""
 
@@ -188,6 +194,8 @@ msgstr ""
 msgid "See it in a nice bubble chart"
 msgstr ""
 
+#.TRANSLATORS: This text is the fist cell in a table.
+#.Gem names go under the cell and Fedora versions next to it.
 msgid "Gem / Fedora Version"
 msgstr ""
 
@@ -200,6 +208,7 @@ msgstr ""
 msgid "The size of each circle is proportional to the number of commits for that package."
 msgstr ""
 
+#.TRANSLATORS: This is the label of a button.
 msgid "Back"
 msgstr ""
 
@@ -239,6 +248,7 @@ msgstr ""
 msgid "%{gem_name} does not have a description yet"
 msgstr ""
 
+#.TRANSLATORS: This is a noun
 msgid "Comments"
 msgstr ""
 
@@ -248,6 +258,7 @@ msgstr ""
 msgid "Email: %{comment_email}"
 msgstr ""
 
+#.TRANSLATORS: This is a noun
 msgid "Comment:"
 msgstr ""
 
@@ -257,12 +268,15 @@ msgstr ""
 msgid "Add new comment"
 msgstr ""
 
+#.TRANSLATORS: This is the label of a checkbox
 msgid "Yes I want it!"
 msgstr ""
 
+#.TRANSLATORS: This is the label of a checkbox
 msgid "Keep me updated!"
 msgstr ""
 
+#.TRANSLATORS: This is the label of a button
 msgid "Submit"
 msgstr ""
 
@@ -275,6 +289,7 @@ msgstr ""
 msgid "build with koji"
 msgstr ""
 
+#.TRANSLATORS: This is the label of a button
 msgid "Next"
 msgstr ""
 
@@ -308,9 +323,11 @@ msgstr ""
 msgid "For more info, please check out the <a href=http://github.com/zuhao/isitfedoraruby>code</a> or visit the <a href=https://fedoraproject.org/wiki/Ruby_SIG>Ruby SIG</a> wiki page."
 msgstr ""
 
+#.TRANSLATORS: This is a noun.
 msgid "Comment"
 msgstr ""
 
+#.TRANSLATORS: This is the label of a checkbox
 msgid "It works for me!"
 msgstr ""
 
@@ -331,16 +348,3 @@ msgstr ""
 
 msgid "%{dep_name} not found in Fedora"
 msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
