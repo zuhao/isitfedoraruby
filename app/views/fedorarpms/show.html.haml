@@ -48,7 +48,7 @@
           %td
             = b.name
           %td
-            = b.is_review
+            = b.is_review ? _('Yes') : _('No')
 
   %label= _('Builds:')
   %table.table.table-striped.table-condensed.dependency

@@ -80,24 +80,24 @@ class StatsController < ApplicationController
           rpm = FedoraRpm.find_by_name("rubygem-" + dep[:name])
           if !rpm
             dep_fully_satisfied = false
-            @result << {:name => dep[:name], :success => false, :message => "#{dep[:name]} not found in Fedora"}
+            @result << {:name => dep[:name], :success => false, :message => _('%{dep_name} not found in Fedora') % { :dep_name => dep[:name]}}
 
           elsif !dep[:version].nil?
             rpm.rpm_versions.each { |rv|
               unless rv.rpm_version.nil?
                 if Versionomy.parse(rv.rpm_version) < dep[:version]
                   dep_fully_satisfied = false
-                  @result << {:name => dep[:name], :success => false, :message => "#{dep[:name]} (#{dep[:version]}) is too old in #{rv.fedora_version} (which has #{rv.rpm_version})"}
+                  @result << {:name => dep[:name], :success => false, :message => _('%{dep_name} (%{dep_version}) is too old in %{rv_fedora_version} (which has %{rv_rpm_version})') % { :dep_name => dep[:name], :dep_version => dep[:version], :rv_fedora_version => rv.fedora_version, :rv_rpm_version => rv.rpm_version}}
 
                 else # TODO comment: (?)
-                  @result << {:name => dep[:name], :success => true, :message => "#{dep[:name]} (#{dep[:version]}) is sufficient in #{rv.fedora_version}!"}
+                  @result << {:name => dep[:name], :success => true, :message => _('%{dep_name} (%{dep_version}) is sufficient in %{rv_fedora_version}') % { :dep_name => dep[:name], :dep_version => dep[:version], :rv_fedora_version => rv.fedora_version}}
                 end
               end
             }
           end
 
           if dep_fully_satisfied
-            @result << {:name => dep[:name], :success => true, :message => "#{dep[:name]} is in Fedora!"}
+            @result << {:name => dep[:name], :success => true, :message => _('%{dep_name} is in Fedora!') % { :dep_name => dep[:name]}}
           end
         end
       }

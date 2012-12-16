@@ -89,6 +89,9 @@ msgstr ""
 msgid "Success Stories"
 msgstr ""
 
+msgid "Find some of the best-known success stories here!"
+msgstr ""
+
 msgid "Contribute"
 msgstr ""
 
@@ -281,7 +284,52 @@ msgstr ""
 msgid "Select verison of gem %{gem_name} to import"
 msgstr ""
 
-msgid ""
+msgid "IsItFedoraRuby is a web-application (a Rails application) for keeping track of the Fedora/Ruby intergration, especially gem->rpm conversion, documentation, and success stories."
+msgstr ""
+
+msgid "The project was started on 2012 as a <a href=https://fedoraproject.org/wiki/GSOC_2012/Student_Application_Zuhao/IsItFedoraRuby>Google Summer Of Code project</a> by Zuhao, and it is growing to include Ruby Special Interest Group."
+msgstr ""
+
+msgid "Ruby Special Interest Group"
+msgstr ""
+
+msgid "A SIG for people who are interested in improving the state of Ruby in Fedora. This includes packaging Ruby libraries and applications, setting and improving standards for packaging them as RPMs and maintaining Ruby packages for Fedora."
+msgstr ""
+
+msgid "Packaging Ruby libraries and applications for Fedora is an ongoing process. We hope that this situation will improve dramatically over the next few months; that means that you, dear reader, can become a hero by packaging your favorite piece of Ruby code as an RPM and submitting it to Fedora."
+msgstr ""
+
+msgid "Please Contribute!"
+msgstr ""
+
+msgid "As this project is still in its early stage, please feel free to contribute any code or ideas to make it better."
+msgstr ""
+
+msgid "For more info, please check out the <a href=http://github.com/zuhao/isitfedoraruby>code</a> or visit the <a href=https://fedoraproject.org/wiki/Ruby_SIG>Ruby SIG</a> wiki page."
+msgstr ""
+
+msgid "Comment"
+msgstr ""
+
+msgid "It works for me!"
+msgstr ""
+
+msgid "Contribute to make it better!"
+msgstr ""
+
+msgid "Find how to contribute to the Feodra/Ruby community."
+msgstr ""
+
+msgid "%{dep_name} (%{dep_version}) is too old in %{rv_fedora_version} (which has %{rv_rpm_version})"
+msgstr ""
+
+msgid "%{dep_name} (%{dep_version}) is sufficient in %{rv_fedora_version}"
+msgstr ""
+
+msgid "%{dep_name} is in Fedora!"
+msgstr ""
+
+msgid "%{dep_name} not found in Fedora"
 msgstr ""
 
 msgid ""
@@ -296,13 +344,3 @@ msgstr ""
 msgid ""
 msgstr ""
 
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-v
