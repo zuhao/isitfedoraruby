@@ -36,6 +36,10 @@ Isitfedoraruby::Application.routes.draw do
     post :gemfile_tool, :on => :collection
   end
 
+# unless Rails.application.config.consider_all_requests_local
+    match '*not_found', to: 'errors#error_404'
+#  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

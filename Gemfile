@@ -11,13 +11,13 @@ gem 'sqlite3'
 gem 'fast_gettext'
 gem 'gettext_i18n_rails', '>= 0.4.3'
 gem 'rails-i18n'
+gem 'sass-rails', '~> 3.2.3'
+gem 'bootstrap-sass', '~> 2.0.0'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'therubyracer', :platform => :ruby
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', '~> 2.0.0'
 end
 
 gem 'jquery-rails'
