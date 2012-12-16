@@ -8,7 +8,7 @@ class StatsController < ApplicationController
     @name = params[:stat_id]
     @rpms = FedoraRpm.where("fedora_user LIKE ?", @name + "@%")
     respond_to do |format|
-      format.json { render json: @rpms.to_json }
+      format.json { render json }
     end
   end
 
@@ -19,6 +19,21 @@ class StatsController < ApplicationController
     respond_to do |format|
       format.html
     end
+  end
+
+  def timeline (result = [])
+	@stat_id = params[:stat_id]
+	@rpm = FedoraRpm.find_by_name(@stat_id)
+	@rpm.ruby_gem.historical_gems.each { |h|
+	result << { :content => h.version, :start => h.build_date }
+	}
+	@rpm.bugs.each { |b|
+	result << { :content => b.name + "<br><a href='"+b.url+"'>View on BugZilla</a>", :start => b.bz_id }
+	}
+	@res = result.to_json
+	respond_to do |format|
+      	format.html
+    	end
   end
 
   def gemfile_tool

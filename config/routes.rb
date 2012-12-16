@@ -31,6 +31,7 @@ Isitfedoraruby::Application.routes.draw do
 
   resources :stats, :constraints => { :id => /.*/ } do
     get :gemfile_tool, :on => :collection
+    get :timeline
     get :user_rpms
     get :user_rpms_data
     post :gemfile_tool, :on => :collection
