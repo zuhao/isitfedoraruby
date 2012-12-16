@@ -22,8 +22,8 @@ msgstr ""
 msgid "This is the home page for the Is It Fedora Ruby web application"
 msgstr "Esta es la página principal de la aplicación web Is It Fedora Ruby"
 
-msgid "*new* compare your Gemfile against Fedora"
-msgstr "*nuevo* compare su Gemfile con Fedora"
+msgid "*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora"
+msgstr "*nuevo* <a href=/stats/gemfile_tool>compare</a> su Gemfile con Fedora"
 
 msgid "Gem"
 msgstr "Gema"
@@ -115,8 +115,8 @@ msgstr "Cambios en git"
 msgid "Last Commit"
 msgstr "Último cambio"
 
-msgid "Upstream Source Patched?"
-msgstr "¿Fuente de upstream parcheada?"
+msgid "Patched?"
+msgstr "¿Parcheado?"
 
 msgid "Maintainer"
 msgstr "Mantenedor"

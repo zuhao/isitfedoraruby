@@ -1,11 +1,11 @@
 %div.page-header
   %h1 Is It Fedora Ruby
   %h2
-    = _('This is the home page for the Is It Fedora Ruby web application')
+    = _('This is the home page for the Is It Fedora Ruby web application').html_safe
   %h2
     %b 
-    = link_to _('*new* compare your Gemfile against Fedora'), gemfile_tool_stats_path
-
+    = _('*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora').html_safe 
+    
 %div.row
   %div.span6
     = render :partial => 'stats/most_popular_gems'
