@@ -53,9 +53,6 @@ Nicolás Satragno is currently working on this
 - [ ] Fill success stories page (maybe ask ruby SIG?)
 - [ ] Fill how to contribute page (fork repo, make pull request, join #fedora-ruby on freenode, etc)
 
-** TODO Add some nice 404, 503, etc. pages
-- Animesh, Kendhia are currently working on these
-
 ** TODO Add decent robots.txt 
 
 ** TODO Fix "most wanted gems" (or erase)
