@@ -1,26 +1,160 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
+  <title>404: The page you were looking for doesn't exist</title>
+  <link rel="stylesheet" href="errors.css.min">
   <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
+    .navbar .nav > li > a {
+ 
+}
     div.dialog {
-      width: 25em;
-      padding: 0 4em;
+      /*background-color: #fff2f2;*/ /*Red Version*/
+      background-color: #effbff;
+      position:relative;
+      top: -50px;
+      height: 300px;
+      width: 800px;
+      padding: 1em 4em;
+      border-radius:8px;
       margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
+      /*border: 1px solid #9d0000;*/ /*Red Version*/
+      border: 1px solid #00a6dc;
+    
     }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+    div.sidebox {
+	left:-10px;
+	position:relative;
+	top:90px;
+	font-weight:bold;
+	width:250px;
+	font-family: Helvetica, sans-serif;
+	font-size:150px;
+	color: #00a6dc;
+
+	}
+    div.msg {
+	position:relative;
+	top: 5px;
+	left:20px;
+	float:right;
+	width:550px;
+}
+
+  div.links {
+	position:relative;
+	top:25px;
+	left:-20px;
+	}
+
+  div.quicklist {
+	float:right;
+	width:450px;
+}
+
+  ul.links {
+	margin-left:-20px;
+	list-style:none;
+}
+
+  li.links a {
+	margin-right:14px;
+	float:left;
+	font-size:14px;
+}
+
+  div.colhead {
+
+	color:#00759b;
+	font-size:20px;
+	} 
+  .colhead#ql {
+	margin-left:-20px;
+	}
+
+  .colhead#se {
+	margin-left:20px;
+	}
+
+  div.sbox {
+	float:left;
+	width:350px;
+	}
+
+  div.msgpara {
+
+	padding-top:10px;
+	text-align:center;
+	font-size: 15px;
+	position:relative;
+	left:-5px;
+	top: -10px;
+	float:right;
+	width:500px;
+	border-top: 1px solid #ccc;
+}
+    h1.errormsg { float:right; font-size: 45px; letter-spacing: auto; /*color: #f00*/ color:#00759b; font-family: Helvetica, sans-serif; }
   </style>
 </head>
 
 <body>
+
+
+
+    <header class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div id="logo"><a href="/">FedoraRuby</a></div>
+          <nav>
+            <ul class="nav pull-right">
+              <li><a href="/">Home</a></li>
+              <li><a href="/rubygems">Ruby Gems</a></li>
+              <li><a href="/fedorarpms">Fedora Rpms</a></li>
+              <li><a href="/successes">Success Stories</a></li>
+              <li><a href="/contribute">Contribute</a></li>
+              <li>
+                <form accept-charset="UTF-8" action="/searches" class="form-search" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="fm9TJ4MHOCgOsbh1PQXGeqfIKple0UYvkj25Sc/OIlY=" type="hidden"></div>
+                            <input class="input-medium search-query" id="search_field" name="search" value="" type="text">
+                            <input class="btn btn-primary" value="Search" type="submit">
+                </form>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    
   <!-- This file lives in public/404.html -->
   <div class="dialog">
-    <h1>The page you were looking for doesn't exist.</h1>
+<div class="sidebox">404</div>
+    <div class="msg"><h1 class="errormsg">The page you were looking for doesn't exist.</h1></div>
+
+<div class="msgpara">
     <p>You may have mistyped the address or the page may have moved.</p>
-  </div>
+</div> 
+<div class="links">
+   <div class="sbox">
+<div class="colhead" id="se">Try Searching</div><br>
+ <form accept-charset="UTF-8" action="/searches" class="form-search" method="post">
+<div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden">
+<input name="authenticity_token" value="fm9TJ4MHOCgOsbh1PQXGeqfIKple0UYvkj25Sc/OIlY=" type="hidden">
+</div>
+                            <input class="input-medium search-query" id="search_field" name="search" value="" type="text">
+                            <input class="btn btn-primary" value="Search" type="submit">
+                </form>
+</div> 
+<div class="quicklist">
+<div class="colhead" id="ql">Quick Links</div><br>
+<ul class="links">
+<li class="links"><a href="/">Home</a></li> 
+<li class="links"><a href="/rubygems">Ruby Gems</a></li>
+<li class="links"><a href="/fedorarpms">Fedora RPMs</a></li>
+<li class="links"><a href="/successes">Success Stories</a></li>
+<li class="links"><a href="/contribute">Contribute</a></li>
+</ul>
+
+</div>
+ </div>
+ 
+
 </body>
 </html>
