@@ -70,5 +70,15 @@ namespace :database do
      end
      GemImporter.update_gems(days)
   end
+  
+  desc 'import oldest n rpms'
+  task :update_oldest_rpms, [:rpms_number] => :environment do |t, args|
+    args.with_defaults(:rpms_number => 10)
+    number = args.rpms_number.to_i
+    unless number.nil? || number.is_a?(Fixnum)
+      raise ArgumentError, "invalid number of oldest rpms to import"
+    end
+    RpmImporter.import_oldest(number)
+  end
 
 end
