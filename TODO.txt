@@ -85,6 +85,4 @@ Mark Klein is currently working on this
   such as gem2rpm on gem updates
 - May require improvements to gem2rpm
 
-** TODO gamification: implement badges for a maintainers contributions
-
 ** TODO writeup content for the success stories and contribute sections
