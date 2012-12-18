@@ -33,14 +33,14 @@ class StatsController < ApplicationController
     @rpm = FedoraRpm.find_by_name(@stat_id)
     @rpm.ruby_gem.historical_gems.each { |h|
       result << { :content => h.version, :start => h.build_date }
-      }
+    }
     @rpm.bugs.each { |b|
       result << { :content => b.name, :start => b.bz_id }
-      }
+    }
     @res = result.to_json
-      respond_to do |format|
+    respond_to do |format|
       format.json { render json: @res }
-      end
+    end
   end
 
   def gemfile_tool
