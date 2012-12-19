@@ -1,24 +1,26 @@
 %h1 Search Results
 
-%table.table.table-striped.table-condensed
-  %thead
-    %tr
-      %th Gem Name
-      %th Gem Version
-      %th Rpm Name
-      %th Rpm Version (Rawhide)
-
-  %tbody
-    - @results.each do |gem|
+- if @results != []
+  %table.table.table-striped.table-condensed
+    %thead
       %tr
-        %td= link_to gem.name, rubygem_path(gem.name)
-        %td= gem.version
-        - if  gem.fedora_rpm != nil
-          %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.name)
-          %td= gem.fedora_rpm.version_for('rawhide')
-        -else
-          %td
-          %td
+        %th Gem Name
+        %th Gem Version
+        %th Rpm Name
+        %th Rpm Version (Rawhide)
 
-%div.pagination
-  = will_paginate @results
+    %tbody
+      - @results.each do |gem|
+        %tr
+          %td= link_to gem.name, rubygem_path(gem.name)
+          %td= gem.version
+          - if  gem.fedora_rpm != nil
+            %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.name)
+            %td= gem.fedora_rpm.version_for('rawhide')
+          -else
+            %td
+            %td
+  %div.pagination
+    = will_paginate @results
+- else
+  %h2 Sorry, there were no results when searching for the Ruby Gem "#{params[:search]}"
