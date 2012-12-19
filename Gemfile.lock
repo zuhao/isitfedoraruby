@@ -199,5 +199,6 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer (~> 0.10.2)
+  thor (= 0.14.6)
   uglifier (>= 1.0.3)
   versionomy
