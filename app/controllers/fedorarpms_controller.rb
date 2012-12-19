@@ -44,6 +44,20 @@ class FedorarpmsController < ApplicationController
     @rpms = FedoraRpm.where("fedora_user LIKE ?", @name + "@%")
   end
 
+  def badge
+    @user_name = params[:id]
+    rpms = FedoraRpm.where("fedora_user LIKE ?", @user_name + "@%")
+    @total = rpms.size
+    @commits = 0
+    @most = nil
+    rpms.each { |i|
+      @commits += i.commits
+      @most = i if @most.nil? || i.commits > @most.commits
+    }
+    @most = @most.shortname
+    render :layout => false
+  end
+
 private
 
   def sort_column

@@ -1,27 +1,27 @@
 * List of tasks for isitfedoraruby
 
-** TODO Add i18n support [28%]
+** TODO Add i18n support [90%]
 Nicolás Satragno is currently working on this
 - [-] Make i18n branch
   - [X] Branch
   - [X] Merge changes
-  - [ ] Push branch
+  - [X] Push branch
 - [X] Add gettext support
 - [X] Research about getting the app translated
   - Discovered: *MUST* use po files
-- [-] Add calls to _('') around the app
+- [X] Add calls to _('') around the app
   - [X] Home
   - [X] Footer
   - [X] Header
   - [X] Stats
-  - [ ] Visualizations
+  - [X] Visualizations
   - [X] FedoraRpms
-  - [ ] RubyGems
-  - [ ] About
-  - [ ] Success stories
-  - [ ] Show FedoraRpm
-  - [ ] Show RubyGem
-  - [ ] Contribute
+  - [X] RubyGems
+  - [X] About
+  - [X] Success stories
+  - [X] Show FedoraRpm
+  - [X] Show RubyGem
+  - [X] Contribute
 - [-] Add localized languages to fast_gettext init
   - [X] en
   - [X] es
@@ -29,9 +29,15 @@ Nicolás Satragno is currently working on this
 - [ ] Upload project to transifex platform
 - [ ] Give transifex ssh access to .po folder
      -> Maybe we can also fork the repo to avoid a security risk
+- [-] Add i18n support on error pages
+  - [X] Configure 404 and 500 views as error pages
+  - [ ] Add _('') calls on error pages
+  -> waiting for error pages to be ready
+
 
 
 ** TODO Improve search
+Mark Klein is currently working on this
 - [ ] Should make it more "lazy" ie match without having to *exactly* type a name
 - [ ] Probably also search for maintainers
 
@@ -40,10 +46,6 @@ Nicolás Satragno is currently working on this
 - [ ] Maybe add interactive mode?
   - [ ] Allow one to set update options interactively
   - [ ] Allow one to pause/continue update
-
-** TODO Fix styiling issues
-- [ ] Centre all tables regardless of content
-- [ ] Expand/erase/fix gray decoration behind stat tables (they don't allow them to expand gracefully)
 
 ** TODO Fix upstream source patched? column
 - [ ] Icons should be centred
@@ -82,7 +84,5 @@ Nicolás Satragno is currently working on this
 - We can hook into the rubygems API to automatically run commands
   such as gem2rpm on gem updates
 - May require improvements to gem2rpm
-
-** TODO gamification: implement badges for a maintainers contributions
 
 ** TODO writeup content for the success stories and contribute sections
