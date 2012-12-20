@@ -1,0 +1,34 @@
+:css
+  div.badge {
+  text-shadow: white 1px 1px 0px;#255591;
+  border: 1px solid #D4D4D4;
+  width: 150px;
+  border-bottom: 2px solid #255591;
+  background: -webkit-gradient(linear, left bottom, left top, from(#A9C8DA), to(white));
+  line-height: 130%;
+  padding: 1px 9px 2px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #255591;
+  }
+
+  #username  {
+    font-family: "Cantarell", sans-serif;
+  }
+  #rpms, #commits, #popular {
+    font-size: 0.8em;
+    font-family: "Cantarell", sans-serif;
+  }
+  #maintainer {
+    font-size: 1.3em;
+    font-family: "Cantarell", sans-serif;
+  }
+
+.badge
+  %h2#username{:align => "center"} #{@user_name}</br>
+  %a#rpms rpms: #{@commits}</br>
+  %a#commits commits: #{@total}</br>
+  %a#popular Most popular rpm: #{@most}</br>
+  %a#maintainer
+    = image_tag('Maintainer.png')

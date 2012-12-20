@@ -20,6 +20,7 @@ Isitfedoraruby::Application.routes.draw do
     get :full_dependencies, :on => :member
     get :full_dependents,   :on => :member
     get :by_owner, :on => :member
+    get :badge, :on => :member
   end
   resources :rubygems, :constraints => { :id => /.*/ }
   resources :searches
@@ -32,6 +33,8 @@ Isitfedoraruby::Application.routes.draw do
   resources :stats, :constraints => { :id => /.*/ } do
     get :gemfile_tool, :on => :collection
     get :user_rpms
+    get :timeline
+    get :tljson
     get :user_rpms_data
     post :gemfile_tool, :on => :collection
   end

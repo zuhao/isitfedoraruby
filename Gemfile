@@ -6,6 +6,9 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'thor', '= 0.14.6'
+gem 'bootstrap-sass', '~> 2.0.0'
+
 
 #i18n support
 gem 'fast_gettext'
@@ -15,8 +18,12 @@ gem 'sass-rails', '~> 3.2.3'
 gem 'bootstrap-sass', '~> 2.0.0'
 
 group :assets do
+<<<<<<< HEAD
+=======
+  gem 'sass-rails', '~> 3.2.3'
+>>>>>>> master
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'therubyracer', :platform => :ruby
+  gem 'therubyracer', '~> 0.10.2', :platform => :ruby
   gem 'uglifier', '>= 1.0.3'
 end
 
