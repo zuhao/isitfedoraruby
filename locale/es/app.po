@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-13 12:14-0300\n"
-"PO-Revision-Date: 2012-12-16 02:52-0300\n"
+"PO-Revision-Date: 2012-12-20 15:32-0300\n"
 "Last-Translator: Nicolás Satragno <nsatragno@gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -22,8 +22,9 @@ msgstr ""
 msgid "This is the home page for the Is It Fedora Ruby web application"
 msgstr "Esta es la página principal de la aplicación web Is It Fedora Ruby"
 
-#.TRANSLATORS: Leave the href=/stats/gemfile_tool unchanged
-msgid "*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora"
+#. TRANSLATORS: Leave the href=/stats/gemfile_tool unchanged
+msgid ""
+"*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora"
 msgstr "*nuevo* <a href=/stats/gemfile_tool>compare</a> su Gemfile con Fedora"
 
 msgid "Gem"
@@ -95,7 +96,7 @@ msgstr "Historias de éxito"
 msgid "Find some of the best-known success stories here!"
 msgstr "¡Encuentre algunas de las historias de éxito más conocidas aquí!"
 
-#.TRANSLATORS: This is the tag of the "search" button
+#. TRANSLATORS: This is the tag of the "search" button
 msgid "Contribute"
 msgstr "Contribuir"
 
@@ -129,8 +130,8 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
-#.TRANSLATORS: %{time_ago} is a dynamically changed by a timestamp, automatically translated.
-#.Example: "One week ago".
+#. TRANSLATORS: %{time_ago} is a dynamically changed by a timestamp, automatically translated.
+#. Example: "One week ago".
 msgid "%{time_ago} ago"
 msgstr "Hace %{time_ago}"
 
@@ -194,8 +195,8 @@ msgstr "Todos los Rpms de Fedora mantenidos por %{name}"
 msgid "See it in a nice bubble chart"
 msgstr "Véalo en un lindo gráfico de burbujas"
 
-#.TRANSLATORS: This text is the fist cell in a table.
-#.Gem names go under the cell and Fedora versions next to it.
+#. TRANSLATORS: This text is the fist cell in a table.
+#. Gem names go under the cell and Fedora versions next to it.
 msgid "Gem / Fedora Version"
 msgstr "Gema / Versión de Fedora"
 
@@ -231,7 +232,7 @@ msgstr "subir"
 msgid "submit"
 msgstr "enviar"
 
-#.TRANSLATORS: This is the label of a button.
+#. TRANSLATORS: This is the label of a button.
 msgid "Back"
 msgstr "Atrás"
 
@@ -256,7 +257,7 @@ msgstr "Descripción:"
 msgid "%{gem_name} does not have a description yet"
 msgstr "%{gem_name} todavía no tiene una descripción"
 
-#.TRANSLATORS: This is a noun
+#. TRANSLATORS: This is a noun
 msgid "Comments"
 msgstr "Comentarios"
 
@@ -266,7 +267,7 @@ msgstr "Nombre: %{comment_name}"
 msgid "Email: %{comment_email}"
 msgstr "Correo-e: %{comment_email}"
 
-#.TRANSLATORS: This is a noun
+#. TRANSLATORS: This is a noun
 msgid "Comment:"
 msgstr "Comentario:"
 
@@ -276,15 +277,15 @@ msgstr "Correo-e"
 msgid "Add new comment"
 msgstr "Añadir comentario nuevo"
 
-#.TRANSLATORS: This is the label of a checkbox
+#. TRANSLATORS: This is the label of a checkbox
 msgid "Yes I want it!"
 msgstr "¡Sí, la quiero!"
 
-#.TRANSLATORS: This is the label of a checkbox
+#. TRANSLATORS: This is the label of a checkbox
 msgid "Keep me updated!"
 msgstr "¡Mantenme actualizado!"
 
-#.TRANSLATORS: This is the label of a button
+#. TRANSLATORS: This is the label of a button
 msgid "Submit"
 msgstr "Enviar"
 
@@ -297,7 +298,7 @@ msgstr "Dependencias:"
 msgid "build with koji"
 msgstr "construir con koji"
 
-#.TRANSLATORS: This is the label of a button
+#. TRANSLATORS: This is the label of a button
 msgid "Next"
 msgstr "Siguiente"
 
@@ -372,11 +373,11 @@ msgstr ""
 "isitfedoraruby>código</a> o visite la página de la wiki del <a href=https://"
 "fedoraproject.org/wiki/Ruby_SIG>SIG de Ruby</a>."
 
-#.TRANSLATORS: This is a noun.
+#. TRANSLATORS: This is a noun.
 msgid "Comment"
 msgstr "Comentario"
 
-#.TRANSLATORS: This is the label of a checkbox
+#. TRANSLATORS: This is the label of a checkbox
 msgid "It works for me!"
 msgstr "¡Me funciona!"
 
@@ -401,3 +402,13 @@ msgstr "¡%{dep_name} está en Fedora!"
 
 msgid "%{dep_name} not found in Fedora"
 msgstr "%{dep_name} no se encontró en Fedora"
+
+msgid "Timeline (Bugs and Versions)"
+msgstr "Línea de tiempo (errores y versiones)"
+
+msgid ""
+"This timeline depicts a chonological visualization of the bugs & version "
+"releases for %{gem_name}"
+msgstr ""
+"Esta línea de tiempo muestra una visualización cronológica de los errores y "
+"lanzamiento de versiones para %{gem_name}"

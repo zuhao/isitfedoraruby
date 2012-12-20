@@ -348,3 +348,22 @@ msgstr ""
 
 msgid "%{dep_name} not found in Fedora"
 msgstr ""
+
+msgid "Timeline (Bugs and Versions)"
+msgstr ""
+
+msgid "This timeline depicts a chonological visualization of the bugs & version releases for %{gem_name}"
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+
+
+
