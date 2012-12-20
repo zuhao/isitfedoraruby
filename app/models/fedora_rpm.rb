@@ -165,7 +165,9 @@ class FedoraRpm < ActiveRecord::Base
 
   def retrieve_gem
     gem_name = name.gsub(/rubygem-/,'')
+    puts "Retrieving gem #{gem_name} data"
     self.ruby_gem = RubyGem.find_or_initialize_by_name(gem_name)
+    self.ruby_gem.update_from_source
     self.ruby_gem.has_rpm = true
   end
 
