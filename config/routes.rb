@@ -21,6 +21,7 @@ Isitfedoraruby::Application.routes.draw do
     get :full_dependents,   :on => :member
     get :by_owner, :on => :member
     get :badge, :on => :member
+    get :not_found, :on => :member
   end
   resources :rubygems, :constraints => { :id => /.*/ }
   resources :searches

@@ -1,0 +1,18 @@
+%h1 RPM Not Found 
+
+Sorry, we couldn't find 
+%b=@rpm 
+as a Fedora RPM; please check your URL and try again.
+%br/ 
+%br/
+- if @results != []
+
+  %table.table.table-striped.table-condensed
+    %thead
+      %tr
+        %th Did you mean:
+       
+    %tbody
+      - @results.each do |r|
+        %tr
+          %td= link_to r.rpm_name, fedorarpm_path(r.rpm_name)
