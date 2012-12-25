@@ -95,6 +95,11 @@ GEM
     mime-types (1.19)
     multi_json (1.5.0)
     nokogiri (1.5.5)
+    pkgwat (0.0.1)
+      json
+      nokogiri (= 1.5.5)
+      rake
+      thor
     polyglot (0.3.3)
     pry (0.9.10)
       coderay (~> 1.0.5)
@@ -193,6 +198,7 @@ DEPENDENCIES
   jquery-rails
   json
   nokogiri
+  pkgwat
   rails (= 3.2.3)
   recaptcha
   rspec-rails
