@@ -3,7 +3,6 @@ require 'open-uri'
 class RpmImporter
 
   BASE_URI = 'http://pkgs.fedoraproject.org/cgit/'
-  PKG_LIST_URI = BASE_URI + '?q=rubygem-'
 
   def self.import_oldest(number)
     total = 0
@@ -45,29 +44,22 @@ class RpmImporter
   end
 
   def self.import_rpms_list
-    offset = 0
-    loop do
-      list_page = URI.parse(PKG_LIST_URI + '&ofs=' + offset.to_s).read
-      doc = Nokogiri::HTML(list_page)
-      rpms = doc.xpath("//tr/td[@class='toplevel-repo']/a/@title")
-      break if rpms.empty?
-      rpms.each { |rpm|
-        rpm_name = rpm.value.gsub(/\.git.*/,'')
-        puts "Importing rpm #{rpm_name}"
-        if FedoraRpm.find_by_name(rpm_name).nil?
-          r = FedoraRpm.new
-          r.name = rpm_name
-          r.source_uri = "git://pkgs.fedoraproject.org/#{rpm}"
-          r.save!
-        else
-          puts "rpm #{rpm_name} already imported"
-        end
-      }
-      offset += 50
-    end
+    rpms = Pkgwat.get_packages("rubygem")
+    rpms.each { |rpm|
+      rpm_name = rpm["name"]
+      puts "Importing rpm #{rpm_name}"
+      if FedoraRpm.find_by_name(rpm_name).nil?
+	r = FedoraRpm.new
+	r.name = rpm_name
+	r.source_uri = "git://pkgs.fedoraproject.org/#{rpm}"
+	r.save!
+      else
+	puts "rpm #{rpm_name} already imported"
+      end
+    }
     puts "Rpms list imported."
-  rescue Exception => ex
-    puts "Import failed due to eror #{ex}."
+    rescue Exception => ex
+      puts "Import failed due to eror #{ex}."
   end
 
   def self.update_rpms(days_since_last_update, mode)

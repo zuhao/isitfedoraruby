@@ -33,6 +33,7 @@ gem 'nokogiri'
 gem 'versionomy'
 gem 'gems'
 gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'pkgwat'
 
 group :test, :development do
   gem 'rspec-rails'
