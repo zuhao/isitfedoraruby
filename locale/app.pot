@@ -286,6 +286,9 @@ msgstr ""
 msgid "Dependencies:"
 msgstr ""
 
+msgid "No dependencies"
+msgstr ""
+
 msgid "build with koji"
 msgstr ""
 
