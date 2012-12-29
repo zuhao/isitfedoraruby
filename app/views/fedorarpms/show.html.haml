@@ -12,7 +12,7 @@
       %span.label.label-success= _('Yes')
     - else
       %span.label.label-important= _('No')
-    - if @rpm.fedora_user != nil
+    - unless @rpm.fedora_user.blank?
       %p= link_to _('Maintainer: %{maintainer_email}') % { :maintainer_email => @rpm.obfuscated_fedora_user }, fedorarpm_path(@rpm.fedora_user.split("@").first + "/by_owner")
   %label= _('Versions: %{rpm_versions}') % { :rpm_versions => @rpm.versions}
   %label= _('Git Commits: %{rpm_commits}') % { :rpm_commits => @rpm.commits}
