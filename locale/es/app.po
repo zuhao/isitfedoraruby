@@ -295,6 +295,9 @@ msgstr "RubyGems -> RPMs"
 msgid "Dependencies:"
 msgstr "Dependencias:"
 
+msgid "No dependencies"
+msgstr "Sin dependencias"
+
 msgid "build with koji"
 msgstr "construir con koji"
 

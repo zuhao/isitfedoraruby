@@ -5,10 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  name: foo
-  homepage: http://isitfedoraruby.com
-  version: 1.2.3.4
-  has_rpm: true
-  downloads: 666
-  source_uri: http://github.com
-  
+  fedora_rpm_id: 1
+  rpm_version: 2
+  fedora_version: 2
+  is_patched: true
