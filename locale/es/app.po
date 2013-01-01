@@ -1,8 +1,8 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# IsItFedoraRuby
+# Copyright (C) 2012 Mohammed Morsi and others
+# This file is distributed under the same license as the IsItFedoraRuby package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Nicolás Satragno <nsatragno@gnome.org>, 2012.
+# Nicolás Satragno <nsatragno@gnome.org>, 2012, 2013.
 #
 msgid ""
 msgstr ""
@@ -96,10 +96,10 @@ msgstr "Historias de éxito"
 msgid "Find some of the best-known success stories here!"
 msgstr "¡Encuentre algunas de las historias de éxito más conocidas aquí!"
 
-#. TRANSLATORS: This is the tag of the "search" button
 msgid "Contribute"
 msgstr "Contribuir"
 
+#. TRANSLATORS: This is the tag of the "search" button
 msgid "Search"
 msgstr "Buscar"
 
@@ -217,6 +217,10 @@ msgstr ""
 "El tamaño de cada círculo es proporcional al número de commits para ese "
 "paquete"
 
+#. TRANSLATORS: This is the label of a button.
+msgid "Back"
+msgstr "Atrás"
+
 msgid "Test your Gemfile or Gemfile.lock against Fedora"
 msgstr "Pruebe su Gemfile o Gemfile.lock en Fedora"
 
@@ -231,10 +235,6 @@ msgstr "subir"
 
 msgid "submit"
 msgstr "enviar"
-
-#. TRANSLATORS: This is the label of a button.
-msgid "Back"
-msgstr "Atrás"
 
 msgid "All Ruby Gems"
 msgstr "Todas las gemas de Ruby"
@@ -308,12 +308,12 @@ msgstr "Siguiente"
 msgid "Name of Gem to Import:"
 msgstr "Nombre de la gema que importar:"
 
-msgid "Select verison of gem %{gem_name} to import"
+msgid "Select version of gem %{gem_name} to import"
 msgstr "Seleccione la versión de la gema %{gem_name} que importar"
 
 msgid ""
 "IsItFedoraRuby is a web-application (a Rails application) for keeping track "
-"of the Fedora/Ruby intergration, especially gem->rpm conversion, "
+"of the Fedora/Ruby integration, especially gem->rpm conversion, "
 "documentation, and success stories."
 msgstr ""
 "IsItFedoraRuby es una aplicación web (una aplicación de Rails) para rastrear "
@@ -387,7 +387,7 @@ msgstr "¡Me funciona!"
 msgid "Contribute to make it better!"
 msgstr "Contribuya para hacerlo mejor"
 
-msgid "Find how to contribute to the Feodra/Ruby community."
+msgid "Find how to contribute to the Fedora/Ruby community."
 msgstr "Descubra cómo contrubir con la comunidad Fedora/Ruby"
 
 msgid ""
@@ -410,7 +410,7 @@ msgid "Timeline (Bugs and Versions)"
 msgstr "Línea de tiempo (errores y versiones)"
 
 msgid ""
-"This timeline depicts a chonological visualization of the bugs & version "
+"This timeline depicts a chronological visualization of the bugs & version "
 "releases for %{gem_name}"
 msgstr ""
 "Esta línea de tiempo muestra una visualización cronológica de los errores y "

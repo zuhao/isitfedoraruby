@@ -1,22 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# IsItFedoraRuby
+# Copyright (C) 2012 Mohammed Morsi and others
+# This file is distributed under the same license as the IsItFedoraRuby package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-13 12:14-0300\n"
-"PO-Revision-Date: 2012-12-13 12:14-0300\n"
+"PO-Revision-Date: 2013-01-01 16:04-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 
 msgid "This is the home page for the Is It Fedora Ruby web application"
@@ -299,10 +298,10 @@ msgstr ""
 msgid "Name of Gem to Import:"
 msgstr ""
 
-msgid "Select verison of gem %{gem_name} to import"
+msgid "Select version of gem %{gem_name} to import"
 msgstr ""
 
-msgid "IsItFedoraRuby is a web-application (a Rails application) for keeping track of the Fedora/Ruby intergration, especially gem->rpm conversion, documentation, and success stories."
+msgid "IsItFedoraRuby is a web-application (a Rails application) for keeping track of the Fedora/Ruby integration, especially gem->rpm conversion, documentation, and success stories."
 msgstr ""
 
 msgid "The project was started on 2012 as a <a href=https://fedoraproject.org/wiki/GSOC_2012/Student_Application_Zuhao/IsItFedoraRuby>Google Summer Of Code project</a> by Zuhao, and it is growing to include Ruby Special Interest Group."
@@ -337,7 +336,7 @@ msgstr ""
 msgid "Contribute to make it better!"
 msgstr ""
 
-msgid "Find how to contribute to the Feodra/Ruby community."
+msgid "Find how to contribute to the Fedora/Ruby community."
 msgstr ""
 
 msgid "%{dep_name} (%{dep_version}) is too old in %{rv_fedora_version} (which has %{rv_rpm_version})"
@@ -355,18 +354,5 @@ msgstr ""
 msgid "Timeline (Bugs and Versions)"
 msgstr ""
 
-msgid "This timeline depicts a chonological visualization of the bugs & version releases for %{gem_name}"
+msgid "This timeline depicts a chronological visualization of the bugs & version releases for %{gem_name}"
 msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-
-
-

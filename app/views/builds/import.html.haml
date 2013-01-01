@@ -23,7 +23,7 @@
       %input{:type => :button, :value => _('build with koji'), :disabled => "true"}
 
   -else
-    = _('Select verison of gem %{gem_name} to import') % { :gem_name => @gem.name}
+    = _('Select version of gem %{gem_name} to import') % { :gem_name => @gem.name}
     = link_to _('Back'), :controller => :builds, :action => :import
     %form{:method => :post, :action => :import}
       %input{:type => :hidden, :name => 'gem', :value => @gem.name}
