@@ -3,7 +3,6 @@ require 'open-uri'
 class RpmImporter
 
   BASE_URI = 'http://pkgs.fedoraproject.org/cgit/'
-  PKG_LIST_URI = BASE_URI + '?q=rubygem-'
 
   def self.import_oldest(number)
     total = 0
