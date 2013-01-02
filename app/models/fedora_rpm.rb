@@ -175,17 +175,13 @@ class FedoraRpm < ActiveRecord::Base
     puts "Importing rpm #{name} bugs"
     self.bugs.clear
 
-    bugzilla_search = URI.parse(bugzilla_url).read
-    doc = Nokogiri::HTML(bugzilla_search)
-
     # get bugs and their titles and last_updated
-    bugs = doc.xpath("//td[@class='bz_short_desc_column']/a").collect { |bz| [bz.attr('href').gsub('show_bug.cgi?id=', ''), bz.text.strip] }
+    bugs = Pkgwat.get_bugs(name)
     bugs.each { |bug|
-      update = doc.xpath("//tr[@id='b#{bug.first}']//td[@class='bz_changeddate_column']").text
       arb = Bug.new 
-      arb.name = bug.last
-      arb.bz_id = bug.first
-      arb.last_updated = update
+      arb.name = bug["description"]
+      arb.bz_id = bug["id"]
+      arb.last_updated = bug["last_modified"]
       arb.is_review = true if arb.name =~ /^Review Request.*#{name}\s.*$/
       self.bugs << arb
     }
@@ -195,12 +191,11 @@ class FedoraRpm < ActiveRecord::Base
     puts "Importing rpm #{name} builds"
     self.builds.clear
 
-    @@koji_search ||= XMLRPC::Client.new2(Build::KOJI_API_URL)
-    builds = @@koji_search.call "search", name, "build", "regexp"
+    builds = Pkgwat.get_builds(name)
     builds.each { |build|
       bld = Build.new
-      bld.name = build['name']
-      bld.build_id = build['id']
+      bld.name = build['nvr']
+      bld.build_id = build['build_id']
       self.builds << bld
     }
   end
