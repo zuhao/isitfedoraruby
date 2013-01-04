@@ -14,6 +14,7 @@ Isitfedoraruby::Application.routes.draw do
   match 'fedorarpms/:id' => 'rpmcomments#create', :via => :post
 
   match 'searches/' => 'searches#index'
+  match 'searches/suggest_gems' => 'searches#suggest_gems'
 
   resources :fedorarpms, :constraints => { :id => /.*/ } do
     get :full_deps, :on => :member
@@ -41,7 +42,7 @@ Isitfedoraruby::Application.routes.draw do
   end
 
 # unless Rails.application.config.consider_all_requests_local
-    match '*not_found', to: 'errors#error_404'
+    match 'not_found' =>  'errors#error_404'
 #  end
 
   # The priority is based upon order of creation:
