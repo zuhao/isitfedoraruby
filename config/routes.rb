@@ -14,6 +14,7 @@ Isitfedoraruby::Application.routes.draw do
   match 'fedorarpms/:id' => 'rpmcomments#create', :via => :post
 
   match 'searches/' => 'searches#index'
+  match 'searches/suggest_gems' => 'searches#suggest_gems'
 
   resources :fedorarpms, :constraints => { :id => /.*/ } do
     get :full_deps, :on => :member
