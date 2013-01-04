@@ -195,12 +195,11 @@ class FedoraRpm < ActiveRecord::Base
     puts "Importing rpm #{name} builds"
     self.builds.clear
 
-    @@koji_search ||= XMLRPC::Client.new2(Build::KOJI_API_URL)
-    builds = @@koji_search.call "search", name, "build", "regexp"
+    builds = Pkgwat.get_builds(name)
     builds.each { |build|
       bld = Build.new
-      bld.name = build['name']
-      bld.build_id = build['id']
+      bld.name = build['nvr']
+      bld.build_id = build['build_id']
       self.builds << bld
     }
   end
