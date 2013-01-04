@@ -22,3 +22,6 @@ doc/
 nohup.out
 .project
 .DS_Store
+
+db/*sqlite3
+Gemfile.lock
