@@ -362,3 +362,9 @@ msgstr ""
 
 msgid "Also, you can report bugs, send patches, or enhance in any way this web application in <a href=https://github.com/zuhao/isitfedoraruby>our github site</a>. Just clone the repository, make your changes and submit a pull request. Your imagination sets the limit!"
 msgstr ""
+
+msgid "If you want to contact the Fedora Ruby community, send an e-mail to the <a href=mailto:ruby-sig@lists.fedoraproject.org>Ruby SIG mailing list</a>."
+msgstr ""
+
+msgid "To file a bug against this web application, <a href=https://github.com/zuhao/isitfedoraruby/issues/new>create a new issue</a> in the github repository." 
+msgstr ""
