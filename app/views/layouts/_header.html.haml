@@ -10,6 +10,7 @@
           %li= link_to _('About'), about_path
           %li= link_to _('Contribute'), contribute_path
           %li
-            = form_tag( { :controller => 'searches', :action => 'index' }, :class => 'form-search') do
-              = text_field_tag :search, params[:search] ||= '', :id => 'search_field', :class => 'input-medium search-query'
+            = form_tag( { :controller => 'searches', :action => 'index' }, :method => 'get', :class => 'form-search') do
+              = text_field_tag :search, params[:search], :name => 'search', :id => 'search_field', :class => 'input-medium search-query'
               = submit_tag _("Search"), :name => nil, :class => 'btn btn-primary'
+
