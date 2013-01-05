@@ -356,3 +356,9 @@ msgstr ""
 
 msgid "This timeline depicts a chronological visualization of the bugs & version releases for %{gem_name}"
 msgstr ""
+
+msgid "There are many ways you can contribute with the <a href=https://fedoraproject.org/wiki/Ruby_SIG>Fedora Ruby community</a>. Packaging Ruby libraries and applications for Fedora is still in its infancy, and only very few RPMs are available. We hope that this situation will improve dramatically over the next few months; that means that you, dear reader, can become a hero by packaging your favorite piece of Ruby code as an RPM and <a href=http://fedoraproject.org/wiki/PackageMaintainers/Join>submitting it to Fedora</a>."
+msgstr ""
+
+msgid "Also, you can report bugs, send patches, or enhance in any way this web application in <a href=https://github.com/zuhao/isitfedoraruby>our github site</a>. Just clone the repository, make your changes and submit a pull request. Your imagination sets the limit!"
+msgstr ""
