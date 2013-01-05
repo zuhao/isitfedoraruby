@@ -8,8 +8,8 @@
   var r = 700
     color = d3.scale.category20c();
   var bubble_layout = d3.layout.pack()
-      .sort(null)
       .size([r,r])
+      .sort(null)
       .padding(1.5);
 
   var vis = d3.select("#chart").append("svg")
@@ -24,22 +24,53 @@
     arr[i] = { "name": array[i]["name"].split("rubygem-")[1], "value": array[i]["commits"]}
   }
 
-
   var selection = vis.selectAll("g.node")
                 .data(bubble_layout.nodes({children: arr}).filter(function(d) { return !d.children; }) ); 
   //Enter
+  var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("background-color", "white")
+    .style("width", "200px")
+    .style("padding-top", "10px")
+    .style("padding-bottom", "10px")
+    .style("text-align", "center")
+    .style("border-radius", "15px")
+    .style("-moz-border-radius", "15px")
+    .style("-webkit-border-radius", "15px")
+    .style("border-style", "solid")
+    .style("border-width", "2px")
+    .style("visibility", "hidden")
+
+  posX = null;
+  posY = null;
+  document.onmousemove = function(evt) {
+    if (typeof evt == 'undefined') {
+      myEvent = window.event;
+    }
+    else {
+      myEvent = evt;
+    }
+    posX = myEvent.pageX+10;
+    posY = myEvent.pageY;
+    tooltip.style("top", posY+"px").style("left", posX+"px")
+  }
   node = selection.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")"; });
   node.append("circle")
       .attr("r", function(d) { return d.r; })
+      .on("click", function(d, i) { window.location = '/fedorarpms/rubygem-' + d.name; })
+      .on("mouseover", function(d){document.body.style.cursor = "pointer"; tooltip.style("visibility", "visible"); tooltip.html("RubyGem Name: "+d.name+ "<br>Commits: " + d.value +"<br>Click for more info...");})
+      .on("mouseout", function(){document.body.style.cursor = "default";  tooltip.style("visibility", "hidden");})
       .style("fill", function(d) { return color(d.name); });
 
   node.append("text")
       .on("click", function(d, i) { window.location = '/fedorarpms/rubygem-' + d.name; })
-      .on("mouseover", function() { document.body.style.cursor = 'pointer'; })
-      .on("mouseout", function() { document.body.style.cursor = 'default'; })
+      .on("mouseover", function(){document.body.style.cursor = "pointer"; tooltip.style("visibility", "visible");})
+      .on("mouseout", function(){document.body.style.cursor = "default";  tooltip.style("visibility", "hidden");})
       .attr("text-anchor", "middle")
       .attr("dy", ".3em")
       .style("font-color", "FFF")
-      .text(function(d) { return d.name.substring(0, d.r/3);; });
+      .text(function(d) { return d.name.substring(0, d.r/3); });
