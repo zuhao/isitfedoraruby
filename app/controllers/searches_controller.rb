@@ -2,7 +2,7 @@ class SearchesController < ApplicationController
 
   def index
     @page_title = 'Search'
-    searchphrase = params[:search]
+    searchphrase = params[:id]
     @results = RubyGem.where('name LIKE ?', "%#{searchphrase}%").paginate(:page => params[:page], :per_page => 50, :group => "name", :order => "length(name) asc")
   end
 
@@ -15,5 +15,10 @@ class SearchesController < ApplicationController
       format.json { render :json => result.to_json }
     end
   end 
-  
+
+  def redirect
+    if params[:search]
+      redirect_to searches_path + "/#{params[:search]}"
+    end
+  end
 end
