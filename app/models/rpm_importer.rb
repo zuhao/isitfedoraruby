@@ -47,10 +47,16 @@ class RpmImporter
     rpms = Pkgwat.get_packages("rubygem")
     rpms.each {|rpm|
       rpm_name = rpm["name"]
+      rpm_summary = rpm["summary"]
+      rpm_description = rpm["description"]
+      rpm_author = rpm["devel_owner"]
       puts "Importing rpm #{rpm_name}"
       if FedoraRpm.find_by_name(rpm_name).nil?  
         r = FedoraRpm.new
         r.name = rpm_name
+        r.summary = rpm_summary
+        r.author = rpm_author
+        r.description = rpm_description
         r.source_uri = "git://pkgs.fedoraproject.org/#{rpm_name}"
         r.save!
       else
