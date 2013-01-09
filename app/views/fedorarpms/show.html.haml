@@ -1,5 +1,6 @@
 %h1= link_to @rpm.name, @rpm.homepage if @rpm.homepage != nil
-%h2= "(%{rpm_summary})" % { :rpm_summary => @rpm.summary}
+- unless @rpm.summary.blank?
+  %h2= "(%{rpm_summary})" % { :rpm_summary => @rpm.summary}
 %h2
   = link_to _('Source Code URI'), @rpm.source_uri if @rpm.source_uri != nil
   = "|"
@@ -36,10 +37,10 @@
             %td= @rpm.ruby_gem.version
   %div.row
     %div.span6
-      - if @dependents.blank?
-        %label= _('No dependents')
+      - if @dependencies.blank?
+        %label= _('No dependencies')
       - else
-        %label= _('Dependents:')
+        %label= _('Dependencies:')
 
         %table.table.table-striped.table-condensed.dependency
           %thead
@@ -60,9 +61,9 @@
                 %td= d.ruby_gem.version
     %div.span6
       - if @dependents.blank?
-        %label= _('No depedencies')
+        %label= _('No dependents')
       - else
-        %label= _('Depedencies:')
+        %label= _('Dependents:')
 
         %table.table.table-striped.table-condensed.dependency
           %thead

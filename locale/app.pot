@@ -325,6 +325,9 @@ msgstr ""
 msgid "For more info, please check out the <a href=http://github.com/zuhao/isitfedoraruby>code</a> or visit the <a href=https://fedoraproject.org/wiki/Ruby_SIG>Ruby SIG</a> wiki page."
 msgstr ""
 
+msgid "Silk Icons by <a href=http://www.famfamfam.com/lab/icons/silk/>famfamfam</a>"
+msgstr ""
+
 #.TRANSLATORS: This is a noun.
 msgid "Comment"
 msgstr ""
