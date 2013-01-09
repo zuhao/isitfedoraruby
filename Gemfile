@@ -42,6 +42,7 @@ group :test, :development do
   gem 'growl'
   gem 'ruby_parser'
   gem 'gettext', '>= 1.9.3', :require => false
+  gem 'minitest'
 end
 
 group :production do
