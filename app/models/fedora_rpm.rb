@@ -175,17 +175,14 @@ class FedoraRpm < ActiveRecord::Base
     puts "Importing rpm #{name} bugs"
     self.bugs.clear
 
-    bugzilla_search = URI.parse(bugzilla_url).read
-    doc = Nokogiri::HTML(bugzilla_search)
-
     # get bugs and their titles and last_updated
-    bugs = doc.xpath("//td[@class='bz_short_desc_column']/a").collect { |bz| [bz.attr('href').gsub('show_bug.cgi?id=', ''), bz.text.strip] }
+    xmlrpc = Bugzilla::XMLRPC.new("bugzilla.redhat.com")
+    bugs = Bugzilla::Bug.new(xmlrpc).search("summary" => name, "product" => "fedora")["bugs"]
     bugs.each { |bug|
-      update = doc.xpath("//tr[@id='b#{bug.first}']//td[@class='bz_changeddate_column']").text
       arb = Bug.new 
-      arb.name = bug.last
-      arb.bz_id = bug.first
-      arb.last_updated = update
+      arb.name = bug["summary"]
+      arb.bz_id = bug["id"]
+      arb.last_updated = bug["last_change_time"].to_time
       arb.is_review = true if arb.name =~ /^Review Request.*#{name}\s.*$/
       self.bugs << arb
     }
