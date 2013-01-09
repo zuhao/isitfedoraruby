@@ -34,6 +34,7 @@ gem 'versionomy'
 gem 'gems'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'pkgwat'
+gem 'ruby-bugzilla'
 
 group :test, :development do
   gem 'rspec-rails'

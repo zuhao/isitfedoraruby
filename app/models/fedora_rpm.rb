@@ -1,5 +1,6 @@
 require 'versionomy'
 require 'xmlrpc/client'
+require 'bugzilla'
 
 class FedoraRpm < ActiveRecord::Base
   FEDORA_VERSIONS = {'rawhide'   => 'master',
