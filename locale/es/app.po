@@ -376,6 +376,9 @@ msgstr ""
 "isitfedoraruby>código</a> o visite la página de la wiki del <a href=https://"
 "fedoraproject.org/wiki/Ruby_SIG>SIG de Ruby</a>."
 
+msgid "Silk Icons by <a href=http://www.famfamfam.com/lab/icons/silk/>famfamfam</a>."
+msgstr "Iconos «silk» por <a href=http://www.famfamfam.com/lab/icons/silk/>famfamfam</a>."
+
 #. TRANSLATORS: This is a noun.
 msgid "Comment"
 msgstr "Comentario"
@@ -461,3 +464,5 @@ msgstr ""
 "Para reportar un error de esta aplicación web, <a href=https://github.com/"
 "zuhao/isitfedoraruby/issues/new>cree un reporte nuevo</a> en el repositorio "
 "de github."
+
+
