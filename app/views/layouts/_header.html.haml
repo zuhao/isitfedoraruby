@@ -7,8 +7,8 @@
           %li= link_to _('Home'), root_path
           %li= link_to _('Ruby Gems'), rubygems_path
           %li= link_to _('Fedora Rpms'), fedorarpms_path
-          %li= link_to _('About'), about_path
           %li= link_to _('Contribute'), contribute_path
+          %li= link_to _('About'), about_path
           %li
             = form_tag( { :controller => 'searches', :action => 'redirect' }, :class => 'form-search', :method => 'post') do
               = text_field_tag :search, params[:search] ||= '', :id => 'search_field', :class => 'input-medium search-query'
