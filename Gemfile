@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '~> 3.2.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -12,7 +12,7 @@ gem 'bootstrap-sass', '~> 2.0.0'
 
 #i18n support
 gem 'fast_gettext'
-gem 'gettext_i18n_rails', '>= 0.4.3'
+gem 'gettext_i18n_rails', '>= 0.4.0'
 gem 'rails-i18n'
 
 group :assets do
@@ -34,6 +34,7 @@ gem 'versionomy'
 gem 'gems'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'pkgwat'
+gem 'ruby-bugzilla'
 
 group :test, :development do
   gem 'rspec-rails'
