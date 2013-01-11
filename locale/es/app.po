@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-13 12:14-0300\n"
-"PO-Revision-Date: 2013-01-05 15:28-0300\n"
+"PO-Revision-Date: 2013-01-10 21:01-0300\n"
 "Last-Translator: Nicolás Satragno <nsatragno@gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -176,6 +176,16 @@ msgstr "Errores:"
 
 msgid "Title"
 msgstr "Título"
+
+msgid "Versions:"
+msgstr "Versiones:"
+
+#. TRANSLATORS: This is the Bug's ID, a table title
+msgid "ID"
+msgstr "ID"
+
+msgid "No dependents"
+msgstr "Sin dependientes"
 
 msgid "Review?"
 msgstr "¿Revisión?"
@@ -376,8 +386,11 @@ msgstr ""
 "isitfedoraruby>código</a> o visite la página de la wiki del <a href=https://"
 "fedoraproject.org/wiki/Ruby_SIG>SIG de Ruby</a>."
 
-msgid "Silk Icons by <a href=http://www.famfamfam.com/lab/icons/silk/>famfamfam</a>."
-msgstr "Iconos «silk» por <a href=http://www.famfamfam.com/lab/icons/silk/>famfamfam</a>."
+msgid ""
+"Silk Icons by <a href=http://www.famfamfam.com/lab/icons/silk/>famfamfam</a>."
+msgstr ""
+"Iconos «silk» por <a href=http://www.famfamfam.com/lab/icons/silk/"
+">famfamfam</a>."
 
 #. TRANSLATORS: This is a noun.
 msgid "Comment"
@@ -465,4 +478,13 @@ msgstr ""
 "zuhao/isitfedoraruby/issues/new>cree un reporte nuevo</a> en el repositorio "
 "de github."
 
+msgid "Is It Fedora Ruby has been translated into your language by:"
+msgstr "Is It Fedora Ruby fue traducido a su idioma por:"
 
+#. Put your name in the form
+#. First Last <email AT domain DOT com>, Year
+#. Example:
+#. Nicolás Satragno <nsatragno AT gnome DOT org>, 2013
+#. Add a new line for every new contributor. And thanks for translating!
+msgid "translator-credits"
+msgstr "Nicolás Satragno <nsatragno AT gnome DOT org>, 2013"

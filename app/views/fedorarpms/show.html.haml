@@ -23,7 +23,7 @@
       %label= _('Git Commits: %{rpm_commits}') % { :rpm_commits => @rpm.commits}
     %div.span6
       %h2
-      = _('Versions: ')
+      = _('Versions:')
       %table.table.table-striped.table-condensed.dependency
         %thead
           %tr
@@ -89,7 +89,7 @@
       %table.table.table-striped.table-condensed.dependency
         %thead
           %tr
-            %th Bug's id
+            %th= _('ID')
             %th= _('Title')
             %th= _('Review?')
         %tbody

@@ -175,6 +175,16 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#.TRANSLATORS: This is the Bug's ID, a table title
+msgid "ID"
+msgstr ""
+
+msgid "Versions:"
+msgstr ""
+
+msgid "No dependents"
+msgstr ""
+
 msgid "Review?"
 msgstr ""
 
@@ -370,4 +380,15 @@ msgid "If you want to contact the Fedora Ruby community, send an e-mail to the <
 msgstr ""
 
 msgid "To file a bug against this web application, <a href=https://github.com/zuhao/isitfedoraruby/issues/new>create a new issue</a> in the github repository." 
+msgstr ""
+
+msgid "Is It Fedora Ruby has been translated into your language by:"
+msgstr ""
+
+#. Put your name in the form
+#. First Last <email AT domain DOT com>, Year
+#. Example:
+#. Nicolás Satragno <nsatragno AT gnome DOT org>, 2013
+#. Add a new line for every new contributor. And thanks for translating!
+msgid "translator-credits"
 msgstr ""
