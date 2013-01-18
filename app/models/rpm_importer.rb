@@ -58,6 +58,9 @@ class RpmImporter
         r.author = rpm_author
         r.description = rpm_description
         r.source_uri = "git://pkgs.fedoraproject.org/#{rpm_name}"
+        #Make a placeholder gem so that the views which call dependencies not yet imported don't break.
+        gem_name = name.gsub(/rubygem-/,'')
+        r.ruby_gem = RubyGem.find_or_initialize_by_name(gem_name)
         r.save!
       else
         puts "rpm #{rpm_name} already imported"
