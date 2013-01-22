@@ -8,6 +8,8 @@
   = "|"
   - if @rpm.ruby_gem != nil
     = link_to _('RubyGem'), rubygem_path(@rpm.ruby_gem.name)
+    = "|"
+  = link_to _('Timeline (Bugs and Versions)'), stats_path + "/" + @name + "/timeline"
 %div.info
   %div.row
     %div.span6
