@@ -2,16 +2,17 @@
 # Copyright (C) 2012 Mohammed Morsi and others
 # This file is distributed under the same license as the IsItFedoraRuby package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Kennouche Dhia Eddine kendhia@gmail.com, 22/01/2013.
+
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: Is It Fedora Ruby\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-13 12:14-0300\n"
 "PO-Revision-Date: 2013-01-01 16:04-0300\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Kennouche Dhia Eddine kendhia@gmail.com\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,26 +20,26 @@ msgstr ""
 
 
 msgid "This is the home page for the Is It Fedora Ruby web application"
-msgstr ""
+msgstr "Is It Fedora Ruby الصفحة الرئيسية لتطبيق  "
 
 #.TRANSLATORS: Leave the href=/stats/gemfile_tool unchanged
 msgid "*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora"
-msgstr ""
+msgstr "مع فيدورا Gemfile <a href=/stats/gemfile_tool> قارن</a>*جديد*"
 
 msgid "Gem"
-msgstr ""
+msgstr "جوهرة"
 
 msgid "Version"
-msgstr ""
+msgstr "النسخة"
 
 msgid "Rpm Version"
-msgstr ""
+msgstr "Rpm نسخة"
 
 msgid "Downloads"
-msgstr ""
+msgstr "التحميلات"
 
 msgid "Rpm"
-msgstr ""
+msgstr "Rpm"
 
 msgid "Upstream"
 msgstr ""
@@ -53,49 +54,49 @@ msgid "Commits"
 msgstr ""
 
 msgid "Updated"
-msgstr ""
+msgstr "حدثت"
 
 msgid "Wanted by"
-msgstr ""
+msgstr "أرادها"
 
 msgid "Most wanted gems"
-msgstr ""
+msgstr "أكثر الجواهر طلبا"
 
 msgid "Most popular rpms"
-msgstr ""
+msgstr "rpms أشهر"
 
 msgid "Most recent rpms"
-msgstr ""
+msgstr "rpms آخر"
 
 msgid "Most popular gems"
-msgstr ""
+msgstr "أشهر الجواهر"
 
 msgid "Is It Fedora Ruby on Github"
-msgstr ""
+msgstr "Github على Is It Fedora Ruby"
 
 msgid "About"
-msgstr ""
+msgstr "عن"
 
 msgid "Contact"
-msgstr ""
+msgstr "اتصل"
 
 msgid "Home"
-msgstr ""
+msgstr "الرئيسية"
 
 msgid "Ruby Gems"
-msgstr ""
+msgstr "Ruby جواهر"
 
 msgid "Fedora Rpms"
-msgstr ""
+msgstr "Rpms فيدورا"
 
 msgid "Success Stories"
-msgstr ""
+msgstr "قصص نجاح"
 
 msgid "Find some of the best-known success stories here!"
-msgstr ""
+msgstr "أعثر على بعض أفضل قصص النجاح المعروفة هنا"
 
 msgid "Contribute"
-msgstr ""
+msgstr "ساهم"
 
 #.TRANSLATORS: This is the tag of the "search" button
 msgid "Search"
@@ -380,9 +381,6 @@ msgid "If you want to contact the Fedora Ruby community, send an e-mail to the <
 msgstr ""
 
 msgid "To file a bug against this web application, <a href=https://github.com/zuhao/isitfedoraruby/issues/new>create a new issue</a> in the github repository." 
-msgstr ""
-
-msgid "This page doesn't exist!, return to the <a href=/>Homepage</a>."
 msgstr ""
 
 msgid "Is It Fedora Ruby has been translated into your language by:"
