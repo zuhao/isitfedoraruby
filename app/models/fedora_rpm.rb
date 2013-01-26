@@ -175,15 +175,13 @@ class FedoraRpm < ActiveRecord::Base
   def retrieve_bugs
     puts "Importing rpm #{name} bugs"
     self.bugs.clear
-
     # get bugs and their titles and last_updated
-    xmlrpc = Bugzilla::XMLRPC.new("bugzilla.redhat.com")
-    bugs = Bugzilla::Bug.new(xmlrpc).search("summary" => name, "product" => "fedora")["bugs"]
+    bugs = Pkgwat.get_bugs(self.name)
     bugs.each { |bug|
       arb = Bug.new 
-      arb.name = bug["summary"]
+      arb.name = bug["description"]
       arb.bz_id = bug["id"]
-      arb.last_updated = bug["last_change_time"].to_time
+      arb.last_updated = bug["last_modified"].to_time
       arb.is_review = true if arb.name =~ /^Review Request.*#{name}\s.*$/
       self.bugs << arb
     }
