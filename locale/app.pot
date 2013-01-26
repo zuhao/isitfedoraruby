@@ -382,6 +382,9 @@ msgstr ""
 msgid "To file a bug against this web application, <a href=https://github.com/zuhao/isitfedoraruby/issues/new>create a new issue</a> in the github repository." 
 msgstr ""
 
+msgid "This page doesn't exist!, return to the <a href=/>Homepage</a>."
+msgstr ""
+
 msgid "Is It Fedora Ruby has been translated into your language by:"
 msgstr ""
 
