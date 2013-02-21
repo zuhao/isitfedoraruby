@@ -10,13 +10,13 @@
   - [ ] Allow one to set update options interactively
   - [ ] Allow one to pause/continue update
 
-** TODO Add decent robots.txt 
+** TODO Add decent robots.txt
 
 ** TODO Fix "most wanted gems" (or erase)
 
-** TODO Make a nice error message appear when a user types a wrong URL
+** DONE Make a nice error message appear when a user types a wrong URL
 -> Example: http://www.isitfedoraruby.com/fedorarpms/non-existent-rpm
-- [ ] It would be totally awesome to have a "did you mean...?" sign
+- [x] It would be totally awesome to have a "did you mean...?" sign
 
 ** TODO furthur improve import mechanism
 - Instead of scraping websites, we should use the APIs for git, bugzilla,

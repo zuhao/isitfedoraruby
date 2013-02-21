@@ -35,6 +35,7 @@ gem 'gems'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'pkgwat'
 gem 'ruby-bugzilla'
+gem 'text'
 
 group :test, :development do
   gem 'rspec-rails'

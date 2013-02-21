@@ -1,3 +1,4 @@
+
 %h1 Search Results
 
 - if @results != []
@@ -24,3 +25,24 @@
     = will_paginate @results
 - else
   %h2 Sorry, there were no results when searching for the Ruby Gem "#{params[:id]}"
+  %h2 However, did you mean...
+  - if @suggests != []
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th Gem Name
+          %th Gem Version
+          %th Rpm Name
+          %th Rpm Version (Rawhide)
+
+      %tbody
+        - @suggests.each do |gem|
+          %tr
+            %td= link_to gem.name, rubygem_path(gem.name)
+            %td= gem.version
+            - if  gem.fedora_rpm != nil
+              %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.name)
+              %td= gem.fedora_rpm.version_for('rawhide')
+            -else
+              %td
+              %td
