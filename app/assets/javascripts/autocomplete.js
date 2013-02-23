@@ -1,24 +1,19 @@
 $(function() {
-  var search_text = null;
 
-  $("#search_field").tokenInput("/searches/suggest_gems.json", {
-  	onAdd: function (item) {
-      $('input[id$=search_field]').val(item.name);
+  $('#search_field').typeahead({
+    source: function(typeahead, query) {
+      var _this = this;
+      return $.ajax({
+        url: "/searches/suggest_gems.json?q=" + query,
+        success: function(data) {
+          return typeahead.process(data);
+        }
+      });
     },
-      crossDomain: false,
-      tokenLimit: 1,
-      tokenValue: name
-  });
-  
-  $('input[id$=token-input-search_field]').keyup(function() {
-    search_text = $(this).val();
-    $('input[id$=search_field]').val(search_text);
-  });
-
-  // XXX hack to preserve search text search box
-  // looses focus
-  $("#token-input-search_field").blur(function(event){
-    $(event.target).val(search_text);
+    property: "name",
+    onselect: function(item){
+      window.location.replace("/searches/"+item['name']);
+    }
   });
 
 });
