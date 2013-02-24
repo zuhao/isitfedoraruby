@@ -1,0 +1,444 @@
+# IsItFedoraRuby
+# Copyright (C) 2012 Mohammed Morsi and others
+# This file is distributed under the same license as the IsItFedoraRuby package.
+# 
+# Translators:
+# Maroš Zaťko <mzatko@redhat.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: Is It Fedora Ruby\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-13 12:14-0300\n"
+"PO-Revision-Date: 2013-02-04 15:37+0000\n"
+"Last-Translator: mzatko <mzatko@redhat.com>\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/fedora/language/sk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "This is the home page for the Is It Fedora Ruby web application"
+msgstr "Toto je domovská stránka Is It Fedora Ruby web aplikácie."
+
+#. RANSLATORS: Leave the href=/stats/gemfile_tool unchanged
+msgid ""
+"*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora"
+msgstr "*new* <a href=/stats/gemfile_tool>porovaj</a> svoj Gemfile proti Fedore"
+
+msgid "Gem"
+msgstr "Gem"
+
+msgid "Version"
+msgstr "Verzia"
+
+msgid "Rpm Version"
+msgstr "Rpm verzia"
+
+msgid "Downloads"
+msgstr "Stiahnuté"
+
+msgid "Rpm"
+msgstr "Rpm"
+
+msgid "Upstream"
+msgstr "Upstream"
+
+msgid "Rawhide"
+msgstr "Rawhide"
+
+msgid "Git commits"
+msgstr "Git komity"
+
+msgid "Commits"
+msgstr "Komity"
+
+msgid "Updated"
+msgstr "Aktualizované"
+
+msgid "Wanted by"
+msgstr "Chcené:"
+
+msgid "Most wanted gems"
+msgstr "Najchcenejšie gemy"
+
+msgid "Most popular rpms"
+msgstr "Najpopulárnejšie rpmká"
+
+msgid "Most recent rpms"
+msgstr "Najnovšie rpmká"
+
+msgid "Most popular gems"
+msgstr "Najpopulárnejšie gemy"
+
+msgid "Is It Fedora Ruby on Github"
+msgstr "Is It Fedora Ruby na Github-e"
+
+msgid "About"
+msgstr "O nás"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Home"
+msgstr "Domov"
+
+msgid "Ruby Gems"
+msgstr "Ruby gemy"
+
+msgid "Fedora Rpms"
+msgstr "Fedora rpmká"
+
+msgid "Success Stories"
+msgstr "Príbehy úspešních"
+
+msgid "Find some of the best-known success stories here!"
+msgstr "Tu nájdete niektoré z najznámejších príbehov úspešních!"
+
+msgid "Contribute"
+msgstr "Prispejte"
+
+#. RANSLATORS: This is the tag of the "search" button
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "All Fedora Rpms"
+msgstr "Všetky Fedora rpmká"
+
+msgid "Name"
+msgstr "Názov"
+
+msgid "Up to date?"
+msgstr "Aktuálne?"
+
+msgid "Git Commits"
+msgstr "Gitové komity"
+
+msgid "Last Commit"
+msgstr "Posledný komit"
+
+msgid "Patched?"
+msgstr "Opatchované?"
+
+msgid "Maintainer"
+msgstr "Udržovateľ"
+
+msgid "Yes"
+msgstr "Áno"
+
+msgid "No"
+msgstr "Nie"
+
+#. RANSLATORS: %{time_ago} is a dynamically changed by a timestamp,
+#. automatically translated.
+#. xample: "One week ago".
+msgid "%{time_ago} ago"
+msgstr "%{time_ago} späť"
+
+msgid "Homepage URI"
+msgstr "URI domovskej stránky"
+
+msgid "Source Code URI"
+msgstr "URI zdrojového kódu"
+
+msgid "Dependency Tree"
+msgstr "Strom závislostí"
+
+msgid "RubyGem"
+msgstr "RubyGem"
+
+msgid "Hotness: %{rpm_hotness}%"
+msgstr "Hotness: %{rpm_hotness}%"
+
+msgid "Up to date: "
+msgstr "Up to date:"
+
+msgid "Maintainer: %{maintainer_email}"
+msgstr "Udržovateľ: %{maintainer_email}"
+
+msgid "Versions: %{rpm_versions}"
+msgstr "Verzie: %{rpm_versions}"
+
+msgid "Git Commits: %{rpm_commits}"
+msgstr "Gitové komity: %{rpm_commits}"
+
+msgid "Depends on:"
+msgstr "Závisí na:"
+
+msgid "Package"
+msgstr "Balík"
+
+msgid "Gem Version"
+msgstr "Verzia gemu"
+
+msgid "Bugs:"
+msgstr "Chyby:"
+
+msgid "Title"
+msgstr "Titulok"
+
+#. RANSLATORS: This is the Bug's ID, a table title
+msgid "ID"
+msgstr "ID"
+
+msgid "Versions:"
+msgstr "Verzie:"
+
+msgid "No dependents"
+msgstr "Žiadne závislé"
+
+msgid "Review?"
+msgstr "Review?"
+
+msgid "Builds:"
+msgstr "Build-y:"
+
+msgid "Build ID"
+msgstr "Build ID"
+
+msgid "Dependent Packages:"
+msgstr "Závislé balíky:"
+
+msgid "All Fedora Rpms maintained by %{name}"
+msgstr "Všetky Fedora RPM udržiavané uživateľom %{name}"
+
+msgid "See it in a nice bubble chart"
+msgstr "Pozrieť v peknom bublinkovom grafe"
+
+#. RANSLATORS: This text is the fist cell in a table.
+#. em names go under the cell and Fedora versions next to it.
+msgid "Gem / Fedora Version"
+msgstr "Gem / Fedora verzia"
+
+msgid "Bubble Chart:"
+msgstr "Bublinkový graf:"
+
+msgid ""
+"This graph shows the packages, which are represented by circles, that the "
+"user %{user_name} owns."
+msgstr "Tento graf ukazuje balíky, reprezentované kruhmi, ktoré vlastní uživateľ %{user_name}."
+
+msgid ""
+"The size of each circle is proportional to the number of commits for that "
+"package."
+msgstr "Veľkosť každého z kruhov je úmerná počtu komitov pre daný balík."
+
+#. RANSLATORS: This is the label of a button.
+msgid "Back"
+msgstr "Späť"
+
+msgid "Test your Gemfile or Gemfile.lock against Fedora"
+msgstr "Otestuj svoj Gemfile alebo Gemfile.lock proti Fedore"
+
+msgid "Upload it"
+msgstr "Uploadnúť to"
+
+msgid "or Paste it"
+msgstr "alebo to Vložiť"
+
+msgid "upload"
+msgstr "upload"
+
+msgid "submit"
+msgstr "odoslať"
+
+msgid "All Ruby Gems"
+msgstr "Všetky Ruby gemy"
+
+msgid "Fedora Rpm"
+msgstr "Fedora Rpm"
+
+msgid "Wantedness: %{gem_wantedness}"
+msgstr "Chcenosť: %{gem_wantedness}"
+
+msgid "Version: %{gem_version}"
+msgstr "Verzia: %{gem_version}"
+
+msgid "Total Downloads: %{total_downloads_number}"
+msgstr "Stiahnutia spolu: %{total_downloads_number}"
+
+msgid "Description:"
+msgstr "Popis:"
+
+msgid "%{gem_name} does not have a description yet"
+msgstr "%{gem_name} ešte nemá popis"
+
+#. RANSLATORS: This is a noun
+msgid "Comments"
+msgstr "Komentáre"
+
+msgid "Name: %{comment_name}"
+msgstr "Meno: %{comment_name}"
+
+msgid "Email: %{comment_email}"
+msgstr "Email: %{comment_email}"
+
+#. RANSLATORS: This is a noun
+msgid "Comment:"
+msgstr "Komentár:"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Add new comment"
+msgstr "Pridať nový komentár"
+
+#. RANSLATORS: This is the label of a checkbox
+msgid "Yes I want it!"
+msgstr "Ano, chcem to!"
+
+#. RANSLATORS: This is the label of a checkbox
+msgid "Keep me updated!"
+msgstr "Zasielaj mi dianie!"
+
+#. RANSLATORS: This is the label of a button
+msgid "Submit"
+msgstr "Odoslať"
+
+msgid "RubyGems -> RPMs"
+msgstr "RubyGemy -> RPMká"
+
+msgid "Dependencies:"
+msgstr "Závislosti:"
+
+msgid "No dependencies"
+msgstr "Žiadne závislosti"
+
+msgid "build with koji"
+msgstr "buildnuté v koji"
+
+#. RANSLATORS: This is the label of a button
+msgid "Next"
+msgstr "Ďalej"
+
+msgid "Name of Gem to Import:"
+msgstr "Názov Gemu na importovanie:"
+
+msgid "Select version of gem %{gem_name} to import"
+msgstr "Vyber verziu gemu %{gem_name} na import"
+
+msgid ""
+"IsItFedoraRuby is a web-application (a Rails application) for keeping track "
+"of the Fedora/Ruby integration, especially gem->rpm conversion, "
+"documentation, and success stories."
+msgstr "IsItFedoraRuby je webová (Railsová) aplikácia určená na držanie prehľadu o stave integrácie Fedory a Ruby, najmä konverzie gemov na rpm, dokumentácie, a príbehov úspešných."
+
+msgid ""
+"The project was started on 2012 as a <a "
+"href=https://fedoraproject.org/wiki/GSOC_2012/Student_Application_Zuhao/IsItFedoraRuby>Google"
+" Summer Of Code project</a> by Zuhao, and it is growing to include Ruby "
+"Special Interest Group."
+msgstr "Tento projekt začal Zuhao v roku 2012 ako <a href=https://fedoraproject.org/wiki/GSOC_2012/Student_Application_Zuhao/IsItFedoraRuby>Google Summer Of Code projekt</a>, a narastá aby zahrnul Ruby Special Interest Group."
+
+msgid "Ruby Special Interest Group"
+msgstr "Ruby Special Interest Group"
+
+msgid ""
+"A SIG for people who are interested in improving the state of Ruby in "
+"Fedora. This includes packaging Ruby libraries and applications, setting and"
+" improving standards for packaging them as RPMs and maintaining Ruby "
+"packages for Fedora."
+msgstr "SIG pre ľudí, ktorí sa zaujímajú o zlepšenie stavu Ruby vo Fedore. Zahŕňa to balíkovanie Ruby knižníc a aplikácií, nastavovanie a zlepšovanie štandardov ich balíkovania do RPM a údržba Ruby balíkov pre Fedoru."
+
+msgid ""
+"Packaging Ruby libraries and applications for Fedora is an ongoing process. "
+"We hope that this situation will improve dramatically over the next few "
+"months; that means that you, dear reader, can become a hero by packaging "
+"your favorite piece of Ruby code as an RPM and submitting it to Fedora."
+msgstr "Balenie Ruby knižníc a aplikácií pre Fedoru je postupný proces. Dúfame, že sa táto situácia výrazne zlepší v priebehu nabližích mesiacov; čo znamená, že aj Ty milý čitateľ máš šancu stať sa hrdinom a zabalíkovať svoj obľúbený kus Ruby kódu ako RPM a zaslať ho do Fedory."
+
+msgid "Please Contribute!"
+msgstr "Prosím prispejte!"
+
+msgid ""
+"As this project is still in its early stage, please feel free to contribute "
+"any code or ideas to make it better."
+msgstr "Keďže je tento projekt stále v rannom štádiu, neváhajte a prispejte prosím nejakým kódom alebo nápadom na jeho vylepšenie."
+
+msgid ""
+"For more info, please check out the <a "
+"href=http://github.com/zuhao/isitfedoraruby>code</a> or visit the <a "
+"href=https://fedoraproject.org/wiki/Ruby_SIG>Ruby SIG</a> wiki page."
+msgstr "Pre viac informácií, si prosím pozrite <a href=http://github.com/zuhao/isitfedoraruby>kód</a> alebo naštívte <a href=https://fedoraproject.org/wiki/Ruby_SIG>Ruby SIG</a> wiki stránku."
+
+msgid ""
+"Silk Icons by <a "
+"href=http://www.famfamfam.com/lab/icons/silk/>famfamfam</a>."
+msgstr "Silk Icons by <a href=http://www.famfamfam.com/lab/icons/silk/>famfamfam</a>."
+
+#. RANSLATORS: This is a noun.
+msgid "Comment"
+msgstr "Komentár"
+
+#. RANSLATORS: This is the label of a checkbox
+msgid "It works for me!"
+msgstr "Mne to funguje!"
+
+msgid "Contribute to make it better!"
+msgstr "Prispejte a vylepšite!"
+
+msgid "Find how to contribute to the Fedora/Ruby community."
+msgstr "Zisti ako prispieť do Fedora/Ruby komunity."
+
+msgid ""
+"%{dep_name} (%{dep_version}) is too old in %{rv_fedora_version} (which has "
+"%{rv_rpm_version})"
+msgstr "%{dep_name} (%{dep_version}) je pristaré vo %{rv_fedora_version} (kde je %{rv_rpm_version})"
+
+msgid "%{dep_name} (%{dep_version}) is sufficient in %{rv_fedora_version}"
+msgstr "%{dep_name} (%{dep_version}) je dostatočná v %{rv_fedora_version}"
+
+msgid "%{dep_name} is in Fedora!"
+msgstr "%{dep_name} je vo Fedore!"
+
+msgid "%{dep_name} not found in Fedora"
+msgstr "%{dep_name} nenájdené vo Fedore"
+
+msgid "Timeline (Bugs and Versions)"
+msgstr "Časová línia (chyby a verzie)"
+
+msgid ""
+"This timeline depicts a chronological visualization of the bugs & version "
+"releases for %{gem_name}"
+msgstr "Táto časová línia zobrazuje chronologickú vizualizáciu chýb a vydaných verzií %{gem_name}"
+
+msgid ""
+"There are many ways you can contribute with the <a "
+"href=https://fedoraproject.org/wiki/Ruby_SIG>Fedora Ruby community</a>. "
+"Packaging Ruby libraries and applications for Fedora is still in its "
+"infancy, and only very few RPMs are available. We hope that this situation "
+"will improve dramatically over the next few months; that means that you, "
+"dear reader, can become a hero by packaging your favorite piece of Ruby code"
+" as an RPM and <a "
+"href=http://fedoraproject.org/wiki/PackageMaintainers/Join>submitting it to "
+"Fedora</a>."
+msgstr "Je mnoho spôsobov, ako môžte prispieť do <a href=https://fedoraproject.org/wiki/Ruby_SIG>Fedora Ruby komunity</a>.  Balíkovanie Ruby knižníc a aplikácií pre Fedoru je stále v plienkach a dostupných je zatiaľ len pomerne málo RPMiek. Dúfame, že sa táto situácia výrazne zlepší v priebehu nabližích mesiacov; čo znamená, že aj Ty milý čitateľ máš šancu stať sa hrdinom a zabalíkovať svoj obľúbený kus Ruby kódu ako RPM a <a href=http://fedoraproject.org/wiki/PackageMaintainers/Join>zaslať ho do Fedory</a>."
+
+msgid ""
+"Also, you can report bugs, send patches, or enhance in any way this web "
+"application in <a href=https://github.com/zuhao/isitfedoraruby>our github "
+"site</a>. Just clone the repository, make your changes and submit a pull "
+"request. Your imagination sets the limit!"
+msgstr "Taktiež môžeš nahlásiť chyby, poslat opravy, alebo vylepšenia akéhokoľvek druhu pre túto webovú aplikáciu na <a href=https://github.com/zuhao/isitfedoraruby>našu github stránku</a>. Stačí si len vyklonovať repozitár, urobiť zmeny a poslať pull request. Limitom je len tvoja predstavivosť."
+
+msgid ""
+"If you want to contact the Fedora Ruby community, send an e-mail to the <a "
+"href=mailto:ruby-sig@lists.fedoraproject.org>Ruby SIG mailing list</a>."
+msgstr "Ak chcete kontaktovať Fedora Ruby komunitu, zašlite e-mail na <a href=mailto:ruby-sig@lists.fedoraproject.org>Ruby SIG mailing list</a>."
+
+msgid ""
+"To file a bug against this web application, <a "
+"href=https://github.com/zuhao/isitfedoraruby/issues/new>create a new "
+"issue</a> in the github repository."
+msgstr "Na nahlásenie chyby v tejto webovej aplikácii <a href=https://github.com/zuhao/isitfedoraruby/issues/new>vyrobte \"issue\"</a> v github repozitári."
+
+msgid "Is It Fedora Ruby has been translated into your language by:"
+msgstr "Is It Fedora Ruby do vášho jazyka preložil(a/i):"
+
+#. Put your name in the form
+#. First Last <email AT domain DOT com>, Year
+#. Example:
+#. Nicolás Satragno <nsatragno AT gnome DOT org>, 2013
+#. Add a new line for every new contributor. And thanks for translating!
+msgid "translator-credits"
+msgstr "Maroš Zaťko <mzatko AT redhat DOT com>, 2013"
