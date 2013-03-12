@@ -1,5 +1,5 @@
 class Bug < ActiveRecord::Base
-  attr_accessible :name, :bz_id, :is_review
+  attr_accessible :name, :bz_id, :is_review, :is_open
   belongs_to :fedora_rpm
 
   def url

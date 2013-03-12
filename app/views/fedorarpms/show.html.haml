@@ -98,7 +98,10 @@
           - @rpm.bugs.each do |b|
             %tr
               %td
-                = link_to b.bz_id, b.url
+                - if b.is_open
+                  = link_to b.bz_id, b.url
+                - else
+                  %strike= link_to b.bz_id, b.url
               %td
                 = b.name.truncate(30)
               %td{:style => "text-align: center;"}

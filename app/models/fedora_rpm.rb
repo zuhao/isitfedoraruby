@@ -107,7 +107,7 @@ class FedoraRpm < ActiveRecord::Base
       begin
         rpm_spec = URI.parse(spec_url).read
         is_patched = (rpm_spec.scan(/\nPatch0:\s*.*\n/).size != 0)
-        
+
         rpm_version = rpm_spec.scan(/\nVersion:\s*.*\n/).first.split.last
         if !version_valid?(rpm_version)
           if rpm_version.include?('%{majorver}')
@@ -122,19 +122,19 @@ class FedoraRpm < ActiveRecord::Base
         rv.is_patched = is_patched
         self.rpm_versions << rv
         if version_title == 'rawhide'
-          #Import the maintainer's e-mail            
+          #Import the maintainer's e-mail
           fedora_user_list = rpm_spec.scan(/<.*[@].*>/)
           fedora_user_list.each do |user|
             if user != "<rel-eng@lists.fedoraproject.org>" #We don't want to add Fedora Release Engineering
               #Remove those "<>"
               user[0] = ""
-              user.gsub!(">", "")                  
+              user.gsub!(">", "")
               self.fedora_user = user
               break
             end
           end
           puts "Maintainer: #{self.fedora_user}"
-            
+
           self.homepage = rpm_spec.scan(/\nURL:\s*.*\n/).first.split.last
 
           rpm_spec.split("\n").each { |line|
@@ -180,11 +180,12 @@ class FedoraRpm < ActiveRecord::Base
     xmlrpc = Bugzilla::XMLRPC.new("bugzilla.redhat.com")
     bugs = Bugzilla::Bug.new(xmlrpc).search("summary" => name, "product" => "fedora")["bugs"]
     bugs.each { |bug|
-      arb = Bug.new 
+      arb = Bug.new
       arb.name = bug["summary"]
       arb.bz_id = bug["id"]
       arb.last_updated = bug["last_change_time"].to_time
       arb.is_review = true if arb.name =~ /^Review Request.*#{name}\s.*$/
+      arb.is_open = bug['is_open']
       self.bugs << arb
     }
   end
@@ -285,7 +286,7 @@ class FedoraRpm < ActiveRecord::Base
     }
     rpms
   end
-  
+
   def obfuscated_fedora_user
     return self.fedora_user.to_s.gsub("@", " AT ").gsub(".", " DOT ")
   end
