@@ -2,21 +2,20 @@ Isitfedoraruby::Application.routes.draw do
 
   root :to => 'home#show'
 
-  match 'successes' => 'static_pages#successes'
-  match 'contribute' => 'static_pages#contribute'
-  match 'about' => 'static_pages#about'
-  match 'contact' => 'static_pages#contact'
+  get 'contribute' => 'static_pages#contribute'
+  get 'about' => 'static_pages#about'
+  get 'contact' => 'static_pages#contact'
 
-  match 'rubygems/' => 'rubygems#index'
-  match 'rubygems/all' => 'rubygems#index'
-  match 'rubygems/:id' => 'gemcomments#create', :via => :post
+  get 'rubygems/' => 'rubygems#index'
+  get 'rubygems/all' => 'rubygems#index'
+  # match 'rubygems/:id' => 'gemcomments#create', :via => :post
 
-  match 'fedorarpms/all' => 'fedorarpms#index'
-  match 'fedorarpms/:id' => 'rpmcomments#create', :via => :post
+  get 'fedorarpms/all' => 'fedorarpms#index'
+  # match 'fedorarpms/:id' => 'rpmcomments#create', :via => :post
 
-  match 'searches/suggest_gems' => 'searches#suggest_gems'
-  match 'searches/' => 'searches#redirect'
-  match 'searches/:id' => 'searches#index'
+  get 'searches/suggest_gems' => 'searches#suggest_gems'
+  get 'searches/' => 'searches#redirect'
+  get 'searches/:id' => 'searches#index'
 
   resources :fedorarpms, :constraints => { :id => /.*/ } do
     get :full_deps, :on => :member
@@ -44,7 +43,7 @@ Isitfedoraruby::Application.routes.draw do
   end
 
 # unless Rails.application.config.consider_all_requests_local
-    match '*not_found', to: 'errors#error_404'
+    get '*not_found', to: 'errors#error_404'
 #  end
 
   # The priority is based upon order of creation:

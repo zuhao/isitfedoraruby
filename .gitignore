@@ -25,3 +25,6 @@ nohup.out
 
 db/*sqlite3
 Gemfile.lock
+
+.idea
+
