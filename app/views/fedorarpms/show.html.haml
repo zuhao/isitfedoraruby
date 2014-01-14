@@ -14,7 +14,6 @@
   %div.row
     %div.span6
       %label= _('Description: %{rpm_description}') % { :rpm_description => @rpm.description}
-      %label= _("Hotness: %{rpm_hotness}%") % { :rpm_hotness => @rpm.hotness}
       = _('Up to date: ')
       - if @rpm.upto_date?
         %span.label.label-success= _('Yes')
@@ -122,5 +121,3 @@
               %td
                 = b.name.truncate(30)
 
-= render :partial => 'rpmcomments/comments'
-= render :partial => 'rpmcomments/new_comment'

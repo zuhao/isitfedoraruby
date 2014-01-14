@@ -1,6 +1,6 @@
 %div.stats.well
-  %h2 
-    = _('Most wanted gems')
+  %h2
+    = _('Latest updated gems')
   %table.table.table-striped.table-condensed
     %thead
       %tr
@@ -13,9 +13,8 @@
         %th
           = _('Downloads')
     %tbody
-      - @wanted_gems.each do |gem|
+      - @popular_gems.each do |gem|
         %tr
           %td= link_to gem.name, rubygem_path(gem.name)
           %td= gem.version
-          %td= gem.wanted_count
           %td= number_with_delimiter(gem.downloads)

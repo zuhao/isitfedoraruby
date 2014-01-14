@@ -9,20 +9,20 @@ class FedorarpmsController < ApplicationController
 
   def show
     @name = params[:id]
-    @rpm = FedoraRpm.find_by_name!(@name, :include => :rpm_comments)
+    @rpm = FedoraRpm.find_by_name! @name
     @page_title = @rpm.name
     @dependencies = @rpm.dependency_packages
     @dependents = @rpm.dependent_packages
     #We can register a global error handler inside the application controller for this.
     rescue ActiveRecord::RecordNotFound
-      redirect_to :action => 'not_found'     
- 
+      redirect_to :action => 'not_found'
+
   end
 
   def not_found
     @rpm = params[:id]
     @results = FedoraRpm.where('name LIKE ?', "%#{@rpm}%")
-  end 
+  end
 
   def full_deps
     @name = params[:id]
@@ -47,7 +47,7 @@ class FedorarpmsController < ApplicationController
       format.json { render :json => @rpm.json_dependents }
     end
   end
-  
+
   def by_owner
     @name = params[:id]
     @rpms = FedoraRpm.where("fedora_user LIKE ?", @name + "@%")

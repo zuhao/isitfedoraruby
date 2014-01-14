@@ -10,15 +10,13 @@ class FedoraRpm < ActiveRecord::Base
                      'Fedora 15' => 'f15'}
 
   belongs_to :ruby_gem
-  has_many :rpm_versions, :dependent => :destroy
-  has_many :rpm_comments, :dependent => :destroy, :order => 'created_at desc'
-  has_many :bugs, :dependent => :destroy, :order => 'bz_id desc'
-  has_many :builds, :dependent => :destroy, :order => 'build_id desc'
-  has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
-  has_many :failure_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => false}
-  has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
-  scope :most_popular, :order => 'commits desc'
-  scope :most_recent, :order => 'last_commit_date desc'
+  has_many :rpm_versions, dependent: :destroy
+  has_many :bugs, -> { order 'bz_id desc' }, dependent: :destroy
+  has_many :builds, -> { order 'build_id desc' }, dependent: :destroy
+  has_many :dependencies, -> { order  'created_at desc' }, as: :package,
+           dependent: :destroy
+  scope :most_popular, -> { order  'commits desc' }
+  scope :most_recent, -> { order 'last_commit_date desc' }
 
   def to_param
     name
@@ -29,11 +27,15 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def bugzilla_url
-    "https://bugzilla.redhat.com/buglist.cgi?short_desc=.*#{name}.*&o1=equals&classification=Fedora&query_format=advanced&short_desc_type=regexp"
+    "https://bugzilla.redhat.com/buglist.cgi?short_desc=.*#{name}\
+    .*&o1=equals&classification=Fedora&query_format=advanced&short_desc_type\
+    =regexp"
   end
 
   def versions
-    rpm_versions.collect { |rv| rv.rpm_version.to_s + " (" + rv.fedora_version.to_s + "/" + (rv.is_patched ? "" : "not ") +"patched)" }.join(", ")
+    rpm_versions.collect { |rv|
+      "#{rv.rpm_version} (#{rv.fedora_version}/#{rv.is_patched ? '' : 'not'} patched)"
+    }.join(", ")
   end
 
   def version_for(fedora_version)

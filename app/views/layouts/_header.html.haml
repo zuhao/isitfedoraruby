@@ -1,7 +1,7 @@
-%nav.navbar.navbar-default.navbar-fixed-top
-  %div.navbar-header
-    = link_to 'FedoraRuby', root_path, class: 'navbar-brand'
-  %div.collapse.navbar-collapse
+%div.container
+  %nav.navbar.navbar-default.navbar-fixed-top{:role => 'navigation'}
+    %div.navbar-header
+      = link_to 'FedoraRuby', root_path, class: 'navbar-brand'
     %ul.nav.navbar-nav
       %li= link_to _('Home'), root_path
       %li= link_to _('Ruby Gems'), rubygems_path
