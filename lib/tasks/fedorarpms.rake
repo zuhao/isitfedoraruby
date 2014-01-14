@@ -15,23 +15,21 @@ namespace :fedorarpms do
     rpms = Pkgwat.get_packages('rubygem-')
     rpms.each do |rpm|
       name = rpm['name']
-      if FedoraRpm.find_by_name(name).nil?
-        r = FedoraRpm.new
+      FedoraRpm.where(name: name).first_or_create! do |r|
         r.name = name
         r.summary = rpm['summary']
         r.description = rpm['description']
         r.author = rpm['devel_owner']
         r.source_uri = "git://pkgs.fedoraproject.org/#{name}"
         gem_name = name.gsub(/rubygem-/, '')
-        r.ruby_gem = RubyGem.find_or_initialize_by(name: gem_name)
-        r.save!
+        r.ruby_gem = RubyGem.where(name: gem_name).first_or_create!
       end
     end
     puts "Rpm list of #{rpms.size} imported."
   end
 
   desc 'Import rpms'
-  task :import_rpms, [:number, :delay] => [:import_names, :environment] do
+  task :import_rpms, [:number, :delay] => [:import_names, :environment] do |t, args|
     args.with_defaults(number: 100, delay: 5)
     total = 0
     counter = 0
@@ -39,13 +37,38 @@ namespace :fedorarpms do
     delay = args[:delay].to_i
     rpms = FedoraRpm.all
     rpms.each do |r|
-      if counter == batch_number
+      if counter == number_in_batch
         puts "Delaying for #{delay} seconds ..."
         sleep delay
         counter = 0
       end
       counter += 1
       puts "Updating #{r.name} (#{total += 1}/#{rpms.size}) ..."
+      r.update_from_source
+      puts "#{r.name} updated."
+    end
+  end
+
+  desc 'Update rpms'
+  task :update_rpms, [:age] => :environment do |t, args|
+    args.with_defaults(age: 7)
+    age = args[:age].to_i
+    last_update = (Time.now - 60 * 60 * 24 * age).utc
+    FedoraRpm.all.where('DATETIME(updated_at) < ?', last_update).each do |r|
+      puts "Updating #{r.name}"
+      r.update_from_source
+      puts "#{r.name} updated."
+    end
+  end
+
+  desc 'Update oldest n rpms'
+  task :update_oldest_rpms, [:number] => :environment do |t, args|
+    args.with_defaults(number: 10)
+    number = args[:number].to_i
+    total = 0
+    rpms = FedoraRpm.order("updated_at ASC").limit(number)
+    rpms.each do |r|
+      puts "Updating #{r.name} (#{total += 1}/#{rpms.size})..."
       r.update_from_source
       puts "#{r.name} updated."
     end

@@ -4,11 +4,7 @@ namespace :rubygems do
   task :import_names => :environment do
     gems = `gem list -r`.split("\n").collect { |g| g.split.first }
     gems.each do |gem_name|
-      if RubyGem.find_by_name(gem_name).nil?
-        g = RubyGem.new
-        g.name = gem_name
-        g.save!
-      end
+      RubyGem.where(name: gem_name).first_or_create!
     end
     puts "Gems list of #{gems.size} imported."
   end
@@ -20,7 +16,8 @@ namespace :rubygems do
     counter = 0
     number_in_batch = args[:number].to_i
     delay = args[:delay].to_i
-    RubyGem.all.each do |g|
+    gems = RubyGem.all
+    gems.each do |g|
       if counter == number_in_batch
         puts "Delaying for #{delay} seconds ..."
         sleep delay
@@ -39,8 +36,9 @@ namespace :rubygems do
     age = args[:age].to_i
     last_update = (Time.now - 60 * 60 * 24 * age).utc
     RubyGem.all.where('DATETIME(updated_at) < ?', last_update).each do |g|
-      puts "Updating gem #{g.name}"
+      puts "Updating #{g.name}"
       g.update_from_source
+      puts "#{g.name} updated."
     end
   end
 
