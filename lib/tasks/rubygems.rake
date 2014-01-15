@@ -10,7 +10,7 @@ namespace :rubygems do
   end
 
   desc 'Import gems from rubygems.org'
-  task :import_gems, [:number, :delay] => [:import_names, :environment] do |t, args|
+  task :import_gems, [:number, :delay] => :environment do |t, args|
     args.with_defaults(number: 100, delay: 5)
     total = 0
     counter = 0

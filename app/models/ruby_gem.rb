@@ -7,7 +7,6 @@ class RubyGem < ActiveRecord::Base
            :dependent => :destroy
   has_many :historical_gems, :foreign_key => :gem_id
   scope :most_popular, -> { order 'downloads desc' }
-  scope :most_recent, -> { order 'updated_at desc' }
 
   # FIXME version metadata should be stored in local db
   attr_accessor :versions
@@ -146,6 +145,14 @@ class RubyGem < ActiveRecord::Base
       f.write spec
     }
     rpm_spec_file
+  end
+
+  def description_string
+    if self.description.blank?
+      "#{gem_name} does not have a description yet"
+    else
+      self.description
+    end
   end
 
 private

@@ -1,4 +1,4 @@
-%div.page-header
+%div.jumbotron
   %h1 Is It Fedora Ruby
   %h2
     = _('*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora').html_safe
@@ -8,7 +8,3 @@
     = render partial: 'stats/most_popular_gems'
   %div.col-md-6
     = render partial: 'stats/most_popular_rpms'
-  %div.col-md-6
-    = render partial: 'stats/latest_updated_gems'
-  %div.col-md-6
-    = render partial: 'stats/latest_updated_rpms'

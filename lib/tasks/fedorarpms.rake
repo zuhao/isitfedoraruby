@@ -29,7 +29,7 @@ namespace :fedorarpms do
   end
 
   desc 'Import rpms'
-  task :import_rpms, [:number, :delay] => [:import_names, :environment] do |t, args|
+  task :import_rpms, [:number, :delay] => :environment do |t, args|
     args.with_defaults(number: 100, delay: 5)
     total = 0
     counter = 0
