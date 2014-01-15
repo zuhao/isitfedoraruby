@@ -1,6 +1,6 @@
 %div.stats.well
-  %h2 
-    = _('Most popular rpms')
+  %h2
+    = _('Recently updated rpms')
   %table.table.table-striped.table-condensed
     %thead
       %tr
@@ -11,11 +11,11 @@
         %th
           = _('Rawhide')
         %th
-          = _('Git Commits')
+          = _('Last Commit')
     %tbody
-      - @popular_rpms.each do |rpm|
+      - @recent_rpms.each do |rpm|
         %tr
           %td= link_to rpm.shortname, fedorarpm_path(rpm.name)
           %td= rpm.ruby_gem.version if rpm.ruby_gem
           %td= rpm.version_for 'rawhide'
-          %td= rpm.commits
+          %td= rpm.last_commit_date

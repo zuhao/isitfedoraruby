@@ -6,10 +6,8 @@ class RubyGem < ActiveRecord::Base
   has_many :dependencies, -> { order 'created_at desc' }, :as => :package,
            :dependent => :destroy
   has_many :historical_gems, :foreign_key => :gem_id
+  has_many :gem_versions, :dependent => :destroy
   scope :most_popular, -> { order 'downloads desc' }
-
-  # FIXME version metadata should be stored in local db
-  attr_accessor :versions
 
   def to_param
     name
@@ -59,12 +57,17 @@ class RubyGem < ActiveRecord::Base
   end
 
   def retrieve_versions
-    Gems.versions self.name
+    self.gem_versions.clear
+    Gems.versions(self.name).each do |v|
+      ver = GemVersion.new(gem_version: v['number'])
+      self.gem_versions << ver
+    end
   end
 
   def update_from_source
     retrieve_metadata
     retrieve_rpm
+    retrieve_versions
     self.updated_at = Time.now
     save!
   end

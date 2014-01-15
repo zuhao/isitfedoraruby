@@ -17,7 +17,7 @@ class BuildsController < ApplicationController
         }
       }
 
-      # build rpms from the deps 
+      # build rpms from the deps
       @packages.each { |pkg|
         # download the gem
         pkg[:gem].download_version(pkg[:version])
@@ -46,9 +46,7 @@ class BuildsController < ApplicationController
         return
       end
 
-      @versions = @gem.retrieve_versions
-puts "!!! #{@versions}"
-      @versions = @versions.collect { |v| v['number'] }
+      @versions = @gem.gem_versions
     end
   end
 
