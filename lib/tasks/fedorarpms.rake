@@ -13,7 +13,7 @@ namespace :fedorarpms do
     end
 
     rpms = Pkgwat.get_packages('rubygem-')
-    rpms.each do |rpm|
+    rpms.select{|r| r['name'].start_with?('rubygem-')}.each do |rpm|
       name = rpm['name']
       FedoraRpm.where(name: name).first_or_create! do |r|
         r.name = name

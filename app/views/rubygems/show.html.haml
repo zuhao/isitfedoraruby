@@ -2,7 +2,7 @@
 
 - if @gem.fedora_rpm != nil
   = button_to "#{@gem.fedora_rpm.name}.rpm", fedorarpm_path(@gem.fedora_rpm.name),
-  class: 'button btn btn-primary', type: 'button', method: :get
+  :class => 'button btn btn-primary', :type => 'button', :method => :get
 
 %div.info
   %h3 Gem Information

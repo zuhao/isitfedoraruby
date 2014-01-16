@@ -58,10 +58,11 @@ class RubyGem < ActiveRecord::Base
 
   def retrieve_versions
     self.gem_versions.clear
-    Gems.versions(self.name).each do |v|
+    versions = Gems.versions self.name
+    versions.each do |v|
       ver = GemVersion.new(gem_version: v['number'])
       self.gem_versions << ver
-    end
+    end unless versions.is_a? String
   end
 
   def update_from_source
