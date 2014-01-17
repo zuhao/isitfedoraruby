@@ -1,6 +1,6 @@
 require 'versionomy'
 require 'xmlrpc/client'
-require 'bugzilla'
+require 'bicho'
 require 'open-uri'
 
 class FedoraRpm < ActiveRecord::Base
@@ -95,62 +95,67 @@ class FedoraRpm < ActiveRecord::Base
     self.last_commit_date = DateTime.parse(date)
   end
 
-  def retrieve_versions
-    puts "Importing #{name} versions and maintainer"
+  def retrieve_specs
     self.rpm_versions.clear
     self.dependencies.clear
+    puts "Importing #{name} spec info"
     FEDORA_VERSIONS.each do |version_title, version_git|
       spec_url = "#{base_uri}#{name}.git/plain/#{name}.spec?h=#{version_git}"
-      puts "Reading spec from #{spec_url}"
-      begin
-        rpm_spec = URI.parse(spec_url).read
-        is_patched = (rpm_spec.scan(/\nPatch0:\s*.*\n/).size != 0)
+      rpm_spec = open(spec_url).read
+      retrieve_versions(rpm_spec, version_title)
+      if version_title == 'rawhide'
+        retrieve_maintainer(rpm_spec)
+        retrieve_homepage(rpm_spec)
+        retrieve_dependencies(rpm_spec)
+      end
+    end
+  end
 
-        rpm_version = rpm_spec.scan(/\nVersion:\s*.*\n/).first.split.last
-        if !version_valid?(rpm_version)
-          if rpm_version.include?('%{majorver}')
-            rpm_version = rpm_spec.scan(/%global majorver .*\n/).first.split.last
-          else
-            rpm_version = nil
-          end
-        end
-        rv = RpmVersion.new
-        rv.rpm_version = rpm_version
-        rv.fedora_version = version_title
-        rv.is_patched = is_patched
-        self.rpm_versions << rv
-        if version_title == 'rawhide'
-          #Import the maintainer's e-mail
-          fedora_user_list = rpm_spec.scan(/<.*[@].*>/)
-          fedora_user_list.each do |user|
-            if user != "<rel-eng@lists.fedoraproject.org>" #We don't want to add Fedora Release Engineering
-              #Remove those "<>"
-              user[0] = ""
-              user.gsub!(">", "")
-              self.fedora_user = user
-              break
-            end
-          end
-          puts "Maintainer: #{self.fedora_user}"
+  def retrieve_versions(rpm_spec, fedora_version)
+    rpm_version = rpm_spec.scan(/\nVersion:\s*.*\n/).first.split.last
+    unless version_valid?(rpm_version)
+      if rpm_version.include?('%{majorver}')
+        rpm_version = rpm_spec.scan(/%global\s*majorver\s*.*\n/).first
+        rpm_version = rpm_version.split.last unless rpm_version.nil?
+      else
+        rpm_version = nil
+      end
+    end
+    rv = RpmVersion.new
+    rv.rpm_version = rpm_version
+    rv.fedora_version = fedora_version
+    rv.is_patched = (rpm_spec.scan(/\nPatch0:\s*.*\n/).size != 0)
+    self.rpm_versions << rv
+  end
 
-          self.homepage = rpm_spec.scan(/\nURL:\s*.*\n/).first.split.last
+  def retrieve_maintainer(rpm_spec)
+    # Import the maintainer's e-mail
+    fedora_user_list = rpm_spec.scan(/<.*[@].*>/)
+    fedora_user_list.each do |user|
+      if user != "<rel-eng@lists.fedoraproject.org>"
+        # We don't want to add Fedora Release Engineering
+        # first user is the latest in the changelog
+        self.fedora_user = user.delete('<').delete('>') # remove those "<>"
+        return
+      end
+    end
+  end
 
-          rpm_spec.split("\n").each { |line|
-            mr = line.match(/^Requires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
-            if mr.nil?
-              mr = line.match(/^BuildRequires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
-            end
-            if mr
-              d = Dependency.new
-              d.dependent = mr.captures.first
-              d.dependent_version = mr.captures.last
-              self.dependencies << d
-            end
-          }
-        end
+  def retrieve_homepage(rpm_spec)
+    self.homepage = rpm_spec.scan(/\nURL:\s*.*\n/).first.split.last
+  end
 
-      rescue Exception => e
-        puts "Could not retrieve version of #{name} for #{version_title}: #{e}"
+  def retrieve_dependencies(rpm_spec)
+    rpm_spec.split("\n").each do |line|
+      mr = line.match(/^Requires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
+      if mr.nil?
+        mr = line.match(/^BuildRequires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
+      end
+      if mr
+        d = Dependency.new
+        d.dependent = mr.captures.first
+        d.dependent_version = mr.captures.last
+        self.dependencies << d
       end
     end
   end
@@ -163,9 +168,9 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def retrieve_gem
-    gem_name = name.gsub(/rubygem-/,'')
+    gem_name = shortname
     puts "Retrieving gem #{gem_name} data"
-    self.ruby_gem = RubyGem.find_or_initialize_by_name(gem_name)
+    self.ruby_gem = RubyGem.where(name: gem_name).first_or_create
     self.ruby_gem.update_from_source
     self.ruby_gem.has_rpm = true
   end
@@ -174,18 +179,18 @@ class FedoraRpm < ActiveRecord::Base
     puts "Importing rpm #{name} bugs"
     self.bugs.clear
 
-    # get bugs and their titles and last_updated
-    xmlrpc = Bugzilla::XMLRPC.new("bugzilla.redhat.com")
-    bugs = Bugzilla::Bug.new(xmlrpc).search("summary" => name, "product" => "fedora")["bugs"]
-    bugs.each { |bug|
+    Bicho.client = Bicho::Client.new('https://bugzilla.redhat.com')
+    Bicho.client.instance_variable_get(:@client).
+        http_header_extra = { 'accept-encoding' => 'identity' }
+    Bicho::Bug.where(:summary => name, :product => 'fedora').each do |bug|
       arb = Bug.new
-      arb.name = bug["summary"]
-      arb.bz_id = bug["id"]
-      arb.last_updated = bug["last_change_time"].to_time
+      arb.name = bug['summary']
+      arb.bz_id = bug['id']
+      arb.last_updated = bug['last_change_time'].to_time
       arb.is_review = true if arb.name =~ /^Review Request.*#{name}\s.*$/
       arb.is_open = bug['is_open']
       self.bugs << arb
-    }
+    end
   end
 
   def retrieve_builds
@@ -207,8 +212,8 @@ class FedoraRpm < ActiveRecord::Base
     save!
   end
 
-  def update_versions
-    retrieve_versions
+  def update_specs
+    retrieve_specs
     self.updated_at = Time.now
     save!
   end
@@ -233,7 +238,7 @@ class FedoraRpm < ActiveRecord::Base
 
   def update_from_source
     update_commits
-    update_versions
+    update_specs
     update_gem
     update_bugs
     update_builds
@@ -255,8 +260,8 @@ class FedoraRpm < ActiveRecord::Base
 
   def dependency_packages
     self.dependencies.collect { |d|
-      FedoraRpm.where(name: "rubygem-#{d.dependent}")
-    }.compact
+      FedoraRpm.where(name: "rubygem-#{d.dependent}").to_a
+    }.compact.flatten
   end
 
   def dependent_packages
