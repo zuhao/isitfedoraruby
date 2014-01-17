@@ -4,6 +4,7 @@ require 'bicho'
 require 'open-uri'
 
 class FedoraRpm < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
   FEDORA_VERSIONS = {'rawhide'   => 'master',
                      'Fedora 20' => 'f20',
                      'Fedora 19' => 'f19'}
@@ -35,7 +36,8 @@ class FedoraRpm < ActiveRecord::Base
 
   def upto_date?
     rv = self.rpm_versions.find { |rv| rv.fedora_version == 'rawhide' }
-    return false if rv.nil? || ruby_gem.nil? || ruby_gem.version.nil?
+    return false if rv.nil? || rv.rpm_version.nil? || ruby_gem.nil? ||
+        ruby_gem.version.nil?
     begin
       Versionomy.parse(rv.rpm_version) >= Versionomy.parse(self.ruby_gem.version)
     rescue Versionomy::Errors::ParseError
@@ -116,6 +118,9 @@ class FedoraRpm < ActiveRecord::Base
     unless version_valid?(rpm_version)
       if rpm_version.include?('%{majorver}')
         rpm_version = rpm_spec.scan(/%global\s*majorver\s*.*\n/).first
+        rpm_version = rpm_version.split.last unless rpm_version.nil?
+      elsif rpm_version.include?('%{gemver}')
+        rpm_version = rpm_spec.scan(/%global\s*gemver\s*.*\n/).first
         rpm_version = rpm_version.split.last unless rpm_version.nil?
       else
         rpm_version = nil
@@ -242,6 +247,8 @@ class FedoraRpm < ActiveRecord::Base
     update_gem
     update_bugs
     update_builds
+  rescue Exception => e
+    puts "Updating #{name} failed due to #{e.to_s}"
   end
 
   def rpm_name
@@ -281,7 +288,17 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def obfuscated_fedora_user
-    return self.fedora_user.to_s.gsub("@", " AT ").gsub(".", " DOT ")
+    self.fedora_user.to_s.gsub("@", " AT ").gsub(".", " DOT ")
+  end
+
+  def last_commit_date_in_words
+    unless self.last_commit_date.nil?
+      "#{time_ago_in_words(self.last_commit_date)} ago"
+    end
+  end
+
+  def maintainer
+    self.fedora_user.split('@').first unless self.fedora_user.nil?
   end
 
 private

@@ -1,6 +1,6 @@
 %h1= @gem.name
 
-- if @gem.fedora_rpm != nil
+- unless @gem.fedora_rpm.nil?
   = button_to "#{@gem.fedora_rpm.name}.rpm", fedorarpm_path(@gem.fedora_rpm.name),
   :class => 'button btn btn-primary', :type => 'button', :method => :get
 
@@ -8,10 +8,10 @@
   %h3 Gem Information
   %p
     Homepage:
-    =link_to @gem.homepage
+    =link_to @gem.homepage, @gem.homepage
   %p
     Source Code:
-    =link_to @gem.source_uri
+    =link_to @gem.source_uri, @gem.source_uri
   %p
     Version: <strong>#{@gem.version}</strong>
   %p

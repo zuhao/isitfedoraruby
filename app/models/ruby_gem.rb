@@ -71,6 +71,8 @@ class RubyGem < ActiveRecord::Base
     retrieve_versions
     self.updated_at = Time.now
     save!
+  rescue Exception => e
+    puts "Updating #{name} failed due to #{e.to_s}"
   end
 
   def self.search(search)
