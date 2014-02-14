@@ -14,7 +14,7 @@ Isitfedoraruby::Application.routes.draw do
   # match 'fedorarpms/:id' => 'rpmcomments#create', :via => :post
 
   get 'searches/suggest_gems' => 'searches#suggest_gems'
-  get 'searches/' => 'searches#redirect'
+  post 'searches/' => 'searches#redirect'
   get 'searches/:id' => 'searches#index'
 
   resources :fedorarpms, :constraints => { :id => /.*/ } do
@@ -26,7 +26,7 @@ Isitfedoraruby::Application.routes.draw do
     get :not_found, :on => :member
   end
   resources :rubygems, :constraints => { :id => /.*/ }
-  resources :searches
+  #resources :searches
 
   resources :builds do
     get :import, :on => :collection

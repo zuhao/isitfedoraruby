@@ -3,8 +3,9 @@ class FedorarpmsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @page_title = 'Fedora Rpms'
-    @rpms = FedoraRpm.paginate(:page => params[:page], :per_page => 50).order(sort_column + " " + sort_direction)
+    @page_title = 'Fedora RPMs'
+    @rpms = FedoraRpm.paginate(:page => params[:page], :per_page => 50).
+        order(sort_column + ' ' + sort_direction)
   end
 
   def show
@@ -50,12 +51,12 @@ class FedorarpmsController < ApplicationController
 
   def by_owner
     @name = params[:id]
-    @rpms = FedoraRpm.where("fedora_user LIKE ?", @name + "@%")
+    @rpms = FedoraRpm.where('fedora_user LIKE ?', @name + '@%')
   end
 
   def badge
     @user_name = params[:id]
-    rpms = FedoraRpm.where("fedora_user LIKE ?", @user_name + "@%")
+    rpms = FedoraRpm.where('fedora_user LIKE ?', @user_name + '@%')
     @total = rpms.size
     @commits = 0
     @most = nil
