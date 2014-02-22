@@ -5,7 +5,7 @@ gem 'rails', '~> 4.0.0'
 gem 'sqlite3'
 gem 'thor'
 gem 'bootstrap-sass'
-
+gem 'pg'
 
 #i18n support
 gem 'fast_gettext'

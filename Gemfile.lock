@@ -111,6 +111,7 @@ GEM
     multi_json (1.8.2)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    pg (0.17.1)
     pkgwat (0.1.4)
       json (~> 1.4)
       nokogiri (~> 1.4)
@@ -232,6 +233,7 @@ DEPENDENCIES
   json
   minitest
   nokogiri
+  pg
   pkgwat
   rails (~> 4.0.0)
   rails-i18n

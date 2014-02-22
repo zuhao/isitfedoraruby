@@ -12,6 +12,7 @@ test:
 
 production:
   adapter: sqlite3
-  database: <%=ENV['OPENSHIFT_DATA_DIR']%>production.sqlite3 #This points to the persistent data folder in OpenShift
+  database: isitfedoraruby
+  # database: <%=ENV['OPENSHIFT_DATA_DIR']%>production.sqlite3 #This points to the persistent data folder in OpenShift
   pool: 5
   timeout: 5000
