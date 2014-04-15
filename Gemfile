@@ -42,7 +42,6 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'capybara'
-  gem 'growl'
   gem 'ruby_parser'
   gem 'gettext', :require => false
   gem 'minitest'
