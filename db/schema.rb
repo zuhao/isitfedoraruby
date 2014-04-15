@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20140115094251) do
   create_table "fedora_rpms", force: true do |t|
     t.string   "name",                null: false
     t.string   "source_uri"
-    t.string   "latest_patch"
     t.string   "last_commit_message"
     t.datetime "created_at"
     t.datetime "updated_at"

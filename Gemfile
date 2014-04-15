@@ -1,11 +1,17 @@
 source 'https://rubygems.org'
 
+def darwin_only(require_as)
+    RUBY_PLATFORM.include?('darwin') && require_as
+end
+
+def linux_only(require_as)
+    RUBY_PLATFORM.include?('linux') && require_as
+end
+
 gem 'rails', '~> 4.0.0'
 
-gem 'sqlite3'
 gem 'thor'
 gem 'bootstrap-sass'
-gem 'pg'
 
 #i18n support
 gem 'fast_gettext'
@@ -40,9 +46,16 @@ group :test, :development do
   gem 'ruby_parser'
   gem 'gettext', :require => false
   gem 'minitest'
+  gem 'sqlite3'
+
+  # Notification
+  gem 'rb-fsevent', require: darwin_only('rb-fsevent')
+  gem 'growl', require: darwin_only('growl')
+  gem 'rb-inotify', require: linux_only('rb-inotify')
+
 end
 
 group :production do
-
+  gem 'pg'
 end
 
