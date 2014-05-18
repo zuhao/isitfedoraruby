@@ -1,18 +1,44 @@
-development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
-
-test:
-  adapter: sqlite3
-  database: db/test.sqlite3 #This points to the test db which we have in the repo
-  pool: 5
-  timeout: 5000
-
+#
+# PRODUCTION
+#
 production:
-  adapter: sqlite3
-  database: isitfedoraruby
-  # database: <%=ENV['OPENSHIFT_DATA_DIR']%>production.sqlite3 #This points to the persistent data folder in OpenShift
+  adapter: postgresql
+  encoding: unicode
+  database: fedoraruby_prod
+  pool: 10
+
+#
+# Development specific
+#
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: fedoraruby_dev
   pool: 5
-  timeout: 5000
+  #username: postgres
+  #password:
+  # socket: /tmp/postgresql.sock
+
+#
+# Staging specific
+#
+#staging:
+#  adapter: postgresql
+#  encoding: unicode
+#  database: gitlabhq_staging
+#  pool: 5
+#  username: postgres
+#  password:
+#  # socket: /tmp/postgresql.sock
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  database: fedoraruby_test
+  pool: 5
+  username: postgres
+  password:
+  # socket: /tmp/postgresql.sock
