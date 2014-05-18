@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+ruby '2.1.1'
+#ruby-gemset=fedoraruby
 
 def darwin_only(require_as)
     RUBY_PLATFORM.include?('darwin') && require_as
@@ -56,5 +58,6 @@ end
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 
