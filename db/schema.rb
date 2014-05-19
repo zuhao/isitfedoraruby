@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140115094251) do
+ActiveRecord::Schema.define(version: 20140519095419) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "bugs", force: true do |t|
     t.string   "name"
@@ -56,8 +59,8 @@ ActiveRecord::Schema.define(version: 20140115094251) do
     t.integer  "ruby_gem_id"
     t.integer  "commits"
     t.string   "fedora_user"
-    t.string   "summary"
-    t.string   "description"
+    t.text     "summary"
+    t.text     "description"
   end
 
   create_table "gem_versions", force: true do |t|
@@ -86,7 +89,7 @@ ActiveRecord::Schema.define(version: 20140115094251) do
 
   create_table "ruby_gems", force: true do |t|
     t.string   "name",        null: false
-    t.string   "description"
+    t.text     "description"
     t.string   "homepage"
     t.string   "version"
     t.boolean  "has_rpm"
