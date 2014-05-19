@@ -1,34 +1,35 @@
 %div.page-header
-  %h1= _('All Fedora Rpms')
+  %h1= @page_title
 
-%table.table.table-striped.table-condensed
+%table.table.table-striped.table-condensed.table-bordered
   %thead
     %tr
-      %th= sortable "name", _('Name')
-      -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+      %th= sortable 'name', _('Name')
+      - FedoraRpm::FEDORA_VERSIONS.each do |t, g|
         %th= t
       %th= _('Up to date?')
-      %th= sortable "commits", _('Git Commits')
-      %th= sortable "last_commit_date", _('Last Commit')
+      %th= sortable 'commits', _('Commits')
+      %th= sortable 'last_commit_date', _('Last Commit')
       %th= _('Patched?')
-      %th= sortable "fedora_user", _('Maintainer')
+      %th= sortable 'fedora_user', _('Maintainer')
 
   %tbody
     - @rpms.each do |rpm|
       %tr
-        %td= link_to rpm.shortname.truncate(25), fedorarpm_path(rpm.name)
+        %td= link_to rpm.shortname.truncate(35), fedorarpm_path(rpm.name)
         -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
           %td= rpm.version_for(t)
-        %td= rpm.upto_date? ? _('Yes') : _('No')
+        %td
+          - if rpm.upto_date?
+            %span.glyphicon.glyphicon-ok
         %td= rpm.commits
-        %td= rpm.last_commit_date.nil? ? '' : _('%{time_ago} ago') % { :time_ago => time_ago_in_words(rpm.last_commit_date)}
-        %td{:style => "text-align: center;"}= rpm.patched? ?  link_to(image_tag("True.png", :size => "20x20")) : link_to(image_tag("False.png", :size => "20x20"))
-        / %td= link_to rpm.ruby_gem.name, rubygem_path(rpm.ruby_gem.name) if rpm.ruby_gem != nil
-        - if rpm.fedora_user && rpm.fedora_user.split("@").first != nil
-          %td= link_to rpm.obfuscated_fedora_user.truncate(15), fedorarpm_path(rpm.fedora_user.split("@").first + "/by_owner")
-        - else
-          %td= ""
-        
+        %td= rpm.last_commit_date_in_words
+        %td
+          - if rpm.patched?
+            %span.glyphicon.glyphicon-ok
+        %td
+          - unless rpm.maintainer.nil?
+            =link_to rpm.maintainer, fedorarpm_path(rpm.maintainer + '/by_owner')
 
 %div.pagination
   = will_paginate @rpms
