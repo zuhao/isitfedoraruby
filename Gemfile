@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.1.2'
 #ruby-gemset=fedoraruby
 
 def darwin_only(require_as)

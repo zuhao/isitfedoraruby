@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20140519095419) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "bugs", force: true do |t|
     t.string   "name"
     t.string   "bz_id"
@@ -46,7 +43,7 @@ ActiveRecord::Schema.define(version: 20140519095419) do
   end
 
   create_table "fedora_rpms", force: true do |t|
-    t.string   "name",                null: false
+    t.string   "name",                            null: false
     t.string   "source_uri"
     t.string   "last_commit_message"
     t.datetime "created_at"
@@ -59,8 +56,8 @@ ActiveRecord::Schema.define(version: 20140519095419) do
     t.integer  "ruby_gem_id"
     t.integer  "commits"
     t.string   "fedora_user"
-    t.text     "summary"
-    t.text     "description"
+    t.text     "summary",             limit: 255
+    t.text     "description",         limit: 255
   end
 
   create_table "gem_versions", force: true do |t|
@@ -88,8 +85,8 @@ ActiveRecord::Schema.define(version: 20140519095419) do
   end
 
   create_table "ruby_gems", force: true do |t|
-    t.string   "name",        null: false
-    t.text     "description"
+    t.string   "name",                    null: false
+    t.text     "description", limit: 255
     t.string   "homepage"
     t.string   "version"
     t.boolean  "has_rpm"
