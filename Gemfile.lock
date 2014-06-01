@@ -95,6 +95,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
+    kgio (2.9.2)
     listen (2.4.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -147,6 +148,7 @@ GEM
       activesupport (= 4.0.2)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    raindrops (0.13.0)
     rake (10.1.1)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
@@ -207,6 +209,10 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unicorn (4.8.3)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     versionomy (0.4.4)
       blockenspiel (>= 0.4.5)
     whenever (0.9.0)
@@ -253,5 +259,6 @@ DEPENDENCIES
   text
   thor
   uglifier
+  unicorn
   versionomy
   whenever
