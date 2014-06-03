@@ -54,6 +54,8 @@ group :test, :development do
   gem 'growl', require: darwin_only('growl')
   gem 'rb-inotify', require: linux_only('rb-inotify')
 
+  # db visualization
+  gem 'railroady'
 end
 
 group :production do

@@ -2,7 +2,6 @@
 /log/*.log
 /tmp
 /temp_resource
-doc/
 *.swp
 *~
 nohup.out
