@@ -1,71 +1,66 @@
 source 'https://rubygems.org'
+ruby '2.1.2'
+#ruby-gemset=fedoraruby
 
-gem 'rails', '~> 3.2.3'
+def darwin_only(require_as)
+    RUBY_PLATFORM.include?('darwin') && require_as
+end
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+def linux_only(require_as)
+    RUBY_PLATFORM.include?('linux') && require_as
+end
 
-gem 'sqlite3'
-gem 'thor', '= 0.14.6'
-gem 'bootstrap-sass', '~> 2.0.0'
+gem 'rails', '~> 4.0.0'
 
+gem 'thor'
+gem 'bootstrap-sass'
 
 #i18n support
 gem 'fast_gettext'
-gem 'gettext_i18n_rails', '>= 0.4.0'
+gem 'gettext_i18n_rails'
 gem 'rails-i18n'
 
-group :assets do
-  gem 'sass-rails', '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'therubyracer', '~> 0.10.2', :platform => :ruby
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'execjs'
-# gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'curb'
 gem 'json'
 gem 'nokogiri'
 gem 'versionomy'
 gem 'gems'
-gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'pkgwat'
+gem 'bicho'
 gem 'ruby-bugzilla'
 gem 'text'
+
+gem 'whenever', :require => false
 
 group :test, :development do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'capybara'
-  gem 'growl'
   gem 'ruby_parser'
-  gem 'gettext', '>= 1.9.3', :require => false
+  gem 'gettext', :require => false
   gem 'minitest'
+  gem 'sqlite3'
+
+  # Notification
+  gem 'rb-fsevent', require: darwin_only('rb-fsevent')
+  gem 'growl', require: darwin_only('growl')
+  gem 'rb-inotify', require: linux_only('rb-inotify')
+
+  # db visualization
+  gem 'railroady'
 end
 
 group :production do
-
+  gem 'pg'
+  gem 'rails_12factor'
+  gem 'unicorn'
 end
 
-# ruby-git seems to have better support on remote repo than grit
-# gem 'git'
-# gem 'grit'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
