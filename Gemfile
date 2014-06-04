@@ -42,11 +42,10 @@ gem 'whenever', :require => false
 
 group :test, :development do
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'guard-rspec'
-  gem 'capybara'
   gem 'ruby_parser'
   gem 'gettext', :require => false
-  gem 'minitest'
   gem 'sqlite3'
 
   # Notification
@@ -54,8 +53,19 @@ group :test, :development do
   gem 'growl', require: darwin_only('growl')
   gem 'rb-inotify', require: linux_only('rb-inotify')
 
-  # db visualization
+  # models/controllers visualization
   gem 'railroady'
+
+  # annotate models
+  gem 'annotate'
+end
+
+group :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'selenium-webdriver'
 end
 
 group :production do
