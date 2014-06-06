@@ -15,6 +15,9 @@ gem 'rails', '~> 4.0.5'
 # temp fix http://stackoverflow.com/a/23525354/2137281
 gem 'sprockets', '<= 2.11.0'
 
+# Get latest fixes
+gem 'rmagick', git: "https://github.com/rmagick/rmagick.git"
+
 gem 'thor'
 gem 'bootstrap-sass'
 
@@ -66,6 +69,7 @@ end
 group :test do
   gem 'faker'
   gem 'capybara'
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
