@@ -53,6 +53,7 @@ group :test, :development do
   gem 'ruby_parser'
   gem 'gettext', :require => false
   gem 'sqlite3'
+  gem 'annotate'
 
   # Notification
   gem 'rb-fsevent', require: darwin_only('rb-fsevent')
@@ -61,9 +62,6 @@ group :test, :development do
 
   # models/controllers visualization
   gem 'railroady'
-
-  # annotate models
-  gem 'annotate'
 end
 
 group :test do
