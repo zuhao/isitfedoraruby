@@ -16,6 +16,9 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :bug do
+  factory :bug do |b|
+    b.bz_id "12345"
+    b.is_review false
+    b.is_open true
   end
 end

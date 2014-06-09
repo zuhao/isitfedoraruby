@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.1.2'
-#ruby-gemset=fedoraruby
+#ruby-gemset=fruby
 
 def darwin_only(require_as)
     RUBY_PLATFORM.include?('darwin') && require_as
@@ -62,6 +62,10 @@ group :test, :development do
 
   # models/controllers visualization
   gem 'railroady'
+
+  # Pry-based enhancements for the rails console
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+  gem 'pry-byebug'
 end
 
 group :test do
