@@ -20,7 +20,7 @@ describe Bug do
     expect(FactoryGirl.create(:bug)).to be_valid
   end
 
-  before(:each) do
+  before(:all) do
     @bug = FactoryGirl.create(:bug)
     @bugzilla_url = "https://bugzilla.redhat.com/show_bug.cgi?id="
   end
