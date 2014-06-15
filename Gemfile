@@ -75,6 +75,8 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'rake'
+  gem 'coveralls'
 end
 
 group :production do
