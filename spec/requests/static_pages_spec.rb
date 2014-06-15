@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe "Static Pages" do
+describe 'Static Pages' do
 
-  describe "Success Stories" do
+  describe 'Success Stories' do
     it "should have the title 'Success Stories'" do
       visit '/successes'
-      page.should have_selector('title', :text => 'Success Stories')
+      page.should have_selector('title', text: 'Success Stories')
     end
     # it "should have the content 'Success Stories'" do
     #   visit '/successes'
@@ -13,10 +13,10 @@ describe "Static Pages" do
     # end
   end
 
-  describe "Contribute" do
+  describe 'Contribute' do
     it "should have the title 'Contribute'" do
       visit '/contribute'
-      page.should have_selector('title', :text => 'Contribute')
+      page.should have_selector('title', text: 'Contribute')
     end
     # it "should have the content 'Contribute'" do
     #   visit '/contribute'

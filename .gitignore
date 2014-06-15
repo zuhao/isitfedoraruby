@@ -13,3 +13,4 @@ Gemfile.lock
 .idea
 vendor/bundle
 config/unicorn.rb
+.ruby-version

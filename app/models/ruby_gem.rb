@@ -16,13 +16,15 @@
 
 require 'gems'
 
+# - Retrieve information of a gem's metadata
+# - Compare with versions in Fedora repos
+# - Provide gem search ability
 class RubyGem < ActiveRecord::Base
-
-  has_one :fedora_rpm, :dependent => :destroy
-  has_many :dependencies, -> { order 'created_at desc' }, :as => :package,
-           :dependent => :destroy
-  has_many :historical_gems, :foreign_key => :gem_id
-  has_many :gem_versions, :dependent => :destroy
+  has_one :fedora_rpm, dependent: :destroy
+  has_many :dependencies, -> { order 'created_at desc' }, as: :package,
+                                                          dependent: :destroy
+  has_many :historical_gems, foreign_key: :gem_id
+  has_many :gem_versions, dependent: :destroy
   scope :most_popular, -> { order 'downloads desc' }
 
   def to_param
@@ -40,7 +42,7 @@ class RubyGem < ActiveRecord::Base
     metadata = Gems.info(name)
     # If gem is not found on RubyGems.org, a string will be returned, saying
     #   "This rubygem could not be found."
-    not metadata.is_a?(String)
+    !metadata.is_a?(String)
   end
 
   def retrieve_metadata
@@ -54,7 +56,7 @@ class RubyGem < ActiveRecord::Base
     self.downloads = metadata['downloads'].to_i
 
     # pull and store dependencies
-    self.dependencies.clear
+    dependencies.clear
     metadata['dependencies'].each do |environment, dependencies|
       dependencies.each do |dep|
         d = Dependency.new
@@ -67,17 +69,17 @@ class RubyGem < ActiveRecord::Base
   end
 
   def retrieve_rpm
-    rpm_name = 'rubygem-' + self.name
+    rpm_name = 'rubygem-' + name
     self.fedora_rpm = FedoraRpm.where(name: rpm_name).first
-    self.has_rpm = true unless self.fedora_rpm.nil?
+    self.has_rpm = true unless fedora_rpm.nil?
   end
 
   def retrieve_versions
-    self.gem_versions.clear
-    versions = Gems.versions self.name
-    versions.each do |v|
-      ver = GemVersion.new(gem_version: v['number'])
-      self.gem_versions << ver
+    # Retrieve all versions from rubygems.org and store them in an array
+    gem_versions.clear
+    versions = Gems.versions name
+    versions.each do |version|
+      gem_versions << GemVersion.new(gem_version: version['number'])
     end unless versions.is_a? String
   end
 
@@ -87,99 +89,94 @@ class RubyGem < ActiveRecord::Base
     retrieve_versions
     self.updated_at = Time.now
     save!
-  rescue Exception => e
-    puts "Updating #{name} failed due to #{e.to_s}"
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def self.search(search)
     # search_cond = "%" + search.to_s + "%"
     # search_cond = search.to_s
-    s = search.gsub(/rubygem-/,'')
-    if s == nil || s.blank?
+    s = search.gsub(/rubygem-/, '')
+    if s.nil? || s.blank?
       self
     else
-      self.where('name LIKE ?', s.strip)
+      where('name LIKE ?', s.strip)
     end
   end
 
   def gem_name
-    self.name
+    name
   end
 
-  def has_rpm?
-    self.has_rpm
+  def rpm?
+    has_rpm
   end
 
   def version_in_fedora(fedora_version)
-    return nil if self.fedora_rpm.nil?
-    self.fedora_rpm.version_for(fedora_version)
+    return nil if fedora_rpm.nil?
+    fedora_rpm.version_for(fedora_version)
   end
 
   def upto_date_in_fedora?
-    return false if self.fedora_rpm.nil?
-    self.fedora_rpm.upto_date?
+    return false if fedora_rpm.nil?
+    fedora_rpm.upto_date?
   end
 
   def dependency_packages
-    self.dependencies.collect { |d|
+    dependencies.map do |d|
       RubyGem.where(name: d.dependent).first
-    }.compact
+    end.compact
   end
 
   def dependent_packages
-    Dependency.where(dependent: self.name).to_a.collect { |d| d.package }
+    Dependency.where(dependent: name).to_a.map { |d| d.package }
   end
 
-  def uri_for_version(version)
-    "http://rubygems.org/gems/#{self.name}-#{self.version}.gem"
+  def uri_for_version(_version)
+    "http://rubygems.org/gems/#{name}-#{version}.gem"
   end
 
-  def local_gem_for_version(version)
-    "#{Rails.root}/public/rpmbuild/SOURCES/#{self.name}-#{self.version}.gem"
+  def local_gem_for_version(_version)
+    "#{Rails.root}/public/rpmbuild/SOURCES/#{name}-#{version}.gem"
   end
 
   def download
-    download_version(self.version)
+    download_version(version)
   end
 
   def download_version(version)
     local_gem = local_gem_for_version(version)
-    return if File.exists?(local_gem) # just return if version already downloaded
+    return if File.exist?(local_gem) # just return if version already downloaded
     c = Curl::Easy.new(uri_for_version(version))
     c.follow_location = true
     result = c.http_get
     result = c.body_str.force_encoding('UTF-8')
-    File.open(local_gem, "w") { |f|
-      f.write result
-    }
+    File.open(local_gem, 'w') { |f| f.write result }
   end
 
   def gem2rpm
-    version2rpm(self.version)
+    version2rpm(version)
   end
 
   def version2rpm(version)
     rpm_spec_file = "#{Rails.root}/public/rpmbuild/SPECS/rubygem-#{name}-#{version}.spec"
-    return rpm_spec_file if File.exists?(rpm_spec_file) # just return if already built
+    return rpm_spec_file if File.exist?(rpm_spec_file) # just return if already built
 
     spec = `/usr/bin/gem2rpm #{local_gem_for_version(version)}`
-    File.open(rpm_spec_file, "w") { |f|
-      f.write spec
-    }
+    File.open(rpm_spec_file, 'w') { |f| f.write spec }
     rpm_spec_file
   end
 
   def description_string
-    if self.description.blank?
+    if description.blank?
       "#{gem_name} does not have a description yet"
     else
-      self.description
+      description
     end
   end
 
-private
+  private
 
-  validates_uniqueness_of :name
-  validates_presence_of :name
-
+  validates :name, uniqueness: true
+  validates :name, presence: true
 end

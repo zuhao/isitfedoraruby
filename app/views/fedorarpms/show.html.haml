@@ -21,7 +21,7 @@
     Git Commits: <strong>#{@rpm.commits}</strong>
   %p
     Up to date:
-    - if @rpm.upto_date?
+    - if @rpm.up_to_date?
       %span.label.label-success= _('Yes')
     - else
       %span.label.label-danger= _('No')

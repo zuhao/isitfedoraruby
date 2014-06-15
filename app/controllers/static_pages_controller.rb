@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
   def contribute
     @page_title = 'Contribute to make it better'
   end
-  
+
   def about
     @page_title = 'About'
   end

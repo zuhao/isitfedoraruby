@@ -12,8 +12,8 @@
 #  package_type      :string(255)
 #
 
+# Used for extracting gem dependencies for RubyGem and FedoraRpm classes
 class Dependency < ActiveRecord::Base
-
   belongs_to :package, polymorphic: true
 
   def dependent_package
@@ -24,8 +24,7 @@ class Dependency < ActiveRecord::Base
     end
   end
 
-private
+  private
 
-  validates_presence_of :dependent
-
+  validates :dependent, presence: true
 end

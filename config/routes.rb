@@ -10,32 +10,32 @@ Isitfedoraruby::Application.routes.draw do
   post 'searches/' => 'searches#redirect'
   get 'searches/:id' => 'searches#index'
 
-  resources :fedorarpms, :constraints => { :id => /.*/ } do
-    get :full_deps, :on => :member
-    get :full_dependencies, :on => :member
-    get :full_dependents,   :on => :member
-    get :by_owner, :on => :member
-    get :badge, :on => :member
-    get :not_found, :on => :member
+  resources :fedorarpms, constraints: { id: /.*/ } do
+    get :full_deps, on: :member
+    get :full_dependencies, on: :member
+    get :full_dependents,   on: :member
+    get :by_owner, on: :member
+    get :badge, on: :member
+    get :not_found, on: :member
   end
-  resources :rubygems, :constraints => { :id => /.*/ }
+  resources :rubygems, constraints: { id: /.*/ }
 
   resources :builds do
-    get :import, :on => :collection
-    post :import, :on => :collection
+    get :import, on: :collection
+    post :import, on: :collection
   end
 
-  resources :stats, :constraints => { :id => /.*/ } do
-    get :gemfile_tool, :on => :collection
+  resources :stats, constraints: { id: /.*/ } do
+    get :gemfile_tool, on: :collection
     get :user_rpms
     get :timeline
     get :tljson
     get :user_rpms_data
-    post :gemfile_tool, :on => :collection
+    post :gemfile_tool, on: :collection
   end
 
-# unless Rails.application.config.consider_all_requests_local
-    get '*not_found', to: 'errors#error_404'
-#  end
+  # unless Rails.application.config.consider_all_requests_local
+  get '*not_found', to: 'errors#error_404'
+  #  end
 
 end
