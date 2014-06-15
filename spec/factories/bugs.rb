@@ -17,8 +17,8 @@
 
 FactoryGirl.define do
   factory :bug do |b|
-    b.bz_id "12345"
-    b.is_review false
+    b.bz_id '12345'
+    b.is_review true
     b.is_open true
   end
 end

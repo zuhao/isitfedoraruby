@@ -9,6 +9,7 @@
 #  updated_at  :datetime
 #
 
+# Provides version of a gem
 class GemVersion < ActiveRecord::Base
   belongs_to :ruby_gem
 end

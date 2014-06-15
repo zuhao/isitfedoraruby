@@ -16,33 +16,30 @@
 require 'rails_helper'
 
 describe Bug do
-  it "has valid factory" do
+  it 'has valid factory' do
     expect(create(:bug)).to be_valid
   end
 
   before(:all) do
     @bug = create(:bug)
-    @bugzilla_url = "https://bugzilla.redhat.com/show_bug.cgi?id="
+    @bugzilla_url = 'https://bugzilla.redhat.com/show_bug.cgi?id='
   end
 
-  it "has valid bugzilla url" do
-    expect(@bug.url).to match /#{Regexp.quote(@bugzilla_url)}\d+/
+  it 'has valid bugzilla url' do
+    expect(@bug.url).to match(/#{Regexp.quote(@bugzilla_url)}\d+/)
   end
 
-  it "bug is a Review Request" do
-    @bug.is_review = true
+  it 'bug is a Review Request' do
     expect(@bug.is_review).to eq true
   end
 
-  it "bug is open" do
-   @bug.is_open = true
-   expect(@bug.is_open).to eq true
+  it 'bug is open' do
+    expect(@bug.is_open).to eq true
   end
 
-  it "bug is closed" do
-   @bug.is_open = false
-   expect(@bug.is_open).to eq false
+  it 'bug is closed' do
+    @bug.is_open = false
+    expect(@bug.is_open).to eq false
   end
 
 end
-

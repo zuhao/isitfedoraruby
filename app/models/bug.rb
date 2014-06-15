@@ -13,6 +13,7 @@
 #  is_open       :boolean
 #
 
+# Find bugs assigned to each packaged gem
 class Bug < ActiveRecord::Base
   belongs_to :fedora_rpm
 

@@ -1,11 +1,10 @@
 class RubygemsController < ApplicationController
-
   helper_method :sort_column, :sort_direction
 
   def index
     @page_title = 'Ruby Gems'
-    @gems = RubyGem.paginate(:page => params[:page], :per_page => 50).
-        order(sort_column + ' ' + sort_direction)
+    @gems = RubyGem.paginate(page: params[:page], per_page: 50)
+            .order(sort_column + ' ' + sort_direction)
   end
 
   def show
@@ -16,14 +15,13 @@ class RubygemsController < ApplicationController
     @dependents   = @gem.dependent_packages
   end
 
-private
+  private
 
   def sort_column
-    %w[name downloads].include?(params[:sort]) ? params[:sort] : 'name'
+    %w(name downloads).include?(params[:sort]) ? params[:sort] : 'name'
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+    %w(asc desc).include?(params[:direction]) ? params[:direction] : 'asc'
   end
-
 end
