@@ -64,6 +64,8 @@ group :test, :development do
   # Pry-based enhancements for the rails console
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
+
+  gem 'rubocop', require: false
 end
 
 group :test do
