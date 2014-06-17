@@ -4,7 +4,7 @@ class FedorarpmsController < ApplicationController
   def index
     @page_title = 'Fedora RPMs'
     @rpms = FedoraRpm.paginate(page: params[:page], per_page: 50)
-            .order(sort_column + ' ' + sort_direction)
+                     .order(sort_column + ' ' + sort_direction)
   end
 
   def show
