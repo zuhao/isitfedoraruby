@@ -14,3 +14,4 @@ Gemfile.lock
 vendor/bundle
 config/unicorn.rb
 .ruby-version
+.ruby-gemset
