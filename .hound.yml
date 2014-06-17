@@ -6,62 +6,62 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 2
-Lint/HandleExceptions:
+HandleExceptions:
   Enabled: false
 
 # Offense count: 7
-Rails/Output:
+Output:
   Enabled: false
 
 # Offense count: 3
-Style/BlockNesting:
+BlockNesting:
   Max: 5
 
 # Offense count: 3
 # Configuration parameters: CountComments.
-Style/ClassLength:
+ClassLength:
   Max: 252
 
 # Offense count: 2
-Style/CyclomaticComplexity:
+CyclomaticComplexity:
   Max: 17
 
 # Offense count: 48
-Style/Documentation:
+Documentation:
   Enabled: false
 
 # Offense count: 1
-Style/EndOfLine:
+EndOfLine:
   Enabled: false
 
 # Offense count: 2
 # Configuration parameters: MinBodyLength.
-Style/GuardClause:
+GuardClause:
   Enabled: false
 
 # Offense count: 1
 # Configuration parameters: MaxLineLength.
-Style/IfUnlessModifier:
+IfUnlessModifier:
   Enabled: false
 
 # Offense count: 65
-Style/LineLength:
+LineLength:
   Max: 299
 
 # Offense count: 11
 # Configuration parameters: CountComments.
-Style/MethodLength:
+MethodLength:
   Max: 61
 
 # Offense count: 1
-Style/MultilineTernaryOperator:
+MultilineTernaryOperator:
   Enabled: false
 
 # Offense count: 9
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/Next:
+Next:
   Enabled: false
 
-Style/DotPosition:
+DotPosition:
   EnforcedStyle: leading
   Enabled: true
