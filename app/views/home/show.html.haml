@@ -1,17 +1,10 @@
-%div.page-header
+%div.jumbotron
   %h1 Is It Fedora Ruby
   %h2
-    = _('This is the home page for the Is It Fedora Ruby web application').html_safe
-  %h2
-    %b 
-    = _('*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora').html_safe 
-    
+    = _('*new* <a href=/stats/gemfile_tool>compare</a> your Gemfile against Fedora').html_safe
+
 %div.row
-  %div.span6
-    = render :partial => 'stats/most_popular_gems'
-  %div.span6
-    = render :partial => 'stats/most_popular_rpms'
-  %div.span6
-    = render :partial => 'stats/most_wanted_gems'
-  %div.span6
-    = render :partial => 'stats/most_recent_rpms'
+  %div.col-md-6
+    = render partial: 'stats/popular_gems'
+  %div.col-md-6
+    = render partial: 'stats/recent_rpms'

@@ -1,0 +1,21 @@
+%div.stats.well
+  %h2
+    = _('Recently updated rpms')
+  %table.table.table-striped.table-condensed
+    %thead
+      %tr
+        %th
+          = _('Rpm')
+        %th
+          = _('Upstream')
+        %th
+          = _('Rawhide')
+        %th
+          = _('Last Commit')
+    %tbody
+      - @recent_rpms.each do |rpm|
+        %tr
+          %td= link_to rpm.shortname, fedorarpm_path(rpm.name)
+          %td= rpm.ruby_gem.version if rpm.ruby_gem
+          %td= rpm.version_for 'rawhide'
+          %td= rpm.last_commit_date_in_words

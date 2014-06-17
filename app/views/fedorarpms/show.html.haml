@@ -1,32 +1,46 @@
-%h1= link_to @rpm.name, @rpm.homepage if @rpm.homepage != nil
+%h1= @rpm.name
+
 - unless @rpm.summary.blank?
-  %h2= "(%{rpm_summary})" % { :rpm_summary => @rpm.summary}
+  %h2= "(#{@rpm.summary})"
+
 %h2
-  = link_to _('Source Code URI'), @rpm.source_uri if @rpm.source_uri != nil
-  = "|"
   = link_to _('Dependency Tree'), :controller => 'fedorarpms', :action => 'full_deps'
-  = "|"
-  - if @rpm.ruby_gem != nil
-    = link_to _('RubyGem'), rubygem_path(@rpm.ruby_gem.name)
-    = "|"
+  |
   = link_to _('Timeline (Bugs and Versions)'), stats_path + "/" + @name + "/timeline"
+
+- unless @rpm.ruby_gem.nil?
+  = button_to "#{@rpm.ruby_gem.name}.gem", rubygem_path(@rpm.ruby_gem.name),
+  :class => 'button btn btn-success', :type => 'button', :method => :get
+
 %div.info
+  %h3 RPM Information
+  %p
+    Source Code:
+    = link_to @rpm.source_uri, @rpm.source_uri
+  %p
+    Git Commits: <strong>#{@rpm.commits}</strong>
+  %p
+    Up to date:
+    - if @rpm.up_to_date?
+      %span.label.label-success= _('Yes')
+    - else
+      %span.label.label-danger= _('No')
+  - unless @rpm.fedora_user.blank?
+    %p
+      Maintainer:
+      = link_to @rpm.obfuscated_fedora_user,
+      fedorarpm_path(@rpm.maintainer + "/by_owner")
+  - unless @rpm.description.blank?
+    %p
+      Description:
+    %p
+      =@rpm.description
+
   %div.row
-    %div.span6
-      %label= _('Description: %{rpm_description}') % { :rpm_description => @rpm.description}
-      %label= _("Hotness: %{rpm_hotness}%") % { :rpm_hotness => @rpm.hotness}
-      = _('Up to date: ')
-      - if @rpm.upto_date?
-        %span.label.label-success= _('Yes')
-      - else
-        %span.label.label-important= _('No')
-      - unless @rpm.fedora_user.blank?
-        %p= link_to _('Maintainer: %{maintainer_email}') % { :maintainer_email => @rpm.obfuscated_fedora_user }, fedorarpm_path(@rpm.fedora_user.split("@").first + "/by_owner")
-      %label= _('Git Commits: %{rpm_commits}') % { :rpm_commits => @rpm.commits}
-    %div.span6
+    %div.col-md-6
       %h2
       = _('Versions:')
-      %table.table.table-striped.table-condensed.dependency
+      %table.table.table-striped.table-condensed.table-bordered
         %thead
           %tr
             -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
@@ -38,13 +52,13 @@
               %td= @rpm.version_for(t)
             %td= @rpm.ruby_gem.version
   %div.row
-    %div.span6
+    %div.col-md-6
       - if @dependencies.blank?
         %label= _('No dependencies')
       - else
         %label= _('Dependencies:')
 
-        %table.table.table-striped.table-condensed.dependency
+        %table.table.table-striped.table-condensed.table-bordered
           %thead
             %tr
               %th= _('Package')
@@ -61,13 +75,13 @@
                 -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
                   %td= d.version_for(t)
                 %td= d.ruby_gem.version
-    %div.span6
+    %div.col-md-6
       - if @dependents.blank?
         %label= _('No dependents')
       - else
         %label= _('Dependents:')
 
-        %table.table.table-striped.table-condensed.dependency
+        %table.table.table-striped.table-condensed.table-bordered
           %thead
             %tr
               %th= _('Package')
@@ -85,10 +99,10 @@
                   %td= d.version_for(t)
                 %td= d.ruby_gem.version
   %div.row
-    %div.span6
+    %div.col-md-6
       %h2
       = _('Bugs:')
-      %table.table.table-striped.table-condensed.dependency
+      %table.table.table-striped.table-condensed.table-bordered
         %thead
           %tr
             %th= _('ID')
@@ -104,12 +118,14 @@
                   %strike= link_to b.bz_id, b.url
               %td
                 = b.name.truncate(30)
-              %td{:style => "text-align: center;"}
-                = b.is_review ? link_to(image_tag("True.png", :size => "20x20")) : link_to(image_tag("False.png", :size => "20x20"))
-    %div.span6
+              %td
+                - if b.is_review
+                  %span.glyphicon.glyphicon-ok
+
+    %div.col-md-6
       %h2
       = _('Builds:')
-      %table.table.table-striped.table-condensed.dependency
+      %table.table.table-striped.table-condensed.table-bordered
         %thead
           %tr
             %th= _('Build ID')
@@ -122,5 +138,3 @@
               %td
                 = b.name.truncate(30)
 
-= render :partial => 'rpmcomments/comments'
-= render :partial => 'rpmcomments/new_comment'
