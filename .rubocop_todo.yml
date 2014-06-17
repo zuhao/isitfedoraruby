@@ -61,3 +61,7 @@ Style/MultilineTernaryOperator:
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/Next:
   Enabled: false
+
+Style/DotPosition:
+  EnforcedStyle: leading
+  Enabled: true
