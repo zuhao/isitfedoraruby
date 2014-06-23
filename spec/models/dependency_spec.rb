@@ -14,6 +14,13 @@
 
 require 'rails_helper'
 
-RSpec.describe Dependency, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Dependency do
+
+  xit "dependent_package" do
+  end
+
+  # validate dependent
+  xit "should have dependent gem" do
+  end
+
 end

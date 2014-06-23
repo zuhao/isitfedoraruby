@@ -13,6 +13,12 @@
 
 require 'rails_helper'
 
-RSpec.describe RpmVersion, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe RpmVersion do
+
+  it "to_s" do
+  end
+
+  it "belongs to fedora rpm" do
+  end
+
 end
