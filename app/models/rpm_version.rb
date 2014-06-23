@@ -11,7 +11,7 @@
 #  is_patched     :boolean
 #
 
-# Various ppm versions of a packaged gem
+# Various rpm versions of a packaged gem
 class RpmVersion < ActiveRecord::Base
   belongs_to :fedora_rpm
 
