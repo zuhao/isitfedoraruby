@@ -11,89 +11,81 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_140_519_095_419) do
+ActiveRecord::Schema.define(version: 20140623163944) do
 
-  create_table 'bugs', force: true do |t|
-    t.string 'name'
-    t.string 'bz_id'
-    t.integer 'fedora_rpm_id'
-    t.boolean 'is_review'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
-    t.string 'last_updated'
-    t.boolean 'is_open'
+  create_table "bugs", force: true do |t|
+    t.string   "name"
+    t.string   "bz_id"
+    t.integer  "fedora_rpm_id"
+    t.boolean  "is_review"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "last_updated"
+    t.boolean  "is_open"
   end
 
-  create_table 'builds', force: true do |t|
-    t.string 'name'
-    t.string 'build_id'
-    t.integer 'fedora_rpm_id'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
+  create_table "builds", force: true do |t|
+    t.string   "name"
+    t.string   "build_id"
+    t.integer  "fedora_rpm_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table 'dependencies', force: true do |t|
-    t.string 'environment'
-    t.string 'dependent',         null: false
-    t.string 'dependent_version'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
-    t.integer 'package_id'
-    t.string 'package_type'
+  create_table "dependencies", force: true do |t|
+    t.string   "environment"
+    t.string   "dependent",         null: false
+    t.string   "dependent_version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "package_id"
+    t.string   "package_type"
   end
 
-  create_table 'fedora_rpms', force: true do |t|
-    t.string 'name',                            null: false
-    t.string 'source_uri'
-    t.string 'last_commit_message'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
-    t.string 'author'
-    t.string 'last_committer'
-    t.datetime 'last_commit_date'
-    t.string 'last_commit_sha'
-    t.string 'homepage'
-    t.integer 'ruby_gem_id'
-    t.integer 'commits'
-    t.string 'fedora_user'
-    t.text 'summary',             limit: 255
-    t.text 'description',         limit: 255
+  create_table "fedora_rpms", force: true do |t|
+    t.string   "name",                            null: false
+    t.string   "source_uri"
+    t.string   "last_commit_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "author"
+    t.string   "last_committer"
+    t.datetime "last_commit_date"
+    t.string   "last_commit_sha"
+    t.string   "homepage"
+    t.integer  "ruby_gem_id"
+    t.integer  "commits"
+    t.string   "fedora_user"
+    t.text     "summary",             limit: 255
+    t.text     "description",         limit: 255
   end
 
-  create_table 'gem_versions', force: true do |t|
-    t.string 'gem_version'
-    t.integer 'ruby_gem_id'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
+  create_table "gem_versions", force: true do |t|
+    t.string   "gem_version"
+    t.integer  "ruby_gem_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table 'historical_gems', force: true do |t|
-    t.integer 'gem_id'
-    t.string 'version'
-    t.string 'build_date'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
+  create_table "rpm_versions", force: true do |t|
+    t.integer  "fedora_rpm_id"
+    t.string   "rpm_version"
+    t.string   "fedora_version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "is_patched"
   end
 
-  create_table 'rpm_versions', force: true do |t|
-    t.integer 'fedora_rpm_id'
-    t.string 'rpm_version'
-    t.string 'fedora_version'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
-    t.boolean 'is_patched'
-  end
-
-  create_table 'ruby_gems', force: true do |t|
-    t.string 'name',                    null: false
-    t.text 'description', limit: 255
-    t.string 'homepage'
-    t.string 'version'
-    t.boolean 'has_rpm'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
-    t.integer 'downloads'
-    t.string 'source_uri'
+  create_table "ruby_gems", force: true do |t|
+    t.string   "name",                    null: false
+    t.text     "description", limit: 255
+    t.string   "homepage"
+    t.string   "version"
+    t.boolean  "has_rpm"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "downloads"
+    t.string   "source_uri"
   end
 
 end
