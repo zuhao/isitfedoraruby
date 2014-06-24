@@ -20,11 +20,6 @@ Isitfedoraruby::Application.routes.draw do
   end
   resources :rubygems, constraints: { id: /.*/ }
 
-  resources :builds do
-    get :import, on: :collection
-    post :import, on: :collection
-  end
-
   resources :stats, constraints: { id: /.*/ } do
     get :gemfile_tool, on: :collection
     get :user_rpms
