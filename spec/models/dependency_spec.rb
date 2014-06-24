@@ -16,11 +16,11 @@ require 'rails_helper'
 
 describe Dependency do
 
-  xit "dependent_package" do
+  xit 'dependent_package' do
   end
 
   # validate dependent
-  xit "should have dependent gem" do
+  xit 'should have dependent gem' do
   end
 
 end

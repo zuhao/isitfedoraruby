@@ -14,7 +14,10 @@ require 'rails_helper'
 
 describe Build do
 
-  xit "build_url" do
+  let (:koji_build) { Build.new(build_id: 12345) }
+
+  it 'has valid url' do
+    expect(koji_build.build_url).to match(/#{Regexp.quote(Build::KOJI_BUILD_URL)}\d+/)
   end
 
 end

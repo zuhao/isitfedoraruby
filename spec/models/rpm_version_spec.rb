@@ -15,10 +15,10 @@ require 'rails_helper'
 
 describe RpmVersion do
 
-  it "to_s" do
+  it 'to_s' do
   end
 
-  it "belongs to fedora rpm" do
+  it 'belongs to fedora rpm' do
   end
 
 end

@@ -24,100 +24,100 @@ require 'rails_helper'
 
 describe FedoraRpm do
 
-  xit "to_param" do
+  xit 'to_param' do
   end
 
-  xit "shortname" do
+  xit 'shortname' do
   end
 
-  xit "versions" do
+  xit 'versions' do
   end
 
-  xit "version_for" do
+  xit 'version_for' do
   end
 
-  xit "up_to_date?" do
+  xit 'up_to_date?' do
   end
 
-  xit "patched?" do
+  xit 'patched?' do
   end
 
-  xit "json_dependencies" do
+  xit 'json_dependencies' do
   end
 
-  xit "json_dependents" do
+  xit 'json_dependents' do
   end
 
-  xit "base_uri" do
+  xit 'base_uri' do
   end
 
-  xit "retrieve_commits" do
+  xit 'retrieve_commits' do
   end
 
-  xit "retrieve_specs" do
+  xit 'retrieve_specs' do
   end
 
-  xit "retrieve_versions" do
+  xit 'retrieve_versions' do
   end
 
-  xit "retrieve_maintainer" do
+  xit 'retrieve_maintainer' do
   end
 
-  xit "retrieve_hoempage" do
+  xit 'retrieve_hoempage' do
   end
 
-  xit "retrieve_dependencies" do
+  xit 'retrieve_dependencies' do
   end
 
-  xit "version_valid?" do
+  xit 'version_valid?' do
   end
 
-  xit "retrieve_gem" do
+  xit 'retrieve_gem' do
   end
 
-  xit "retrieve_bugs" do
+  xit 'retrieve_bugs' do
   end
 
-  xit "retrieve_builds" do
+  xit 'retrieve_builds' do
   end
 
-  xit "update_commits" do
+  xit 'update_commits' do
   end
 
-  xit "update_specs" do
+  xit 'update_specs' do
   end
 
-  xit "update_gem" do
+  xit 'update_gem' do
   end
 
-  xit "update_bugs" do
+  xit 'update_bugs' do
   end
 
-  xit "Update_builds" do
+  xit 'update_builds' do
   end
 
-  xit "update_from_source" do
+  xit 'update_from_source' do
   end
 
-  xit "rpm_name" do
+  xit 'rpm_name' do
   end
 
-  xit "search" do
+  xit 'search' do
   end
 
-  xit "dependency_packages" do
+  xit 'dependency_packages' do
   end
 
-  xit "dependent_packages" do
+  xit 'dependent_packages' do
   end
 
-  xit "obfuscated_fedora_user" do
+  xit 'obfuscated_fedora_user' do
   end
 
-  xit "last_commit_date_in_words" do
+  xit 'last_commit_date_in_words' do
   end
 
-  xit " maintainer" do
+  xit ' maintainer' do
   end
 
 end

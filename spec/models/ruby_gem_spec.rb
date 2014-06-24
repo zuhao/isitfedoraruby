@@ -18,58 +18,58 @@ require 'rails_helper'
 
 describe RubyGem do
 
-  xit "to_param" do
+  xit 'to_param' do
   end
 
-  xit "load_or_create" do
+  xit 'load_or_create' do
   end
 
-  xit "on_rubygems?" do
+  xit 'on_rubygems?' do
   end
 
-  xit "retrieve_metadata" do
+  xit 'retrieve_metadata' do
   end
 
-  xit "retrieve_rpm" do
+  xit 'retrieve_rpm' do
   end
 
-  xit "retrieve_versions" do
+  xit 'retrieve_versions' do
   end
 
-  xit "update_from_source" do
+  xit 'update_from_source' do
   end
 
-  xit "search" do
+  xit 'search' do
   end
 
-  xit "gem_name" do
+  xit 'gem_name' do
   end
 
-  xit "rpm?" do
+  xit 'rpm?' do
   end
 
-  xit "version_in_fedora" do
+  xit 'version_in_fedora' do
   end
 
-  xit "upto_date_in_fedora" do
+  xit 'upto_date_in_fedora' do
   end
 
-  xit "depencency_packages" do
+  xit 'depencency_packages' do
   end
 
-  xit "dependent_packages" do
+  xit 'dependent_packages' do
   end
 
-  xit "uri_for_version" do
+  xit 'uri_for_version' do
   end
 
-  xit "download_version" do
+  xit 'download_version' do
   end
 
-  xit "download" do
+  xit 'download' do
   end
 
-  xit "description_string" do
+  xit 'description_string' do
   end
 
 end
