@@ -48,6 +48,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
+  gem 'guard-cucumber'
   gem 'ruby_parser'
   gem 'gettext', :require => false
   gem 'sqlite3'
