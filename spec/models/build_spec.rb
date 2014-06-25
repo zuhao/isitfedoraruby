@@ -12,6 +12,12 @@
 
 require 'rails_helper'
 
-RSpec.describe Build, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Build do
+
+  let (:koji_build) { Build.new(build_id: 12345) }
+
+  it 'has valid url' do
+    expect(koji_build.build_url).to match(/#{Regexp.quote(Build::KOJI_BUILD_URL)}\d+/)
+  end
+
 end
