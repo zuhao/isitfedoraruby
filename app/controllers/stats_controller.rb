@@ -31,9 +31,6 @@ class StatsController < ApplicationController
   def tljson(result = [])
     @stat_id = params[:stat_id]
     @rpm = FedoraRpm.find_by_name(@stat_id)
-    @rpm.ruby_gem.historical_gems.each do |hist_gem|
-      result << { content: hist_gem.version, start: hist_gem.build_date }
-    end
     @rpm.bugs.each do |bug|
       result << { content: bug.name, start: bug.bz_id }
     end

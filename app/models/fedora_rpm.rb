@@ -304,16 +304,6 @@ class FedoraRpm < ActiveRecord::Base
     end.compact
   end
 
-  def self.build_rpms(spec_file)
-    rpms = []
-    buildroot = "#{Rails.root}/public/rpmbuild"
-    output = `/usr/bin/rpmbuild --define="%_topdir #{buildroot}" -ba #{spec_file}`
-    output.each_line do |line|
-      rpms << Regexp.last_match[1] if line =~ /Wrote: (.*)/
-    end
-    rpms
-  end
-
   def obfuscated_fedora_user
     fedora_user.to_s.gsub('@', ' AT ').gsub('.', ' DOT ')
   end

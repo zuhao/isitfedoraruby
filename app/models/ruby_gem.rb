@@ -119,7 +119,7 @@ class RubyGem < ActiveRecord::Base
 
   def upto_date_in_fedora?
     return false if fedora_rpm.nil?
-    fedora_rpm.upto_date?
+    fedora_rpm.up_to_date?
   end
 
   def dependency_packages
@@ -130,41 +130,6 @@ class RubyGem < ActiveRecord::Base
 
   def dependent_packages
     Dependency.where(dependent: name).to_a.map { |d| d.package }
-  end
-
-  def uri_for_version(_version)
-    "http://rubygems.org/gems/#{name}-#{version}.gem"
-  end
-
-  def local_gem_for_version(_version)
-    "#{Rails.root}/public/rpmbuild/SOURCES/#{name}-#{version}.gem"
-  end
-
-  def download
-    download_version(version)
-  end
-
-  def download_version(version)
-    local_gem = local_gem_for_version(version)
-    return if File.exist?(local_gem) # just return if version already downloaded
-    c = Curl::Easy.new(uri_for_version(version))
-    c.follow_location = true
-    result = c.http_get
-    result = c.body_str.force_encoding('UTF-8')
-    File.open(local_gem, 'w') { |f| f.write result }
-  end
-
-  def gem2rpm
-    version2rpm(version)
-  end
-
-  def version2rpm(version)
-    rpm_spec_file = "#{Rails.root}/public/rpmbuild/SPECS/rubygem-#{name}-#{version}.spec"
-    return rpm_spec_file if File.exist?(rpm_spec_file) # just return if already built
-
-    spec = `/usr/bin/gem2rpm #{local_gem_for_version(version)}`
-    File.open(rpm_spec_file, 'w') { |f| f.write spec }
-    rpm_spec_file
   end
 
   def description_string
