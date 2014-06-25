@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: builds
+# Table name: koji_builds
 #
 #  id            :integer          not null, primary key
 #  name          :string(255)
@@ -10,7 +10,7 @@
 #  updated_at    :datetime
 #
 
-class Build < ActiveRecord::Base
+class KojiBuild < ActiveRecord::Base
   belongs_to :fedora_rpm
 
   KOJI_API_URL = 'http://koji.fedoraproject.org/kojihub'
