@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: builds
+# Table name: koji_builds
 #
 #  id            :integer          not null, primary key
 #  name          :string(255)
@@ -12,12 +12,11 @@
 
 require 'rails_helper'
 
-describe Build do
-
-  let (:koji_build) { Build.new(build_id: 12345) }
+describe KojiBuild do
 
   it 'has valid url' do
-    expect(koji_build.build_url).to match(/#{Regexp.quote(Build::KOJI_BUILD_URL)}\d+/)
+    expect(build(:koji_build).build_url).to \
+      match(/#{Regexp.quote(KojiBuild::KOJI_BUILD_URL)}\d+/)
   end
 
 end

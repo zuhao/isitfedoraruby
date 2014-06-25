@@ -39,7 +39,7 @@ class FedoraRpm < ActiveRecord::Base
   belongs_to :ruby_gem
   has_many :rpm_versions, dependent: :destroy
   has_many :bugs, -> { order 'bz_id desc' }, dependent: :destroy
-  has_many :builds, -> { order 'build_id desc' }, dependent: :destroy
+  has_many :koji_builds, -> { order 'build_id desc' }, dependent: :destroy
   has_many :dependencies, -> { order 'created_at desc' }, as: :package,
                                                           dependent: :destroy
   scope :most_recent, -> { order 'last_commit_date desc' }
@@ -226,15 +226,15 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def retrieve_builds
-    puts "Importing rpm #{name} builds"
-    builds.clear
+    puts "Importing rpm #{name} koji builds"
+    koji_builds.clear
 
-    builds = Pkgwat.get_builds(name)
-    builds.each do |build|
+    koji_builds = Pkgwat.get_builds(name)
+    koji_builds.each do |build|
       bld = Build.new
       bld.name = build['nvr']
       bld.build_id = build['build_id']
-      self.builds << bld
+      self.koji_builds << bld
     end
   end
 

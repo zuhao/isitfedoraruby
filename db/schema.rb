@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623163944) do
+ActiveRecord::Schema.define(version: 20140625081947) do
 
   create_table "bugs", force: true do |t|
     t.string   "name"
@@ -22,14 +22,6 @@ ActiveRecord::Schema.define(version: 20140623163944) do
     t.datetime "updated_at"
     t.string   "last_updated"
     t.boolean  "is_open"
-  end
-
-  create_table "builds", force: true do |t|
-    t.string   "name"
-    t.string   "build_id"
-    t.integer  "fedora_rpm_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "dependencies", force: true do |t|
@@ -63,6 +55,14 @@ ActiveRecord::Schema.define(version: 20140623163944) do
   create_table "gem_versions", force: true do |t|
     t.string   "gem_version"
     t.integer  "ruby_gem_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "koji_builds", force: true do |t|
+    t.string   "name"
+    t.string   "build_id"
+    t.integer  "fedora_rpm_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

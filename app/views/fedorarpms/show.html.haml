@@ -131,7 +131,7 @@
             %th= _('Build ID')
             %th= _('Title')
         %tbody
-          - @rpm.builds.each do |b|
+          - @rpm.koji_builds.each do |b|
             %tr
               %td
                 = link_to b.build_id, b.build_url
