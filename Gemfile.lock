@@ -307,6 +307,8 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0.4)
     sexp_processor (4.4.3)
+    shoulda-matchers (2.6.1)
+      activesupport (>= 3.0.0)
     simplecov (0.8.2)
       docile (~> 1.1.0)
       multi_json
@@ -401,6 +403,7 @@ DEPENDENCIES
   ruby_parser
   sass-rails
   selenium-webdriver
+  shoulda-matchers
   sprockets (<= 2.11.0)
   sqlite3
   text

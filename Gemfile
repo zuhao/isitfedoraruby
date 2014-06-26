@@ -78,6 +78,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'rake'
   gem 'coveralls'
+  gem 'shoulda-matchers', require: false
 end
 
 group :production do
