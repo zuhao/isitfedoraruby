@@ -6,3 +6,7 @@
 # versions of RuboCop, may require this file to be generated again.
 #
 inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
