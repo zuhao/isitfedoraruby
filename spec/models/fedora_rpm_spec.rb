@@ -24,10 +24,19 @@ require 'rails_helper'
 
 describe FedoraRpm do
 
-  xit 'to_param' do
+  let(:rpm) { build(:fedora_rpm) }
+
+  describe '#to_param' do
+    it 'returns the name stored in db' do
+      expect(rpm.name).to eq('rubygem-foo')
+    end
   end
 
-  xit 'shortname' do
+  describe '#shortname' do
+    it 'returns foo if rpm name is rubygem-foo' do
+      shortname = rpm.name.gsub(/rubygem-/, '')
+      expect(shortname).to eq('foo')
+    end
   end
 
   xit 'versions' do
@@ -63,7 +72,7 @@ describe FedoraRpm do
   xit 'retrieve_maintainer' do
   end
 
-  xit 'retrieve_hoempage' do
+  xit 'retrieve_homepage' do
   end
 
   xit 'retrieve_dependencies' do

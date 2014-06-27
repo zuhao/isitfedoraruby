@@ -23,6 +23,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :fedora_rpm do
+  factory :fedora_rpm do |f|
+    f.name 'rubygem-foo'
   end
 end

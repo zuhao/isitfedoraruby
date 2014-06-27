@@ -13,7 +13,6 @@ require 'rails_helper'
 
 describe GemVersion do
 
-  it "belongs to rubygem" do
-  end
+  it { should belong_to(:ruby_gem) }
 
 end

@@ -18,58 +18,73 @@ require 'rails_helper'
 
 describe RubyGem do
 
-  xit 'to_param' do
+  describe 'Validations' do
+    it { should have_one(:fedora_rpm).dependent(:destroy) }
+    it { should have_many(:dependencies).dependent(:destroy) }
+    it { should have_many(:gem_versions).dependent(:destroy) }
   end
 
-  xit 'load_or_create' do
+  describe '#to_param' do
+    it 'returns the name of the gem stored in db' do
+      expect(build(:ruby_gem).name).to eq('rails')
+    end
   end
 
-  xit 'on_rubygems?' do
+  describe 'load_or_create' do
   end
 
-  xit 'retrieve_metadata' do
+  describe '#on_rubygems?' do
+
+    it 'gem is found' do
+    end
+
+    it 'gem is not found' do
+    end
   end
 
-  xit 'retrieve_rpm' do
+  describe 'retrieve_metadata' do
   end
 
-  xit 'retrieve_versions' do
+  describe 'retrieve_rpm' do
   end
 
-  xit 'update_from_source' do
+  describe 'retrieve_versions' do
   end
 
-  xit 'search' do
+  describe 'update_from_source' do
   end
 
-  xit 'gem_name' do
+  describe 'search' do
   end
 
-  xit 'rpm?' do
+  describe 'gem_name' do
   end
 
-  xit 'version_in_fedora' do
+  describe 'rpm?' do
   end
 
-  xit 'upto_date_in_fedora' do
+  describe 'version_in_fedora' do
   end
 
-  xit 'depencency_packages' do
+  describe 'upto_date_in_fedora' do
   end
 
-  xit 'dependent_packages' do
+  describe 'depencency_packages' do
   end
 
-  xit 'uri_for_version' do
+  describe 'dependent_packages' do
   end
 
-  xit 'download_version' do
+  describe 'uri_for_version' do
   end
 
-  xit 'download' do
+  describe 'download_version' do
   end
 
-  xit 'description_string' do
+  describe 'download' do
+  end
+
+  describe 'description_string' do
   end
 
 end

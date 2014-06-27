@@ -17,6 +17,23 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :ruby_gem do
+  factory :ruby_gem do |r|
+    r.name 'rails'
+    r.description 'An awesome web framework.'
+    r.homepage 'http://rubyonrails.org'
+    r.version '4.1.0'
+    r.has_rpm true
+    r.downloads 42_000_000
+    r.source_uri 'https://github/rails/rails'
+  end
+
+  factory :fakegem, class: RubyGem do |r|
+    r.name 'fakegem'
+    r.description nil
+    r.homepage nil
+    r.version nil
+    r.has_rpm nil
+    r.downloads nil
+    r.source_uri nil
   end
 end
