@@ -36,6 +36,9 @@ class FedoraRpm < ActiveRecord::Base
                       'Fedora 20' => 'f20',
                       'Fedora 19' => 'f19' }
 
+  validates :name, uniqueness: true
+  validates :name, presence: true
+
   belongs_to :ruby_gem
   has_many :rpm_versions, dependent: :destroy
   has_many :bugs, -> { order 'bz_id desc' }, dependent: :destroy
@@ -316,8 +319,4 @@ class FedoraRpm < ActiveRecord::Base
     fedora_user.split('@').first unless fedora_user.nil?
   end
 
-  private
-
-  validates :name, uniqueness: true
-  validates :name, presence: true
 end

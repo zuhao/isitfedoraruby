@@ -26,18 +26,28 @@ describe FedoraRpm do
 
   let(:rpm) { build(:fedora_rpm) }
 
+  it { should validate_uniqueness_of :name }
+  it { should validate_presence_of :name }
+
+  it 'is invalid without a name' do
+    rpm.name = nil
+    expect(rpm).to be_invalid
+  end
+
   describe '#to_param' do
     it 'returns the name stored in db' do
-      expect(rpm.name).to eq('rubygem-foo')
+      expect(rpm.name).to eq 'rubygem-foo'
     end
   end
 
   describe '#shortname' do
     it 'returns foo if rpm name is rubygem-foo' do
       shortname = rpm.name.gsub(/rubygem-/, '')
-      expect(shortname).to eq('foo')
+      expect(shortname).to eq 'foo'
     end
   end
+
+
 
   xit 'versions' do
   end
