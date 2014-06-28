@@ -234,7 +234,7 @@ class FedoraRpm < ActiveRecord::Base
 
     koji_builds = Pkgwat.get_builds(name)
     koji_builds.each do |build|
-      bld = Build.new
+      bld = KojiBuild.new
       bld.name = build['nvr']
       bld.build_id = build['build_id']
       self.koji_builds << bld
