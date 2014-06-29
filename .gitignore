@@ -12,6 +12,7 @@ db/*sqlite3
 Gemfile.lock
 .idea
 vendor/bundle
+vendor/rails
 config/unicorn.rb
 .ruby-version
 .ruby-gemset
