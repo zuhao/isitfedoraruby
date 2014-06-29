@@ -48,7 +48,6 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
-  gem 'guard-cucumber'
   gem 'ruby_parser'
   gem 'gettext', :require => false
   gem 'sqlite3'
@@ -72,7 +71,6 @@ end
 group :test do
   gem 'faker'
   gem 'capybara'
-  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
