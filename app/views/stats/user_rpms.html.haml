@@ -25,7 +25,7 @@
   }
 
   var selection = vis.selectAll("g.node")
-                .data(bubble_layout.nodes({children: arr}).filter(function(d) { return !d.children; }) ); 
+                .data(bubble_layout.nodes({children: arr}).filter(function(d) { return !d.children; }) );
   //Enter
   var tooltip = d3.select("body")
     .append("div")
