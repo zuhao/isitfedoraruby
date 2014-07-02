@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title> Fedora devel | PkgDB </title>
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon"
+        href="//fedoraproject.org/static/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+        href="/pkgdb/static/koji.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+        href="/pkgdb/static/pkgdb.css"/>
+    <link type="text/css" rel="stylesheet"
+        href="/pkgdb/static/jquery-ui-1.9.2.custom.css" />
+
+
+    <link title="Fedora PkgDB2: Packages"
+        rel="search" type="application/opensearchdescription+xml"
+        href="/pkgdb/opensearch/pkgdb_packages.xml" />
+    <link title="Fedora PkgDB2: Packagers"
+        rel="search" type="application/opensearchdescription+xml"
+        href="/pkgdb/opensearch/pkgdb_packager.xml" />
+
+  </head>
+  <body id="collections"
+        prefix="doap: http://usefulinc.com/ns/doap#"
+  >
+
+    <div id="wrap">
+      <div id="innerwrap">
+
+        <!-- HEADER -->
+        <div id="header">
+          <img src="/pkgdb/static/packagedb-logo.png" alt="PackageDB Logo" id="kojiLogo"/>
+          <form action="/pkgdb/search/" id="headerSearch">
+            <select name="type">
+              <option value="package"
+                >
+                  Packages</option>
+              <option value="packager"
+                >
+                  Packagers</option>
+              <option value="orphaned"
+              >
+                  Orphaned</option>
+              <option value="retired"
+              >
+                  Retired</option>
+            </select>
+            <input type="text" name="term"/>
+            <input type="submit" value="Search"/>
+          </form>
+        </div><!-- end header -->
+
+        <!-- MAIN NAVIGATION -->
+        <div id="mainNav">
+          <h4 class="hide">Main Site Links:</h4>
+          <ul>
+            <li id="indexTab"><a href="/pkgdb/">Home</a></li>
+            <li id="packagesTab"><a href="/pkgdb/packages/">Packages</a></li>
+            <li id="packagersTab"><a href="/pkgdb/packagers/">Packagers</a></li>
+            <li id="collectionsTab"><a href="/pkgdb/collections/">Collections</a></li>
+            <li id="statsTab"><a href="/pkgdb/stats/">Stats</a></li>
+
+
+          </ul>
+        </div><!-- end mainNav -->
+
+        <span id="loginInfo">
+
+        <a href="/pkgdb/login/?next=https://admin.fedoraproject.org/pkgdb/collection/master/">login</a>
+
+        </span>
+
+        <div id="content">
+
+
+
+                <ul id="flashes">
+
+                </ul>
+
+
+
+
+
+<h1>Fedora devel</h1>
+
+<p>
+    Status : <img src="/pkgdb/static/Under%20Development.png"
+              title="Under Development" alt="Under Development"/ >
+    (<a href="/pkgdb/collection/master/edit">
+        edit
+    </a>)
+</p>
+
+<table>
+    <tr>
+        <td>Name:</td>
+        <td>Fedora</td>
+    </tr>
+    <tr>
+        <td>Version:</td>
+        <td>devel</td>
+    </tr>
+    <tr>
+        <td>Branch-name:</td>
+        <td>master</td>
+    </tr>
+    <tr>
+        <td>Description:</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Dist-tag:</td>
+        <td>.fc21</td>
+    </tr>
+</table>
+
+
+        </div>
+
+
+
+        <p id="footer">
+          Copyright &copy; 2013-2014 Red Hat
+          <a href="https://fedorahosted.org/pkgdb2/">pkgdb2</a>
+          -- 1.12.1
+          -- <a href="http://pkgdb2.rtfd.org"
+                target="_blank">Documentation</a>
+          -- <a href="/pkgdb/api/">API</a>
+        </p>
+
+      </div>
+    </div>
+
+
+    <script type="text/javascript"
+        src="/pkgdb/static/jquery-1.10.2.js">
+    </script>
+    <script type="text/javascript"
+        src="/pkgdb/static/jquery-ui-1.10.4.custom.min.js">
+    </script>
+
+
+  </body>
+</html>

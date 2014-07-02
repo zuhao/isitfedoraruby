@@ -34,6 +34,11 @@ describe FedoraRpm do
     expect(rpm).to be_invalid
   end
 
+  it 'must have at least one koji build' do
+#    rpm.koji_builds
+#    rpm.koji_builds.count).to be >= 1
+  end
+
   describe '#to_param' do
     it 'returns the name stored in db' do
       expect(rpm.name).to eq 'rubygem-foo'
@@ -47,7 +52,18 @@ describe FedoraRpm do
     end
   end
 
+  describe '#rawhide_version' do
+    it 'returns the latest fedora version as a number' do
+      page = Nokogiri.HTML(open(Rails.root + \
+                                'spec/support/fedora_rawhide.html'))
+      expect(page.text.match(/\d{2}/)[0].to_i).to eq 21
+    end
+  end
 
+  describe '#retrieve_builds' do
+    it 'returns the koji builds of supported Fedora versions' do
+    end
+  end
 
   xit 'versions' do
   end
@@ -97,9 +113,6 @@ describe FedoraRpm do
   xit 'retrieve_bugs' do
   end
 
-  xit 'retrieve_builds' do
-  end
-
   xit 'update_commits' do
   end
 
@@ -136,7 +149,7 @@ describe FedoraRpm do
   xit 'last_commit_date_in_words' do
   end
 
-  xit ' maintainer' do
+  xit 'maintainer' do
   end
 
 end
