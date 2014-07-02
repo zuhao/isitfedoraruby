@@ -10,17 +10,20 @@ Isitfedoraruby::Application.routes.draw do
   post 'searches/' => 'searches#redirect'
   get 'searches/:id' => 'searches#index'
 
-  resources :fedorarpms, constraints: { id: /.*/ } do
-    get :full_deps, on: :member
-    get :full_dependencies, on: :member
-    get :full_dependents,   on: :member
-    get :by_owner, on: :member
-    get :badge, on: :member
-    get :not_found, on: :member
+  resources :fedorarpms, only: [:index, :show] do
+    member do
+      get :full_deps
+      get :full_dependencies
+      get :full_dependents
+      get :by_owner
+      get :badge
+      get :not_found
+    end
   end
-  resources :rubygems, constraints: { id: /.*/ }
 
-  resources :stats, constraints: { id: /.*/ } do
+  resources :rubygems, only: [:index, :show]
+
+  resources :stats, only: [:index] do
     get :gemfile_tool, on: :collection
     get :user_rpms
     get :timeline
