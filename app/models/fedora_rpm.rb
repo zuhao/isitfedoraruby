@@ -228,11 +228,24 @@ class FedoraRpm < ActiveRecord::Base
     end
   end
 
+  # Retrieve rawhide version
+  def rawhide_version
+    url = 'https://admin.fedoraproject.org/pkgdb/collection/master/'
+    page = Nokogiri::HTML(open(url))
+    page.text.match(/\d{2}/)[0].to_i
+  end
+
   def retrieve_builds
     puts "Importing rpm #{name} koji builds"
     koji_builds.clear
 
-    koji_builds = Pkgwat.get_builds(name)
+    version = rawhide_version
+
+    # Retrieve only latest 3 versions of builds
+    koji_builds = Pkgwat.get_builds(name).select do |build|
+      !!(build['nvr'] =~ /fc(#{version}|#{version - 1}|#{version - 2})/)
+    end
+
     koji_builds.each do |build|
       bld = KojiBuild.new
       bld.name = build['nvr']
@@ -318,5 +331,4 @@ class FedoraRpm < ActiveRecord::Base
   def maintainer
     fedora_user.split('@').first unless fedora_user.nil?
   end
-
 end
