@@ -11,7 +11,7 @@ Lint/HandleExceptions:
 
 # Offense count: 7
 Rails/Output:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 3
 Style/BlockNesting:
@@ -46,16 +46,16 @@ Style/IfUnlessModifier:
 
 # Offense count: 65
 Style/LineLength:
-  Max: 299
+  Max: 79
 
 # Offense count: 11
 # Configuration parameters: CountComments.
 Style/MethodLength:
-  Max: 61
+  Max: 10
 
 # Offense count: 1
 Style/MultilineTernaryOperator:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 9
 # Configuration parameters: EnforcedStyle, SupportedStyles.
