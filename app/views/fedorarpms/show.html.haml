@@ -33,7 +33,6 @@
   - unless @rpm.description.blank?
     %p
       Description:
-    %p
       =@rpm.description
 
   %div.row
@@ -43,12 +42,12 @@
       %table.table.table-striped.table-condensed.table-bordered
         %thead
           %tr
-            -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+            -FedoraRpm.fedora_versions.each do |t, g|
               %th= t
             %th= _('Gem Version')
         %tbody
           %tr
-            -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+            -FedoraRpm.fedora_versions.each do |t, g|
               %td= @rpm.version_for(t)
             %td= @rpm.ruby_gem.version
   %div.row
@@ -62,7 +61,7 @@
           %thead
             %tr
               %th= _('Package')
-              -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+              -FedoraRpm.fedora_versions.each do |t, g|
                 - if g == 'master'
                   %th= 'Rawhide'
                 - else
@@ -72,7 +71,7 @@
             - @dependencies.each do |d|
               %tr
                 %td= link_to d.name, fedorarpm_path(d.name)
-                -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+                -FedoraRpm.fedora_versions.each do |t, g|
                   %td= d.version_for(t)
                 %td= d.ruby_gem.version
     %div.col-md-6
@@ -85,7 +84,7 @@
           %thead
             %tr
               %th= _('Package')
-              -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+              -FedoraRpm.fedora_versions.each do |t, g|
                 - if g == 'master'
                   %th= 'Rawhide'
                 - else
@@ -95,7 +94,7 @@
             - @dependents.each do |d|
               %tr
                 %td= link_to d.name, fedorarpm_path(d.name)
-                -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+                -FedoraRpm.fedora_versions.each do |t, g|
                   %td= d.version_for(t)
                 %td= d.ruby_gem.version
   %div.row
