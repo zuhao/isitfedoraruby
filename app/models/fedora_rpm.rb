@@ -230,7 +230,7 @@ class FedoraRpm < ActiveRecord::Base
 
   # Retrieve rawhide version
   def rawhide_version
-    url = "https://admin.fedoraproject.org/pkgdb/collection/master/"
+    url = 'https://admin.fedoraproject.org/pkgdb/collection/master/'
     page = Nokogiri::HTML(open(url))
     page.text.match(/\d{2}/)[0].to_i
   end
@@ -331,5 +331,4 @@ class FedoraRpm < ActiveRecord::Base
   def maintainer
     fedora_user.split('@').first unless fedora_user.nil?
   end
-
 end

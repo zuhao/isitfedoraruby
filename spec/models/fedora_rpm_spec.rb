@@ -35,8 +35,8 @@ describe FedoraRpm do
   end
 
   it 'must have at least one koji build' do
-#    rpm.koji_builds
-#    rpm.koji_builds.count).to be >= 1
+    #rpm.koji_builds
+    #rpm.koji_builds.count).to be >= 1
   end
 
   describe '#to_param' do
