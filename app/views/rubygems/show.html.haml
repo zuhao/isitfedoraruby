@@ -28,12 +28,12 @@
         %tr
           %th Package
           %th Gem Version
-          - FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+          - FedoraRpm.fedora_versions.each do |t, g|
             %th= t
       %tbody
         - @dependencies.each do |d|
           %tr
             %td= link_to d.name, rubygem_path(d.name)
             %td= d.version
-            - FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+            - FedoraRpm.fedora_versions.each do |t, g|
               %td= d.fedora_rpm.version_for(t)

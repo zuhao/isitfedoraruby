@@ -24,7 +24,7 @@ require 'rails_helper'
 
 describe FedoraRpm do
 
-  let(:rpm) { build(:fedora_rpm) }
+  let!(:rpm) { create(:fedora_rpm) }
 
   it { should validate_uniqueness_of :name }
   it { should validate_presence_of :name }
@@ -35,8 +35,6 @@ describe FedoraRpm do
   end
 
   it 'must have at least one koji build' do
-    #rpm.koji_builds
-    #rpm.koji_builds.count).to be >= 1
   end
 
   describe '#to_param' do
@@ -65,91 +63,13 @@ describe FedoraRpm do
     end
   end
 
-  xit 'versions' do
-  end
+  describe '#fedora_versions' do
 
-  xit 'version_for' do
-  end
+    context 'support latest 3 Fedora versions' do
 
-  xit 'up_to_date?' do
-  end
-
-  xit 'patched?' do
-  end
-
-  xit 'json_dependencies' do
-  end
-
-  xit 'json_dependents' do
-  end
-
-  xit 'base_uri' do
-  end
-
-  xit 'retrieve_commits' do
-  end
-
-  xit 'retrieve_specs' do
-  end
-
-  xit 'retrieve_versions' do
-  end
-
-  xit 'retrieve_maintainer' do
-  end
-
-  xit 'retrieve_homepage' do
-  end
-
-  xit 'retrieve_dependencies' do
-  end
-
-  xit 'version_valid?' do
-  end
-
-  xit 'retrieve_gem' do
-  end
-
-  xit 'retrieve_bugs' do
-  end
-
-  xit 'update_commits' do
-  end
-
-  xit 'update_specs' do
-  end
-
-  xit 'update_gem' do
-  end
-
-  xit 'update_bugs' do
-  end
-
-  xit 'update_builds' do
-  end
-
-  xit 'update_from_source' do
-  end
-
-  xit 'rpm_name' do
-  end
-
-  xit 'search' do
-  end
-
-  xit 'dependency_packages' do
-  end
-
-  xit 'dependent_packages' do
-  end
-
-  xit 'obfuscated_fedora_user' do
-  end
-
-  xit 'last_commit_date_in_words' do
-  end
-
-  xit 'maintainer' do
-  end
-
-end
+      it 'has exactly 3 keys' do
+        expect(FedoraRpm.fedora_versions.keys.count).to eq(3)
+      end
+    end
+  end # FedoraRpm#fedora_versions
+end # FedoraRpm

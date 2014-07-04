@@ -32,9 +32,6 @@ require 'open-uri'
 # - Retrieves meta information about the gem
 class FedoraRpm < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
-  FEDORA_VERSIONS = { 'rawhide'   => 'master',
-                      'Fedora 20' => 'f20',
-                      'Fedora 19' => 'f19' }
 
   validates :name, uniqueness: true
   validates :name, presence: true
@@ -53,6 +50,19 @@ class FedoraRpm < ActiveRecord::Base
 
   def shortname
     name.gsub(/rubygem-/, '')
+  end
+
+  def self.fedora_versions
+
+    # Read file which contains latest fedora version.
+    # See lib/rawhide_version.rb
+    file = File.open(Rails.root + 'public/version/rawhide', 'r')
+    version = file.read.to_i
+
+    { 'Rawhide'   => 'master',
+      "Fedora #{version - 1}" => "f#{version - 1}",
+      "Fedora #{version - 2}" => "f#{version - 2}"
+    }
   end
 
   def versions
@@ -131,7 +141,7 @@ class FedoraRpm < ActiveRecord::Base
     rpm_versions.clear
     dependencies.clear
     puts "Importing #{name} spec info"
-    FEDORA_VERSIONS.each do |version_title, version_git|
+    fedora_versions.each do |version_title, version_git|
       spec_url = "#{base_uri}#{name}.git/plain/#{name}.spec?h=#{version_git}"
       rpm_spec = open(spec_url).read
       retrieve_versions(rpm_spec, version_title)
@@ -228,20 +238,13 @@ class FedoraRpm < ActiveRecord::Base
     end
   end
 
-  # Retrieve rawhide version
-  def rawhide_version
-    url = 'https://admin.fedoraproject.org/pkgdb/collection/master/'
-    page = Nokogiri::HTML(open(url))
-    page.text.match(/\d{2}/)[0].to_i
-  end
-
   def retrieve_builds
     puts "Importing rpm #{name} koji builds"
     koji_builds.clear
 
-    version = rawhide_version
+    version = RawhideVersion.version
 
-    # Retrieve only latest 3 versions of builds
+    # Retrieve only latest 3 Fedora versions of builds
     koji_builds = Pkgwat.get_builds(name).select do |build|
       !!(build['nvr'] =~ /fc(#{version}|#{version - 1}|#{version - 2})/)
     end
