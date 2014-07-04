@@ -66,6 +66,8 @@ group :test, :development do
   gem 'pry-byebug'
 
   gem 'rubocop', require: false
+
+  gem 'rack-mini-profiler'
 end
 
 group :test do
