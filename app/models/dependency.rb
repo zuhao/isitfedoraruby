@@ -15,6 +15,7 @@
 # Used for extracting gem dependencies for RubyGem and FedoraRpm classes
 class Dependency < ActiveRecord::Base
   belongs_to :package, polymorphic: true
+  validates :dependent, presence: true
 
   def dependent_package
     if package_type == 'FedoraRpm'
@@ -23,8 +24,4 @@ class Dependency < ActiveRecord::Base
       RubyGem.find_by_name(dependent)
     end
   end
-
-  private
-
-  validates :dependent, presence: true
 end
