@@ -99,27 +99,23 @@
                 %td= d.ruby_gem.version
   %div.row
     %div.col-md-6
-      %h2
-      = _('Bugs:')
-      %table.table.table-striped.table-condensed.table-bordered
-        %thead
-          %tr
-            %th= _('ID')
-            %th= _('Title')
-            %th= _('Review?')
-        %tbody
-          - @rpm.bugs.each do |b|
+      - if @rpm.bugs.blank?
+        %h4 No bugs found!
+      - else
+        %h2
+        = _('Bugs:')
+        %table.table.table-striped.table-condensed.table-bordered
+          %thead
             %tr
-              %td
-                - if b.is_open
+              %th= _('ID')
+              %th= _('Title')
+          %tbody
+            - @rpm.bugs.each do |b|
+              %tr
+                %td
                   = link_to b.bz_id, b.url
-                - else
-                  %strike= link_to b.bz_id, b.url
-              %td
-                = b.name.truncate(30)
-              %td
-                - if b.is_review
-                  %span.glyphicon.glyphicon-ok
+                %td
+                  = b.name.truncate(60)
 
     %div.col-md-6
       %h2

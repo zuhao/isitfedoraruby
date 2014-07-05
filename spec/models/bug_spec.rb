@@ -16,6 +16,7 @@
 require 'rails_helper'
 
 describe Bug do
+
   it 'has valid factory' do
     expect(create(:bug)).to be_valid
   end
@@ -33,13 +34,8 @@ describe Bug do
     expect(@bug.is_review).to eq true
   end
 
-  it 'bug is open' do
-    expect(@bug.is_open).to eq true
+  it 'bug is not a Review Request' do
+    @bug.is_review = false
+    expect(@bug.is_review).to_not eq true
   end
-
-  it 'bug is closed' do
-    @bug.is_open = false
-    expect(@bug.is_open).to eq false
-  end
-
 end

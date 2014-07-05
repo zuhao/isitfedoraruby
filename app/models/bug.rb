@@ -10,7 +10,6 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  last_updated  :string(255)
-#  is_open       :boolean
 #
 
 # Find bugs assigned to each packaged gem

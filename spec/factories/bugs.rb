@@ -10,15 +10,12 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  last_updated  :string(255)
-#  is_open       :boolean
 #
-
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :bug do |b|
-    b.bz_id '12345'
-    b.is_review true
-    b.is_open true
+  factory :bug do
+    name 'Review Request: rubygem-foo - Short summary'
+    bz_id '12345'
+    is_review true
+    last_updated '6 days and 3 hours'
   end
 end
