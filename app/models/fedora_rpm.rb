@@ -224,17 +224,13 @@ class FedoraRpm < ActiveRecord::Base
     puts "Importing rpm #{name} bugs"
     bugs.clear
 
-    Bicho.client = Bicho::Client.new('https://bugzilla.redhat.com')
-    Bicho.client.instance_variable_get(:@client)
-        .http_header_extra = { 'accept-encoding' => 'identity' }
-    Bicho::Bug.where(summary: name, product: 'fedora').each do |bug|
-      arb = Bug.new
-      arb.name = bug['summary']
-      arb.bz_id = bug['id']
-      arb.last_updated = bug['last_change_time'].to_time
-      arb.is_review = true if arb.name =~ /^Review Request.*#{name}\s.*$/
-      arb.is_open = bug['is_open']
-      bugs << arb
+    Pkgwat.get_bugs(name).each do |b|
+      bug = Bug.new
+      bug.name = b['description']
+      bug.bz_id = b['id']
+      bug.last_updated = b['last_modified']
+      bug.is_review = true if b['name'] =~ /^Review Request.*#{name}\s.*$/
+      bugs << bug
     end
   end
 
