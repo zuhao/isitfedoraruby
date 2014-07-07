@@ -49,12 +49,12 @@ class FedorarpmsController < ApplicationController
 
   def by_owner
     @name = params[:id]
-    @rpms = FedoraRpm.where('fedora_user LIKE ?', @name + '@%')
+    @rpms = FedoraRpm.where('owner LIKE ?', @name)
   end
 
   def badge
     @user_name = params[:id]
-    rpms = FedoraRpm.where('fedora_user LIKE ?', @user_name + '@%')
+    rpms = FedoraRpm.where('owner LIKE ?', @user_name)
     @total = rpms.size
     @commits = 0
     @most = nil
@@ -69,7 +69,7 @@ class FedorarpmsController < ApplicationController
   private
 
   def sort_column
-    %w(name commits last_commit_date fedora_user).include?(params[:sort]) ?
+    %w(name commits last_commit_date owner).include?(params[:sort]) ?
         params[:sort] : 'name'
   end
 

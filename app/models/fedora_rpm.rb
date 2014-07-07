@@ -8,14 +8,14 @@
 #  last_commit_message :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
-#  author              :string(255)
+#  owner               :string(255)
 #  last_committer      :string(255)
 #  last_commit_date    :datetime
 #  last_commit_sha     :string(255)
 #  homepage            :string(255)
 #  ruby_gem_id         :integer
 #  commits             :integer
-#  fedora_user         :string(255)
+#  owner_email         :string(255)
 #  summary             :text(255)
 #  description         :text(255)
 #
@@ -141,12 +141,11 @@ class FedoraRpm < ActiveRecord::Base
     rpm_versions.clear
     dependencies.clear
     puts "Importing #{name} spec info"
-    fedora_versions.each do |version_title, version_git|
+    self.fedora_versions.each do |version_title, version_git|
       spec_url = "#{base_uri}#{name}.git/plain/#{name}.spec?h=#{version_git}"
       rpm_spec = open(spec_url).read
       retrieve_versions(rpm_spec, version_title)
       if version_title == 'rawhide'
-        retrieve_maintainer(rpm_spec)
         retrieve_homepage(rpm_spec)
         retrieve_dependencies(rpm_spec)
       end
@@ -173,7 +172,7 @@ class FedoraRpm < ActiveRecord::Base
     rpm_versions << rv
   end
 
-  def retrieve_maintainer(rpm_spec)
+  def get_owner_email
     # Import the maintainer's e-mail
     fedora_user_list = rpm_spec.scan(/<.*[@].*>/)
     fedora_user_list.each do |user|
@@ -184,6 +183,14 @@ class FedoraRpm < ActiveRecord::Base
         return
       end
     end
+  end
+
+  def obfuscated_email
+    fedora_user.to_s.gsub('@', ' AT ').gsub('.', ' DOT ')
+  end
+
+  def fas_name
+    Pkgwat.get_packages(name)[0]['devel_owner']
   end
 
   def retrieve_homepage(rpm_spec)
@@ -319,15 +326,7 @@ class FedoraRpm < ActiveRecord::Base
     end.compact
   end
 
-  def obfuscated_fedora_user
-    fedora_user.to_s.gsub('@', ' AT ').gsub('.', ' DOT ')
-  end
-
   def last_commit_date_in_words
     "#{time_ago_in_words(last_commit_date)} ago" unless last_commit_date.nil?
-  end
-
-  def maintainer
-    fedora_user.split('@').first unless fedora_user.nil?
   end
 end
