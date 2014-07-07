@@ -75,7 +75,7 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def up_to_date?
-    rawhide_version = rpm_versions.find { |rv| rv.fedora_version == 'rawhide' }
+    rawhide_version = rpm_versions.find { |rv| rv.fedora_version == 'Rawhide' }
     return false if rawhide_version.nil? || rawhide_version.rpm_version.nil? ||
                     ruby_gem.nil? || ruby_gem.version.nil?
     begin
@@ -141,17 +141,22 @@ class FedoraRpm < ActiveRecord::Base
     rpm_versions.clear
     dependencies.clear
     puts "Importing #{name} spec info"
-    self.fedora_versions.each do |version_title, version_git|
+    self.class.fedora_versions.each do |version_title, version_git|
       spec_url = "#{base_uri}#{name}.git/plain/#{name}.spec?h=#{version_git}"
       rpm_spec = open(spec_url).read
       retrieve_versions(rpm_spec, version_title)
-      if version_title == 'rawhide'
+      if version_title == 'Rawhide'
         retrieve_homepage(rpm_spec)
         retrieve_dependencies(rpm_spec)
       end
     end
   end
 
+  # Retrieve version for a specific release.
+  # fedora_version can be one of three:
+  # - Rawhide
+  # - Fedora 20
+  # - Fedora 19
   def retrieve_versions(rpm_spec, fedora_version)
     rpm_version = rpm_spec.scan(/\nVersion:\s*.*\n/).first.split.last
     unless version_valid?(rpm_version)

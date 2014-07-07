@@ -17,5 +17,5 @@
         %tr
           %td= link_to rpm.shortname, fedorarpm_path(rpm.name)
           %td= rpm.ruby_gem.version if rpm.ruby_gem
-          %td= rpm.version_for 'rawhide'
+          %td= rpm.version_for 'Rawhide'
           %td= rpm.last_commit_date_in_words
