@@ -72,4 +72,9 @@ describe FedoraRpm do
       end
     end
   end # FedoraRpm#fedora_versions
+
+  describe '#fas_name' do
+    it "returns the owner's FAS name" do
+    end
+  end
 end # FedoraRpm

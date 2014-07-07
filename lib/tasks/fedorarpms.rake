@@ -19,7 +19,7 @@ namespace :fedorarpms do
         r.name = name
         r.summary = rpm['summary']
         r.description = rpm['description']
-        r.author = rpm['devel_owner']
+        r.owner = rpm['devel_owner']
         r.source_uri = "git://pkgs.fedoraproject.org/#{name}"
         gem_name = name.gsub(/rubygem-/, '')
         r.ruby_gem = RubyGem.where(name: gem_name).first_or_create!

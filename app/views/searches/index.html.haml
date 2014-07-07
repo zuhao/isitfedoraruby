@@ -19,7 +19,7 @@
           %td= gem.version
           - if  gem.fedora_rpm != nil
             %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.name)
-            %td= gem.fedora_rpm.version_for('rawhide')
+            %td= gem.fedora_rpm.version_for('Rawhide')
           -else
             %td
             %td
@@ -44,7 +44,7 @@
             %td= gem.version
             - if  gem.fedora_rpm != nil
               %td= link_to gem.fedora_rpm.name, fedorarpm_path(gem.fedora_rpm.name)
-              %td= gem.fedora_rpm.version_for('rawhide')
+              %td= gem.fedora_rpm.version_for('Rawhide')
             -else
               %td
               %td

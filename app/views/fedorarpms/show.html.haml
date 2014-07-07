@@ -25,11 +25,11 @@
       %span.label.label-success= _('Yes')
     - else
       %span.label.label-danger= _('No')
-  - unless @rpm.fedora_user.blank?
+  - unless @rpm.owner.blank?
     %p
       Maintainer:
-      = link_to @rpm.obfuscated_fedora_user,
-      fedorarpm_path(@rpm.maintainer + "/by_owner")
+      = link_to @rpm.owner,
+      fedorarpm_path(@rpm.owner + "/by_owner")
   - unless @rpm.description.blank?
     %p
       Description:
