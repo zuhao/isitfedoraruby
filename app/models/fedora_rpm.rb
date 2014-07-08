@@ -235,8 +235,9 @@ class FedoraRpm < ActiveRecord::Base
   def retrieve_bugs
     puts "Importing rpm #{name} bugs"
     bugs.clear
+    open_bugs = Pkgwat.get_bugs(name)
 
-    Pkgwat.get_bugs(name).each do |b|
+    open_bugs.reject { |b| b['release'].match(/EPEL/) }.each do |b|
       bug = Bug.new
       bug.name = b['description']
       bug.bz_id = b['id']
