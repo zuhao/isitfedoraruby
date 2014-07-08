@@ -1,0 +1,36 @@
+v 0.9.0
+
+- Remove unused code
+	- Remove HistoricalGems model
+	- Remove Build controller/view
+	- Remove methods related to local spec/gem downloading
+	- Remove empty helpers
+	- Cleaned routes, removed unused ones
+- Conform to ruby/rails style guide
+- Maintainer field for packages are now using the fas_name
+- Automatically fetch versions of Fedora by querying the pkgdb api
+- Addded rake task to fetch rawhide version and store it in a file locally
+- Show koji builds from supported Fedora versions only
+- Bugs
+  - Query bugs via api using pkgwat
+  - Drop is_open from bugs table
+  - Show only open Fedora bugs, exclude EPEL
+- Hover over links to see full titles when truncated
+- Rename builds table to koji_builds
+- Added tests
+  - Unit tests for models
+- Added Github services
+  - travis-ci
+  - hound-ci
+  - coveralls
+  - gemnasium
+- Development tools
+  - shoulda-matchers
+  - rspec
+  - capybara
+  - rack-mini-profiler
+  - rubocop
+  - factory_girl
+  - annotate
+  - railsroady:
+
