@@ -3,7 +3,7 @@
 /log/*.log
 /tmp
 /temp_resource
-*.swp
+*.sw[po]
 *~
 nohup.out
 .project
