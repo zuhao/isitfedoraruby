@@ -116,8 +116,6 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def retrieve_commits
-    puts "Importing #{name} commits"
-
     # parse commit log with nokogiri to determine how many commits there are
     self.commits = 0
     offset = 0
@@ -140,7 +138,6 @@ class FedoraRpm < ActiveRecord::Base
   def retrieve_specs
     rpm_versions.clear
     dependencies.clear
-    puts "Importing #{name} spec info"
     self.class.fedora_versions.each do |version_title, version_git|
       spec_url = "#{base_uri}#{name}.git/plain/#{name}.spec?h=#{version_git}"
       rpm_spec = open(spec_url).read
@@ -233,7 +230,6 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def retrieve_bugs
-    puts "Importing rpm #{name} bugs"
     bugs.clear
     open_bugs = Pkgwat.get_bugs(name)
 
@@ -248,7 +244,6 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def retrieve_builds
-    puts "Importing rpm #{name} koji builds"
     koji_builds.clear
 
     version = RawhideVersion.version
@@ -270,30 +265,40 @@ class FedoraRpm < ActiveRecord::Base
     retrieve_commits
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_specs
     retrieve_specs
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_gem
     retrieve_gem
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_bugs
     retrieve_bugs
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_builds
     retrieve_builds
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_from_source
@@ -302,8 +307,6 @@ class FedoraRpm < ActiveRecord::Base
     update_gem
     update_bugs
     update_builds
-  rescue => e
-    puts "Updating #{name} failed due to #{e}"
   end
 
   def rpm_name
