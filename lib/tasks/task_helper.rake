@@ -11,7 +11,7 @@ namespace :fedora do
   # Ask if the user wants to continue
   #
   # Returns "yes" the user chose to continue
-  # Raises Gitlab::TaskAbortedByUserError if the user chose *not* to continue
+  # Raises IsItFedoraRuby::TaskAbortedByUserError if the user chose *not* to continue
   def ask_to_continue
     answer = prompt("Do you want to continue (yes/no)? ", %w{yes no})
     raise IsItFedoraRuby::TaskAbortedByUserError unless answer == "yes"
