@@ -9,16 +9,16 @@
   %p
     Homepage:
     =link_to @gem.homepage, @gem.homepage
-  %p
-    Source Code:
-    =link_to @gem.source_uri, @gem.source_uri
+  - unless @gem.source_uri.blank?
+    %p
+      Source Code:
+      =link_to @gem.source_uri, @gem.source_uri
   %p
     Version: <strong>#{@gem.version}</strong>
   %p
     Total Downloads: #{number_with_delimiter(@gem.downloads)}
   %p
     Description:
-  %p
     =@gem.description_string
 
   - unless @dependencies.blank?

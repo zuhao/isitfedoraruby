@@ -1,6 +1,6 @@
 require 'rails_helper.rb'
 
-feature 'Fedora Rpms index page' do
+feature 'GET/ Fedora Rpms index page' do
 
   background do
     visit fedorarpms_path
@@ -16,14 +16,52 @@ feature 'Fedora Rpms index page' do
 
 end
 
-feature 'Fedora Rpm show page' do
+feature 'GET/ Fedora Rpm rubygem-foo' do
+
   background do
-    create(:rubygem_foo)
   end
 
-  scenario 'has title' do
+  scenario 'has rubygem-foo title' do
+    create(:rubygem_foo)
     visit 'fedorarpms/rubygem-foo'
     expect(page).to have_content 'rubygem-foo'
     expect(page).to_not have_content 'RPM Not Found'
   end
+
+  scenario 'shows last packager if last_commiter is set' do
+    @rpm = create(:rpm_committer_set)
+    visit 'fedorarpms/rubygem-foo'
+    expect(page).to have_content "Last packager: #{@rpm.last_committer}"
+  end
+
+  scenario 'does not show last packager if last_commiter is not set' do
+    create(:rpm_committer_not_set)
+    visit 'fedorarpms/rubygem-foo'
+    expect(page).to_not have_content 'Last packager:'
+  end
+
+  scenario 'shows last date the package was updated' do
+    @rpm = create(:rpm_last_commit_date_set)
+    visit 'fedorarpms/rubygem-foo'
+    expect(page).to have_content "Last updated: #{@rpm.last_commit_date.to_s(:long)}"
+  end
+
+  scenario 'does not show last date the package was updated' do
+    create(:rpm_last_commit_date_not_set)
+    visit 'fedorarpms/rubygem-foo'
+    expect(page).to_not have_content 'Last updated:'
+  end
+
+  scenario 'shows last commit message' do
+    @rpm = create(:rpm_last_commit_message_set)
+    visit 'fedorarpms/rubygem-foo'
+    expect(page).to have_content "Last commit message: #{@rpm.last_commit_message}"
+  end
+
+  scenario 'does not show last commit message' do
+    @rpm = create(:rpm_last_commit_message_not_set)
+    visit 'fedorarpms/rubygem-foo'
+    expect(page).to_not have_content 'Last commit message:'
+  end
+
 end

@@ -18,8 +18,6 @@
     Source Code:
     = link_to @rpm.source_uri, @rpm.source_uri
   %p
-    Git Commits: <strong>#{@rpm.commits}</strong>
-  %p
     Up to date:
     - if @rpm.up_to_date?
       %span.label.label-success= _('Yes')
@@ -30,6 +28,17 @@
       Maintainer:
       = link_to @rpm.owner,
       fedorarpm_path(@rpm.owner + "/by_owner")
+  %p
+    Git Commits: <strong>#{@rpm.commits}</strong>
+  - unless @rpm.last_committer.blank?
+    %p
+      Last packager: <strong>#{@rpm.last_committer}</strong>
+  - unless @rpm.last_commit_message.blank?
+    %p
+      Last commit message: <strong>#{@rpm.last_commit_message}</strong>
+  - unless @rpm.last_commit_date.blank?
+    %p
+      Last updated: <strong>#{@rpm.last_commit_date.to_s(:long)}</strong>
   - unless @rpm.description.blank?
     %p
       Description:

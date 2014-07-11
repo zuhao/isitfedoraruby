@@ -82,7 +82,7 @@ describe FedoraRpm do
         expect(FedoraRpm.fedora_versions.keys.count).to eq(3)
       end
     end
-  end # FedoraRpm#fedora_versions
+  end
 
   describe '#fas_name' do
     it "returns the owner's FAS name" do
