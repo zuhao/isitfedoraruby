@@ -36,4 +36,14 @@ FactoryGirl.define do
     r.downloads nil
     r.source_uri nil
   end
+
+  factory :foo, class: RubyGem do |r|
+    r.name 'foo'
+    r.description 'Ever wondered what is like fooing bars? Find out now!'
+    r.homepage 'http://example.com/foo'
+    r.version '1.0.1'
+    r.has_rpm true
+    r.downloads 10
+    r.source_uri 'https://git.com/foo'
+  end
 end

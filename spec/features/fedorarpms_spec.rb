@@ -18,11 +18,12 @@ end
 
 feature 'Fedora Rpm show page' do
   background do
-    create(:fedora_rpm)
+    create(:rubygem_foo)
   end
 
   scenario 'has title' do
     visit 'fedorarpms/rubygem-foo'
     expect(page).to have_content 'rubygem-foo'
+    expect(page).to_not have_content 'RPM Not Found'
   end
 end

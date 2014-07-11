@@ -15,14 +15,23 @@
 #  homepage            :string(255)
 #  ruby_gem_id         :integer
 #  commits             :integer
-#  fas_name            :string(255)
+#  owner_email         :string(255)
 #  summary             :text(255)
 #  description         :text(255)
 #
 
 FactoryGirl.define do
-  factory :fedora_rpm do |f|
-    f.name 'rubygem-foo'
-    f.source_uri 'http://pkgs.fedoraproject.org/cgit/rubygem-foo.git'
+  factory :rubygem_foo, class: FedoraRpm do
+    name 'rubygem-foo'
+    source_uri 'http://pkgs.fedoraproject.org/cgit/rubygem-foo.git'
+    owner 'thedude'
+    homepage 'http://example.com/foo'
+    commits '4'
+    owner_email 'rubygem-foo-owner@fedoraproject.org'
+    summary 'A tiny library for fooing bars.'
+    description 'Ever wondered what is like fooing bars? Find out now!'
+
+    # rubygem_foo belongs to foo in factories/ruby_gems.rb
+    association :ruby_gem, factory: :foo
   end
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: fedora_rpms
+# Table name: rubygem_rpms
 #
 #  id                  :integer          not null, primary key
 #  name                :string(255)      not null
@@ -24,7 +24,7 @@ require 'rails_helper'
 
 describe FedoraRpm do
 
-  let!(:rpm) { create(:fedora_rpm) }
+  let!(:rpm) { create(:rubygem_foo) }
 
   it { should validate_uniqueness_of :name }
   it { should validate_presence_of :name }
@@ -47,7 +47,6 @@ describe FedoraRpm do
       expect(rpm.source_uri).to eq "#{base_uri}#{rpm.name}.git"
     end
   end
-
 
   describe '#to_param' do
     it 'returns the name stored in db' do
