@@ -37,6 +37,18 @@ describe FedoraRpm do
   it 'must have at least one koji build' do
   end
 
+  describe 'source files of rubygem-foo' do
+    it 'base uri points to pkgs.fp.o gitweb' do
+      expect(rpm.base_uri).to eq 'http://pkgs.fedoraproject.org/cgit/'
+    end
+
+    it 'has proper source uri' do
+      base_uri = 'http://pkgs.fedoraproject.org/cgit/'
+      expect(rpm.source_uri).to eq "#{base_uri}#{rpm.name}.git"
+    end
+  end
+
+
   describe '#to_param' do
     it 'returns the name stored in db' do
       expect(rpm.name).to eq 'rubygem-foo'
