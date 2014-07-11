@@ -381,7 +381,7 @@ DEPENDENCIES
   pry-byebug
   rack-mini-profiler
   railroady
-  rails (~> 4.0.5)
+  rails (~> 4.0.8)
   rails-i18n
   rails_12factor
   rake

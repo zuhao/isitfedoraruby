@@ -8,7 +8,7 @@ def linux_only(require_as)
     RUBY_PLATFORM.include?('linux') && require_as
 end
 
-gem 'rails', '~> 4.0.5'
+gem 'rails', '~> 4.0.8'
 
 # temp fix http://stackoverflow.com/a/23525354/2137281
 gem 'sprockets', '<= 2.11.0'
