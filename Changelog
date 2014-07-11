@@ -1,6 +1,8 @@
 v 0.9.1
 
 - Refactor rake tasks
+- Source Code uri in fedorarpms, points to pkgs.fp.o gitweb
+- Add first integration tests
 
 v 0.9.0
 
