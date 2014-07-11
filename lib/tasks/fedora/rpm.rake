@@ -81,7 +81,7 @@ namespace :fedora do
         counter = 0
         number_in_batch = args[:number].to_i
         delay = args[:delay].to_i
-        Rake::Task["fedora:import:rpm:names"].invoke
+        Rake::Task["fedora:rpm:import:names"].invoke
         rpms = FedoraRpm.all
         rpms.each do |r|
           if counter == number_in_batch
@@ -91,16 +91,16 @@ namespace :fedora do
           end
           counter += 1
           puts "(#{total += 1}/#{rpms.size}) Updating #{r.name}..."
-          Rake::Task["fedora:import:rpm:bugs"].invoke(r.name)
-          Rake::Task["fedora:import:rpm:bugs"].reenable
-          Rake::Task["fedora:import:rpm:koji_builds"].invoke(r.name)
-          Rake::Task["fedora:import:rpm:koji_builds"].reenable
-          Rake::Task["fedora:import:rpm:commits"].invoke(r.name)
-          Rake::Task["fedora:import:rpm:commits"].reenable
-          Rake::Task["fedora:import:rpm:deps"].invoke(r.name)
-          Rake::Task["fedora:import:rpm:deps"].reenable
-          Rake::Task["fedora:import:rpm:gem"].invoke(r.name)
-          Rake::Task["fedora:import:rpm:gem"].reenable
+          Rake::Task["fedora:rpm:import:bugs"].invoke(r.name)
+          Rake::Task["fedora:rpm:import:bugs"].reenable
+          Rake::Task["fedora:rpm:import:koji_builds"].invoke(r.name)
+          Rake::Task["fedora:rpm:import:koji_builds"].reenable
+          Rake::Task["fedora:rpm:import:commits"].invoke(r.name)
+          Rake::Task["fedora:rpm:import:commits"].reenable
+          Rake::Task["fedora:rpm:import:deps"].invoke(r.name)
+          Rake::Task["fedora:rpm:import:deps"].reenable
+          Rake::Task["fedora:rpm:import:gem"].invoke(r.name)
+          Rake::Task["fedora:rpm:import:gem"].reenable
           puts "#{r.name} updated."
         end
       end
