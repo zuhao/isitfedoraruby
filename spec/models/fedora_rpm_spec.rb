@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: fedora_rpms
+# Table name: rubygem_rpms
 #
 #  id                  :integer          not null, primary key
 #  name                :string(255)      not null
@@ -24,7 +24,7 @@ require 'rails_helper'
 
 describe FedoraRpm do
 
-  let!(:rpm) { create(:fedora_rpm) }
+  let!(:rpm) { create(:rubygem_foo) }
 
   it { should validate_uniqueness_of :name }
   it { should validate_presence_of :name }
@@ -35,6 +35,17 @@ describe FedoraRpm do
   end
 
   it 'must have at least one koji build' do
+  end
+
+  describe 'source files of rubygem-foo' do
+    it 'base uri points to pkgs.fp.o gitweb' do
+      expect(rpm.base_uri).to eq 'http://pkgs.fedoraproject.org/cgit/'
+    end
+
+    it 'has proper source uri' do
+      base_uri = 'http://pkgs.fedoraproject.org/cgit/'
+      expect(rpm.source_uri).to eq "#{base_uri}#{rpm.name}.git"
+    end
   end
 
   describe '#to_param' do
