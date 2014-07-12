@@ -11,8 +11,8 @@ class FedorarpmsController < ApplicationController
     @name = params[:id]
     @rpm = FedoraRpm.find_by_name! @name
     @page_title = @rpm.name
-    @dependencies = @rpm.dependency_packages
-    @dependents = @rpm.dependent_packages
+    @dependencies = @rpm.dependency_packages.uniq
+    @dependents = @rpm.dependent_packages.uniq
     # We can register a global error handler inside the application controller for this.
     rescue ActiveRecord::RecordNotFound
       redirect_to action: 'not_found'
