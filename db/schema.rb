@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140706211256) do
+ActiveRecord::Schema.define(version: 20140712151940) do
 
   create_table "bugs", force: true do |t|
     t.string   "name"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20140706211256) do
     t.string   "owner"
     t.string   "last_committer"
     t.datetime "last_commit_date"
-    t.string   "last_commit_sha"
     t.string   "homepage"
     t.integer  "ruby_gem_id"
     t.integer  "commits"
@@ -72,7 +71,7 @@ ActiveRecord::Schema.define(version: 20140706211256) do
     t.string   "fedora_version"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_patched"
+    t.boolean  "patched"
   end
 
   create_table "ruby_gems", force: true do |t|
