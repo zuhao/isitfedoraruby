@@ -19,19 +19,52 @@
 #  summary             :text(255)
 #  description         :text(255)
 #
+require 'faker'
+require Rails.root.join('spec', 'support', 'datetime')
 
 FactoryGirl.define do
   factory :rubygem_foo, class: FedoraRpm do
     name 'rubygem-foo'
     source_uri 'http://pkgs.fedoraproject.org/cgit/rubygem-foo.git'
-    owner 'thedude'
-    homepage 'http://example.com/foo'
-    commits '4'
-    owner_email 'rubygem-foo-owner@fedoraproject.org'
-    summary 'A tiny library for fooing bars.'
-    description 'Ever wondered what is like fooing bars? Find out now!'
-
+    owner Faker::Internet.user_name
+    homepage Faker::Internet.url
+    commits Faker::Number.number(2)
+    owner_email { '#{name}-#{owner}@fedoraproject.org' }
+    summary Faker::Lorem.sentence
+    description Faker::Lorem.paragraph
     # rubygem_foo belongs to foo in factories/ruby_gems.rb
     association :ruby_gem, factory: :foo
+
+    trait :last_committer_set do
+      last_committer Faker::Name.name
+    end
+
+    trait :last_committer_not_set do
+      last_committer nil
+    end
+
+    trait :last_commit_date_set do
+      last_commit_date RandomDate.date
+    end
+
+    trait :last_commit_date_not_set do
+      last_commit_date nil
+    end
+
+    trait :last_commit_message_set do
+      last_commit_message Faker::Lorem.sentence
+    end
+
+    trait :last_commit_message_not_set do
+      last_commit_message nil
+    end
+
+    factory :rpm_last_commit_message_set, traits: [:last_commit_message_set]
+    factory :rpm_last_commit_message_not_set, traits: [:last_commit_message_not_set]
+    factory :rpm_last_commit_date_set, traits: [:last_commit_date_set]
+    factory :rpm_last_commit_date_not_set, traits: [:last_commit_date_not_set]
+    factory :rpm_committer_set, traits: [:last_committer_set]
+    factory :rpm_committer_not_set, traits: [:last_committer_not_set]
+
   end
 end

@@ -7,6 +7,12 @@
 IsItFedoraRuby is a web-application for keeping track of the Fedora/Ruby
 integration, especially `gem -> rpm` conversion.
 
+## History
+
+It started as a Google Summer of Code project in 2012, was later enhanced
+through the Google Code In program and now it is again being developed through
+Google Summer of Code 2014. See the [list of contributors](https://github.com/axilleas/isitfedoraruby/graphs/contributors).
+
 ## Installation
 
 First, make sure you have ruby 2.0+ installed.
@@ -45,10 +51,10 @@ If you already have gems and/or rpms imported, and only want to update them,
 run the following commands:
 
 ```bash
-# Update gems whose last update time was earlier than 7 days ago.
+# Update rpms whose last update time was earlier than 7 days ago.
 rake "fedora:rpm:update:rpms[7]"
 
-# Update rpms whose last update time was earlier than 7 days ago.
+# Update gems whose last update time was earlier than 7 days ago.
 rake "fedora:gem:update:gems[7]"
 ```
 
@@ -77,4 +83,5 @@ rake fedora:rpm:update:rpms[age]               # FEDORA | Update rpms metadata
 
 ## Contribute
 
-Feel free to contribute any code or ideas to make it better.
+Your best shot to contribute is to report bugs! The application is still at
+its early stages so eny help is welcome!

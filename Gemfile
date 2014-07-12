@@ -79,6 +79,8 @@ group :test do
   gem 'rake'
   gem 'coveralls'
   gem 'shoulda-matchers', require: false
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do

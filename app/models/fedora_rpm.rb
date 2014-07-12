@@ -115,24 +115,13 @@ class FedoraRpm < ActiveRecord::Base
     'http://pkgs.fedoraproject.org/cgit/'
   end
 
-  def retrieve_commits
-    # parse commit log with nokogiri to determine how many commits there are
-    self.commits = 0
-    offset = 0
-    loop do
-      log_uri = "#{base_uri}#{name}.git/log/?ofs=#{offset}"
-      doc = Nokogiri::HTML(open(log_uri))
-      ct = doc.xpath("//tr/td[@class='commitgraph']").count { |x| x.text == '* ' }
-      self.commits += ct
-      offset += 50
-      break if ct == 0
-    end
+  def commits_metadata(name)
+    pkg = Pkgwat.get_changelog(name)
 
-    # parse last commit time
-    commit_uri = "#{base_uri}#{name}.git/commit/"
-    doc = Nokogiri::HTML(open(commit_uri))
-    date = doc.xpath("//table[@class='commit-info']//td[@class='right']")[1].text
-    self.last_commit_date = DateTime.parse(date)
+    self.commits = pkg.count
+    self.last_commit_message = pkg.first['text'].gsub(/^- /, '')
+    self.last_committer = pkg.first['author']
+    self.last_commit_date = pkg.first['date']
   end
 
   def retrieve_specs
@@ -262,7 +251,7 @@ class FedoraRpm < ActiveRecord::Base
   end
 
   def update_commits
-    retrieve_commits
+    commits_metadata(name)
     self.updated_at = Time.now
     save!
   rescue => e
