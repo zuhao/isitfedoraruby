@@ -40,13 +40,13 @@ feature 'GET/ Fedora Rpm rubygem-foo' do
     expect(page).to_not have_content 'Last packager:'
   end
 
-  scenario 'shows last date the package was updated' do
+  scenario 'shows last date a commit was pushed' do
     @rpm = create(:rpm_last_commit_date_set)
     visit 'fedorarpms/rubygem-foo'
-    expect(page).to have_content "Last updated: #{@rpm.last_commit_date.to_s(:long)}"
+    expect(page).to have_content "Last commit date: #{@rpm.last_commit_date.to_s(:long)}"
   end
 
-  scenario 'does not show last date the package was updated' do
+  scenario 'does not show last date if last commit date is missing' do
     create(:rpm_last_commit_date_not_set)
     visit 'fedorarpms/rubygem-foo'
     expect(page).to_not have_content 'Last updated:'
