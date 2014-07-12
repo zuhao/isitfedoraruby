@@ -84,4 +84,4 @@ rake fedora:rpm:update:rpms[age]               # FEDORA | Update rpms metadata
 ## Contribute
 
 Your best shot to contribute is to report bugs! The application is still at
-its early stages so eny help is welcome!
+its early stages so any help is welcome!
