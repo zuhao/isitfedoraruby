@@ -15,14 +15,17 @@
 %div.info
   %h3 RPM Information
   %p
-    Source Code:
-    = link_to @rpm.source_uri, @rpm.source_uri
-  %p
     Up to date:
     - if @rpm.up_to_date?
       %span.label.label-success= _('Yes')
     - else
       %span.label.label-danger= _('No')
+  %p
+    Package Source Code:
+    = link_to @rpm.source_uri, @rpm.source_uri
+  %p
+    Upstream url:
+    = link_to @rpm.homepage, @rpm.homepage
   - unless @rpm.owner.blank?
     %p
       Maintainer:
@@ -38,7 +41,7 @@
       Last commit message: <strong>#{@rpm.last_commit_message}</strong>
   - unless @rpm.last_commit_date.blank?
     %p
-      Last updated: <strong>#{@rpm.last_commit_date.to_s(:long)}</strong>
+      Last commit date: <strong>#{@rpm.last_commit_date.to_s(:long)}</strong>
   - unless @rpm.description.blank?
     %p
       Description:

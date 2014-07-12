@@ -132,7 +132,7 @@ class FedoraRpm < ActiveRecord::Base
       rpm_spec = open(spec_url).read
       retrieve_versions(rpm_spec, version_title)
       if version_title == 'Rawhide'
-        retrieve_homepage(rpm_spec)
+        retrieve_homepage(name)
         retrieve_dependencies(rpm_spec)
       end
     end
@@ -184,8 +184,8 @@ class FedoraRpm < ActiveRecord::Base
     Pkgwat.get_packages(name)[0]['devel_owner']
   end
 
-  def retrieve_homepage(rpm_spec)
-    self.homepage = rpm_spec.scan(/\nURL:\s*.*\n/).first.split.last
+  def retrieve_homepage(name)
+    Pkgwat.get_packages(name)[0]['upstream_url']
   end
 
   def retrieve_dependencies(rpm_spec)
