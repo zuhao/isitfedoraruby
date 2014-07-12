@@ -10,6 +10,7 @@ v 0.9.1
 - Use api to fetch rawhide version instead of scrapping page
 - Retrieve homepage via Pkgwat
 - Fix duplication of dependencies in fedorarpms#show
+- Do not show source url in rubygems#show if it is the same as the homepage
 
 v 0.9.0
 

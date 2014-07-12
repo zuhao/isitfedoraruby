@@ -9,7 +9,7 @@
   %p
     Homepage:
     =link_to @gem.homepage, @gem.homepage
-  - unless @gem.source_uri.blank?
+  - unless @gem.source_uri.blank? || @gem.source_uri == @gem.homepage
     %p
       Source Code:
       =link_to @gem.source_uri, @gem.source_uri

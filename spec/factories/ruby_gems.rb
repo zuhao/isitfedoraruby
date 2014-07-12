@@ -16,6 +16,7 @@
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
+require 'faker'
 FactoryGirl.define do
   factory :ruby_gem do |r|
     r.name 'rails'
@@ -37,13 +38,13 @@ FactoryGirl.define do
     r.source_uri nil
   end
 
-  factory :foo, class: RubyGem do |r|
-    r.name 'foo'
-    r.description 'Ever wondered what is like fooing bars? Find out now!'
-    r.homepage 'http://example.com/foo'
-    r.version '1.0.1'
-    r.has_rpm true
-    r.downloads 10
-    r.source_uri 'https://git.com/foo'
+  factory :foo, class: RubyGem do
+    name 'foo'
+    description Faker::Lorem.paragraph
+    homepage Faker::Internet.url
+    version '1.0.1'
+    has_rpm true
+    downloads Faker::Number.number(2)
+    source_uri Faker::Internet.url
   end
 end
