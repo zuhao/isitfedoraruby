@@ -2,9 +2,10 @@ require 'open-uri'
 class RawhideVersion
   # Retrieve rawhide version
   def self.version
-    url = 'https://admin.fedoraproject.org/pkgdb/collection/master/'
-    page = Nokogiri::HTML(open(url))
-    page.text.match(/\d{2}/)[0].to_i
+    url = 'https://admin.fedoraproject.org/pkgdb/api/collections?pattern=master'
+    uri = open(url).read
+    result = JSON.parse(uri)
+    result['collections'][0]['dist_tag'].gsub(/.fc/, '')
   end
 
   def self.create_file
