@@ -140,7 +140,7 @@ class FedoraRpm < ActiveRecord::Base
       rv = RpmVersion.new
       rv.rpm_version = rpm_version
       rv.fedora_version = version_title
-      rv.patched = is_patched?(version_git)
+      rv.patched = patched?(version_git)
       rpm_versions << rv
     end
   end
@@ -187,7 +187,7 @@ class FedoraRpm < ActiveRecord::Base
   # - "master" for the rawhide version
   # - "fN" where N the Fedora version number, eg: 22,21,20,19,etc.
   # If no parameter is passed, it defaults to master.
-  def is_patched?(version_git='master')
+  def patched?(version_git='master')
     spec_url = "#{base_uri}#{name}.git/plain/#{name}.spec?h=#{version_git}"
     rpm_spec = open(spec_url).read
     rpm_spec.scan(/\nPatch0:\s*.*\n/).size != 0
