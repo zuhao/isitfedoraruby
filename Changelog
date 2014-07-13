@@ -13,7 +13,7 @@ v 0.9.1
 - Do not show source url in rubygems#show if it is the same as the homepage
 - Do not show source url in fedorarpms#show if it is the same as the homepage
 - Split methods: versions, dependencies in fedorarpm model
-- Add rake tasks to import versions and dependencies
+- New rake tasks to import versions, dependencies and commits
 - Show last packager in fedorarpms#show
 - Show last commit message in fedorarpms#show
 - Show last commit date in fedorarpms#show
