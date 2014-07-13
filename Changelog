@@ -21,11 +21,11 @@ v 0.9.1
 v 0.9.0
 
 - Remove unused code
-	- Remove HistoricalGems model
-	- Remove Build controller/view
-	- Remove methods related to local spec/gem downloading
-	- Remove empty helpers
-	- Cleaned routes, removed unused ones
+  - Remove HistoricalGems model
+  - Remove Build controller/view
+  - Remove methods related to local spec/gem downloading
+  - Remove empty helpers
+  - Cleaned routes, removed unused ones
 - Conform to ruby/rails style guide
 - Maintainer field for packages are now using the fas_name
 - Automatically fetch versions of Fedora by querying the pkgdb api
