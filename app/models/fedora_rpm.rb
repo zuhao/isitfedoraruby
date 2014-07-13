@@ -128,7 +128,11 @@ class FedoraRpm < ActiveRecord::Base
     rpm = Pkgwat.get_releases(name).select do |r|
       r['release'] == fedora_version
     end
-    rpm.first['stable_version'].split('-').first
+    if !!(rpm.first['stable_version'].match(/href/))
+      rpm.first['stable_version'].scan(/>.*-/)[0].gsub(/[>-]/,'')
+    else
+      rpm.first['stable_version'].split('-').first
+    end
   end
 
   # Store the rpm versions of a given package of
