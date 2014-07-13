@@ -11,15 +11,21 @@ v 0.9.1
 - Retrieve homepage via Pkgwat
 - Fix duplication of dependencies in fedorarpms#show
 - Do not show source url in rubygems#show if it is the same as the homepage
+- Do not show source url in fedorarpms#show if it is the same as the homepage
+- Split methods: versions, dependencies in fedorarpm model
+- New rake tasks to import versions, dependencies and commits
+- Show last packager in fedorarpms#show
+- Show last commit message in fedorarpms#show
+- Show last commit date in fedorarpms#show
 
 v 0.9.0
 
 - Remove unused code
-	- Remove HistoricalGems model
-	- Remove Build controller/view
-	- Remove methods related to local spec/gem downloading
-	- Remove empty helpers
-	- Cleaned routes, removed unused ones
+  - Remove HistoricalGems model
+  - Remove Build controller/view
+  - Remove methods related to local spec/gem downloading
+  - Remove empty helpers
+  - Cleaned routes, removed unused ones
 - Conform to ruby/rails style guide
 - Maintainer field for packages are now using the fas_name
 - Automatically fetch versions of Fedora by querying the pkgdb api

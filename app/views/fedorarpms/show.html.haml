@@ -23,9 +23,10 @@
   %p
     Package Source Code:
     = link_to @rpm.source_uri, @rpm.source_uri
-  %p
-    Upstream url:
-    = link_to @rpm.homepage, @rpm.homepage
+  - unless @rpm.homepage.blank? || @rpm.homepage == @rpm.source_uri
+    %p
+      Upstream url:
+      = link_to @rpm.homepage, @rpm.homepage
   - unless @rpm.owner.blank?
     %p
       Maintainer:

@@ -25,7 +25,7 @@
         %td= rpm.commits
         %td= rpm.last_commit_date_in_words
         %td
-          - if rpm.patched?
+          - if rpm.any_patched?
             %span.glyphicon.glyphicon-ok
         %td
           - unless rpm.owner.nil?

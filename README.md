@@ -73,11 +73,12 @@ rake fedora:rawhide:version                    # FEDORA | Get Fedora rawhide(dev
 rake fedora:rpm:import:all[number,delay]       # FEDORA | Import ALL rpm metadata (time consuming)
 rake fedora:rpm:import:bugs[rpm_name]          # FEDORA | Import bugs of a given rubygem package
 rake fedora:rpm:import:commits[rpm_name]       # FEDORA | Import commits of a given rubygem package
-rake fedora:rpm:import:deps[rpm_name]          # FEDORA | Import depedencies of a given rubygem package
+rake fedora:rpm:import:deps[rpm_name]          # FEDORA | Import dependencies of a given rubygem package
 rake fedora:rpm:import:gem[rpm_name]           # FEDORA | Import respective gem of a given rubygem package
 rake fedora:rpm:import:koji_builds[rpm_name]   # FEDORA | Import koji builds of a given rubygem package
 rake fedora:rpm:import:names                   # FEDORA | Import a list of names of all rubygems from apps.fedoraproject.org
-rake fedora:rpm:update:oldest_rpms[number]     # FEDORA | Update oldest n rpms
+rake fedora:rpm:import:versions[rpm_name]      # FEDORA | Import versions of a given rubygem package
+rake fedora:rpm:update:oldest_rpms[number]     # FEDORA | Update oldest <n> rpms
 rake fedora:rpm:update:rpms[age]               # FEDORA | Update rpms metadata
 ```
 

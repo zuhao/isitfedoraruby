@@ -2,6 +2,20 @@ namespace :fedora do
   namespace :rpm do
     namespace :import do
 
+      desc 'FEDORA | Import versions of a given rubygem package'
+      task :versions, [:rpm_name] => :environment do |t, args|
+        rpm = args.rpm_name
+        puts "Importing #{rpm} versions..."
+        FedoraRpm.find_by(name: rpm).update_versions
+      end
+
+      desc 'FEDORA | Import dependencies of a given rubygem package'
+      task :deps, [:rpm_name] => :environment do |t, args|
+        rpm = args.rpm_name
+        puts "Importing #{rpm} dependencies..."
+        FedoraRpm.find_by(name: rpm).update_dependencies
+      end
+
       desc 'FEDORA | Import bugs of a given rubygem package'
       task :bugs, [:rpm_name] => :environment do |t, args|
         rpm = args.rpm_name
@@ -21,13 +35,6 @@ namespace :fedora do
         rpm = args.rpm_name
         puts "Importing #{rpm} commits..."
         FedoraRpm.find_by(name: rpm).update_commits
-      end
-
-      desc 'FEDORA | Import depedencies of a given rubygem package'
-      task :deps, [:rpm_name] => :environment do |t, args|
-        rpm = args.rpm_name
-        puts "Importing #{rpm} dependencies..."
-        FedoraRpm.find_by(name: rpm).update_specs
       end
 
       desc 'FEDORA | Import respective gem of a given rubygem package'
@@ -62,6 +69,7 @@ namespace :fedora do
             r.summary = rpm['summary']
             r.description = rpm['description']
             r.owner = rpm['devel_owner']
+            r.homepage = rpm['upstream_url']
             r.owner_email = "#{name}-owner@fedoraproject.org"
             r.source_uri = "http://pkgs.fedoraproject.org/cgit/#{name}.git"
             gem_name = name.gsub(/rubygem-/, '')
@@ -97,6 +105,8 @@ namespace :fedora do
           Rake::Task["fedora:rpm:import:koji_builds"].reenable
           Rake::Task["fedora:rpm:import:commits"].invoke(r.name)
           Rake::Task["fedora:rpm:import:commits"].reenable
+          Rake::Task["fedora:rpm:import:versions"].invoke(r.name)
+          Rake::Task["fedora:rpm:import:versions"].reenable
           Rake::Task["fedora:rpm:import:deps"].invoke(r.name)
           Rake::Task["fedora:rpm:import:deps"].reenable
           Rake::Task["fedora:rpm:import:gem"].invoke(r.name)

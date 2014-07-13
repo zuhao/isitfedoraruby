@@ -8,7 +8,7 @@
 #  fedora_version :string(255)
 #  created_at     :datetime
 #  updated_at     :datetime
-#  is_patched     :boolean
+#  patched        :boolean
 #
 
 # Various rpm versions of a packaged gem
@@ -16,6 +16,6 @@ class RpmVersion < ActiveRecord::Base
   belongs_to :fedora_rpm
 
   def to_s
-    "#{rpm_version} (#{fedora_version}/#{is_patched ? '' : 'not'} patched)"
+    "#{rpm_version} (#{fedora_version}/#{patched ? '' : 'not'} patched)"
   end
 end
