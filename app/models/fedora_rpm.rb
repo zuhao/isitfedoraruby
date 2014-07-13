@@ -129,7 +129,7 @@ class FedoraRpm < ActiveRecord::Base
       r['release'] == fedora_version
     end
     if !!(rpm.first['stable_version'].match(/href/))
-      rpm.first['stable_version'].scan(/>.*-/)[0].gsub(/[>-]/,'')
+      rpm.first['stable_version'].scan(/>.*-/)[0].gsub(/[>-]/, '')
     else
       rpm.first['stable_version'].split('-').first
     end
@@ -191,7 +191,7 @@ class FedoraRpm < ActiveRecord::Base
   # - "master" for the rawhide version
   # - "fN" where N the Fedora version number, eg: 22,21,20,19,etc.
   # If no parameter is passed, it defaults to master.
-  def patched?(version_git='master')
+  def patched?(version_git = 'master')
     spec_url = "#{base_uri}#{name}.git/plain/#{name}.spec?h=#{version_git}"
     rpm_spec = open(spec_url).read
     rpm_spec.scan(/\nPatch0:\s*.*\n/).size != 0
