@@ -1,24 +1,48 @@
+# == Schema Information
+#
+# Table name: fedora_rpms
+#
+#  id                  :integer          not null, primary key
+#  name                :string(255)      not null
+#  source_uri          :string(255)
+#  last_commit_message :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  owner               :string(255)
+#  last_committer      :string(255)
+#  last_commit_date    :datetime
+#  last_commit_sha     :string(255)
+#  homepage            :string(255)
+#  ruby_gem_id         :integer
+#  commits             :integer
+#  owner_email         :string(255)
+#  summary             :text(255)
+#  description         :text(255)
+#
+
 require 'versionomy'
 require 'xmlrpc/client'
-require 'bugzilla'
+require 'bicho'
+require 'open-uri'
 
+# Used for packaged gems in Fedora
+# - Retrieves dependencies
+# - Retrieves koji builds
+# - Retrieves bugs in bugzilla.redhat.com
+# - Retrieves meta information about the gem
 class FedoraRpm < ActiveRecord::Base
-  FEDORA_VERSIONS = {'rawhide'   => 'master',
-                     'Fedora 18' => 'f18',
-                     'Fedora 17' => 'f17',
-                     'Fedora 16' => 'f16',
-                     'Fedora 15' => 'f15'}
+  include ActionView::Helpers::DateHelper
+
+  validates :name, uniqueness: true
+  validates :name, presence: true
 
   belongs_to :ruby_gem
-  has_many :rpm_versions, :dependent => :destroy
-  has_many :rpm_comments, :dependent => :destroy, :order => 'created_at desc'
-  has_many :bugs, :dependent => :destroy, :order => 'bz_id desc'
-  has_many :builds, :dependent => :destroy, :order => 'build_id desc'
-  has_many :working_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => true}
-  has_many :failure_comments, :class_name => 'RpmComment', :conditions => {:works_for_me => false}
-  has_many :dependencies, :as => :package, :dependent => :destroy, :order => 'created_at desc'
-  scope :most_popular, :order => 'commits desc'
-  scope :most_recent, :order => 'last_commit_date desc'
+  has_many :rpm_versions, dependent: :destroy
+  has_many :bugs, -> { order 'bz_id desc' }, dependent: :destroy
+  has_many :koji_builds, -> { order 'build_id desc' }, dependent: :destroy
+  has_many :dependencies, -> { order 'created_at desc' }, as: :package,
+                                                          dependent: :destroy
+  scope :most_recent, -> { order 'last_commit_date desc' }
 
   def to_param
     name
@@ -28,135 +52,127 @@ class FedoraRpm < ActiveRecord::Base
     name.gsub(/rubygem-/, '')
   end
 
-  def bugzilla_url
-    "https://bugzilla.redhat.com/buglist.cgi?short_desc=.*#{name}.*&o1=equals&classification=Fedora&query_format=advanced&short_desc_type=regexp"
+  def self.fedora_versions
+
+    # Read file which contains latest fedora version.
+    # See lib/rawhide_version.rb
+    # Get latest version with: "rake fedora:rawhide:create"
+    file = File.open(Rails.root + 'public/version/rawhide', 'r')
+    version = file.read.to_i
+
+    { 'Rawhide'   => 'master',
+      "Fedora #{version - 1}" => "f#{version - 1}",
+      "Fedora #{version - 2}" => "f#{version - 2}"
+    }
   end
 
-  def versions
-    rpm_versions.collect { |rv| rv.rpm_version.to_s + " (" + rv.fedora_version.to_s + "/" + (rv.is_patched ? "" : "not ") +"patched)" }.join(", ")
-  end
-
-  def version_for(fedora_version)
-    rv = rpm_versions.find { |rv| rv.fedora_version == fedora_version }
-    return nil if rv.nil?
-    rv.rpm_version
-  end
-
-  def upto_date?
-    rv = rpm_versions.find { |rv| rv.fedora_version == 'rawhide' }
-    return false if rv.nil? || ruby_gem.nil?
-    return true if ruby_gem.version == nil
-    Versionomy.parse(rv.rpm_version) >= Versionomy.parse(ruby_gem.version)
-  rescue Exception => e
-    return false
-  end
-
-  def patched?
-    rv = rpm_versions.find { |rv| rv.is_patched }
-    return !rv.nil?
+  def up_to_date?
+    rawhide_version = rpm_versions.find { |rv| rv.fedora_version == 'Rawhide' }
+    return false if rawhide_version.nil? ||
+                    rawhide_version.rpm_version.nil? ||
+                    ruby_gem.nil? || ruby_gem.version.nil?
+    begin
+      Versionomy.parse(rawhide_version.rpm_version) >=
+        Versionomy.parse(ruby_gem.version)
+    rescue Versionomy::Errors::ParseError
+      false
+    end
   end
 
   def json_dependencies(packages = [])
     children = []
-    dependency_packages.each { |p|
+    dependency_packages.each do |p|
       unless packages.include?(p)
         packages << p
         children << p.json_dependencies(packages)
       end
-    }
-    {"name" => name.gsub(/rubygem-/,''), "children" => children}
+    end
+    { name: shortname, children: children }
   end
 
   def json_dependents(packages = [])
     children = []
-    dependent_packages.each { |p|
+    dependent_packages.each do |p|
       unless packages.include?(p)
         packages << p
         children << p.json_dependents(packages)
       end
-    }
-    {"name" => name.gsub(/rubygem-/,''), "children" => children}
+    end
+    { name: shortname, children: children }
   end
 
-  def retrieve_commits
-    begin
-      puts "Importing rpm #{name} commits"
-      # parse commit log with nokogiri to determine how many commits there are
-      log_uri = RpmImporter::BASE_URI + name + '.git/log/'
-      git_log = URI.parse(log_uri).read
-      doc = Nokogiri::HTML(git_log)
-      self.commits = doc.xpath("//tr/td[@class='commitgraph']").select { |x| x.text == '* '}.size
+  def base_uri
+    'http://pkgs.fedoraproject.org/cgit/'
+  end
 
-      # parse last commit time
-      commit_uri = RpmImporter::BASE_URI + name + '.git/commit/'
-      git_commit = URI.parse(commit_uri).read
-      doc = Nokogiri::HTML(git_commit)
-      self.last_commit_date = DateTime.parse(doc.xpath("//table[@class='commit-info']/tr/td[@class='right']")[1].text)
-    rescue Exception => e
-      puts "Could not retrieve commits for #{name}"
+  # Get and store the commits metadata in database.
+  def commits_metadata(name)
+    pkg = Pkgwat.get_changelog(name)
+    self.commits = pkg.count
+    self.last_commit_message = pkg.first['text'].gsub(/^- /, '')
+    self.last_committer = pkg.first['author']
+    self.last_commit_date = pkg.first['date']
+  end
+
+  # Retrieve version for a specific release.
+  # fedora_version can be one of three:
+  # - "Rawhide"
+  # - "Fedora 20"
+  # - "Fedora 19"
+  # Example:
+  #   > name = 'rubygem-rails'
+  #   > rpm = FedoraRpm.new
+  #   > rpm.retrieve_version("Rawhide")
+  #   > "4.1.4"
+  def retrieve_version(fedora_version)
+    rpm = Pkgwat.get_releases(name).select do |r|
+      r['release'] == fedora_version
+    end
+    if !!(rpm.first['stable_version'].match(/href/))
+      rpm.first['stable_version'].scan(/>.*-/)[0].gsub(/[>-]/, '')
+    else
+      rpm.first['stable_version'].split('-').first
     end
   end
 
-  def retrieve_versions
-    puts "Importing rpm #{name} versions and maintainer"
-    self.rpm_versions.clear
-    self.dependencies.clear
-    FEDORA_VERSIONS.each do |version_title, version_git|
-      spec_url = "#{RpmImporter::BASE_URI}#{name}.git/plain/#{name}.spec?h=#{version_git}"
-      puts "Reading spec from #{spec_url}"
-      begin
-        rpm_spec = URI.parse(spec_url).read
-        is_patched = (rpm_spec.scan(/\nPatch0:\s*.*\n/).size != 0)
-
-        rpm_version = rpm_spec.scan(/\nVersion:\s*.*\n/).first.split.last
-        if !version_valid?(rpm_version)
-          if rpm_version.include?('%{majorver}')
-            rpm_version = rpm_spec.scan(/%global majorver .*\n/).first.split.last
-          else
-            rpm_version = nil
-          end
-        end
-        rv = RpmVersion.new
-        rv.rpm_version = rpm_version
-        rv.fedora_version = version_title
-        rv.is_patched = is_patched
-        self.rpm_versions << rv
-        if version_title == 'rawhide'
-          #Import the maintainer's e-mail
-          fedora_user_list = rpm_spec.scan(/<.*[@].*>/)
-          fedora_user_list.each do |user|
-            if user != "<rel-eng@lists.fedoraproject.org>" #We don't want to add Fedora Release Engineering
-              #Remove those "<>"
-              user[0] = ""
-              user.gsub!(">", "")
-              self.fedora_user = user
-              break
-            end
-          end
-          puts "Maintainer: #{self.fedora_user}"
-
-          self.homepage = rpm_spec.scan(/\nURL:\s*.*\n/).first.split.last
-
-          rpm_spec.split("\n").each { |line|
-            mr = line.match(/^Requires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
-            if mr.nil?
-              mr = line.match(/^BuildRequires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
-            end
-            if mr
-              d = Dependency.new
-              d.dependent = mr.captures.first
-              d.dependent_version = mr.captures.last
-              self.dependencies << d
-            end
-          }
-        end
-
-      rescue Exception => e
-        puts "Could not retrieve version of #{name} for #{version_title}: #{e}"
-      end
+  # Store the rpm versions of a given package of
+  # all supported Fedora versions in rpm_versions table.
+  def store_all_versions
+    rpm_versions.clear
+    self.class.fedora_versions.each do |version_title, version_git|
+      rpm_version = retrieve_version(version_title)
+      rv = RpmVersion.new
+      rv.rpm_version = rpm_version
+      rv.fedora_version = version_title
+      rv.patched = patched?(version_git)
+      rpm_versions << rv
     end
   end
 
+  # Get a string of all packaged versions of a rubygem package.
+  # It calls RpmVersion#to_s, see app/models/rpm_version.rb.
+  # Example output in rails console:
+  #   > name = 'rubygem-rails'
+  #   > rpm = FedoraRpm.find_by(name: name);
+  #   > rpm.versions
+  #   > "4.1.4 (Rawhide/not patched), 4.0.0 (Fedora 20/not patched),
+  #      3.2.13 (Fedora 19/not patched)"
+  def versions
+    rpm_versions.map { |rpm_version| rpm_version.to_s }.join(', ')
+  end
+
+  # Query the rpm_versions table for the package version of a given
+  # Fedora version.
+  # fedora_version can be one of three:
+  # - "Rawhide"
+  # - "Fedora 20"
+  # - "Fedora 19"
+  def version_for(fedora_version)
+    version = rpm_versions.find { |rv| rv.fedora_version == fedora_version }
+    version.rpm_version unless version.nil?
+  end
+
+  # Check if a version is valid: major.minor.patch
   def version_valid?(version)
     Versionomy.parse(version)
     true
@@ -164,136 +180,183 @@ class FedoraRpm < ActiveRecord::Base
     false
   end
 
+  # Check if any version is patched.
+  # This then is passed to the view fedorarpms#index.
+  def any_patched?
+    rpm_versions.any? { |rpm_version| rpm_version.patched }
+  end
+
+  # Check if a version is patched by scrapping the spec file.
+  # version_git can be one of the following:
+  # - "master" for the rawhide version
+  # - "fN" where N the Fedora version number, eg: 22,21,20,19,etc.
+  # If no parameter is passed, it defaults to master.
+  def patched?(version_git = 'master')
+    spec_url = "#{base_uri}#{name}.git/plain/#{name}.spec?h=#{version_git}"
+    rpm_spec = open(spec_url).read
+    rpm_spec.scan(/\nPatch0:\s*.*\n/).size != 0
+  end
+
+  # Get the alias mail for the package.
+  # It is forwarded to the real packagers' mail that is
+  # registered with their FAS name.
+  def get_owner_email
+    "#{name}-owner@fedoraproject.org"
+  end
+
+  def obfuscated_email
+    fedora_user.to_s.gsub('@', ' AT ').gsub('.', ' DOT ')
+  end
+
+  def fas_name
+    Pkgwat.get_packages(name)[0]['devel_owner']
+  end
+
+  def retrieve_homepage(name)
+    Pkgwat.get_packages(name)[0]['upstream_url']
+  end
+
+  def retrieve_dependencies
+    dependencies.clear
+    spec_url = "#{base_uri}#{name}.git/plain/#{name}.spec?h=master"
+    rpm_spec = open(spec_url).read
+    rpm_spec.split("\n").each do |line|
+      mr = line.match(/^Requires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
+      if mr.nil?
+        mr = line.match(/^BuildRequires:\s*rubygem\(([^\s]*)\)\s*(.*)$/)
+      end
+      if mr
+        d = Dependency.new
+        d.dependent = mr.captures.first
+        d.dependent_version = mr.captures.last
+        dependencies << d
+      end
+    end
+  end
+
   def retrieve_gem
-    gem_name = name.gsub(/rubygem-/,'')
+    gem_name = shortname
     puts "Retrieving gem #{gem_name} data"
-    self.ruby_gem = RubyGem.find_or_initialize_by_name(gem_name)
-    self.ruby_gem.update_from_source
-    self.ruby_gem.has_rpm = true
+    self.ruby_gem = RubyGem.where(name: gem_name).first_or_create
+    ruby_gem.update_from_source
+    ruby_gem.has_rpm = true
   end
 
   def retrieve_bugs
-    puts "Importing rpm #{name} bugs"
-    self.bugs.clear
+    bugs.clear
+    open_bugs = Pkgwat.get_bugs(name)
 
-    # get bugs and their titles and last_updated
-    xmlrpc = Bugzilla::XMLRPC.new("bugzilla.redhat.com")
-    bugs = Bugzilla::Bug.new(xmlrpc).search("summary" => name, "product" => "fedora")["bugs"]
-    bugs.each { |bug|
-      arb = Bug.new
-      arb.name = bug["summary"]
-      arb.bz_id = bug["id"]
-      arb.last_updated = bug["last_change_time"].to_time
-      arb.is_review = true if arb.name =~ /^Review Request.*#{name}\s.*$/
-      arb.is_open = bug['is_open']
-      self.bugs << arb
-    }
+    open_bugs.reject { |b| b['release'].match(/EPEL/) }.each do |b|
+      bug = Bug.new
+      bug.name = b['description']
+      bug.bz_id = b['id']
+      bug.last_updated = b['last_modified']
+      bug.is_review = true if b['name'] =~ /^Review Request.*#{name}\s.*$/
+      bugs << bug
+    end
   end
 
   def retrieve_builds
-    puts "Importing rpm #{name} builds"
-    self.builds.clear
+    koji_builds.clear
 
-    builds = Pkgwat.get_builds(name)
-    builds.each { |build|
-      bld = Build.new
+    version = RawhideVersion.version
+
+    # Retrieve only latest 3 Fedora versions of builds
+    koji_builds = Pkgwat.get_builds(name).select do |build|
+      !!(build['nvr'] =~ /fc(#{version}|#{version - 1}|#{version - 2})/)
+    end
+
+    koji_builds.each do |build|
+      bld = KojiBuild.new
       bld.name = build['nvr']
       bld.build_id = build['build_id']
-      self.builds << bld
-    }
+      self.koji_builds << bld
+    end
   end
 
   def update_commits
-    retrieve_commits
+    commits_metadata(name)
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
+  end
+
+  def update_dependencies
+    retrieve_dependencies
+    self.updated_at = Time.now
+    save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_versions
-    retrieve_versions
+    store_all_versions
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_gem
     retrieve_gem
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_bugs
     retrieve_bugs
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_builds
     retrieve_builds
     self.updated_at = Time.now
     save!
+  rescue => e
+    puts "Updating #{name} failed due to #{e}"
   end
 
   def update_from_source
     update_commits
-    update_versions
+    update_specs
     update_gem
     update_bugs
     update_builds
   end
 
   def rpm_name
-    self.name
-  end
-
-  def works?
-    has_no_failure_comments? && has_working_comments?
-  end
-
-  def hotness
-    total = self.rpm_comments.count
-    total = 1 if total == 0
-    self.rpm_comments.working.count * 100 / total
+    name
   end
 
   def self.search(search)
     # search_cond = "%" + search.to_s + "%"
     # search_cond = search.to_s
-    if search == nil || search.blank?
+    if search.nil? || search.blank?
       self
     else
-      self.where("name LIKE ?", 'rubygem-' + search.strip)
+      where('name LIKE ?', 'rubygem-' + search.strip)
     end
   end
 
   def dependency_packages
-    self.dependencies.collect { |d|
-      FedoraRpm.find_by_name 'rubygem-' + d.dependent
-    }.compact
+    dependencies.map do |d|
+      FedoraRpm.where(name: "rubygem-#{d.dependent}").to_a
+    end.compact.flatten
   end
 
   def dependent_packages
-    Dependency.find_all_by_dependent(self.name.gsub(/rubygem-/,'')).collect { |d|
+    Dependency.where(dependent: shortname).map do |d|
       d.package if d.package.is_a?(FedoraRpm)
-    }.compact
+    end.compact
   end
 
-  def self.build_rpms(spec_file)
-    rpms = []
-    buildroot = "#{Rails.root}/public/rpmbuild"
-    output = `/usr/bin/rpmbuild --define="%_topdir #{buildroot}" -ba #{spec_file}`
-    output.each_line { |l|
-      rpms << $1 if l =~ /Wrote: (.*)/
-    }
-    rpms
+  def last_commit_date_in_words
+    "#{time_ago_in_words(last_commit_date)} ago" unless last_commit_date.nil?
   end
-
-  def obfuscated_fedora_user
-    return self.fedora_user.to_s.gsub("@", " AT ").gsub(".", " DOT ")
-  end
-
-private
-
-  validates_uniqueness_of :name
-  validates_presence_of :name
-
 end

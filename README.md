@@ -1,49 +1,88 @@
-# Welcome to IsItFedoraRuby #
+[![Build Status](https://travis-ci.org/axilleas/isitfedoraruby.png)](https://travis-ci.org/axilleas/isitfedoraruby)
+[![Code Climate](https://codeclimate.com/github/axilleas/isitfedoraruby.png)](https://codeclimate.com/github/axilleas/isitfedoraruby)
+[![Coverage Status](https://coveralls.io/repos/axilleas/isitfedoraruby/badge.png?branch=master)](https://coveralls.io/r/axilleas/isitfedoraruby)
+[![Dependency Status](https://gemnasium.com/axilleas/isitfedoraruby.png)](https://gemnasium.com/axilleas/isitfedoraruby)
 
-IsItFedoraRuby is a web-application for keeping track of the Fedora/Ruby intergration, especially gem->rpm conversion, documentation, and success stories.
 
-This started as a Google Summer of Code 2012 project.
+IsItFedoraRuby is a web-application for keeping track of the Fedora/Ruby
+integration, especially `gem -> rpm` conversion.
 
-## Installation ##
+## History
 
-In order to install this web app, you can clone the repo from github, and run `rails server` to run it locally.
+It started as a Google Summer of Code project in 2012, was later enhanced
+through the Google Code In program and now it is again being developed through
+Google Summer of Code 2014. See the [list of contributors](https://github.com/axilleas/isitfedoraruby/graphs/contributors).
 
-Before you run the web app, make sure you have both RubyGem and FedoraRpm info imported into the database. To do so, please run the following command.
+## Installation
 
-### Step 1 ###
+First, make sure you have ruby 2.0+ installed.
 
-Make sure you import the full lists of gems and rpms first, by running the following commands.
+Clone the repository:
 
-`rake database:import_gems[refresh_list]` to import RubyGem list (without metadata).
+```bash
+git clone https://github.com/axilleas/isitfedoraruby.git
+```
 
-`rake database:import_rpms[refresh_list]` to import Fedora Rpm list (without metadata).
+Install gems:
 
-Do this regularly to have any new gems and/or rpms imported.
+```bash
+bundle install
+```
 
-### Step 2 ###
+Run the migrations:
 
-Import gems and rpms in batches (recommended).
+```bash
+rake db:migrate
+```
 
-`rake "database:import_gems[batch, 50, 10]"` to import gems in batches, 50 per batch, 10 seconds delay.
+Finally, run the following rake task to populate the database:
+```ruby
+rake fedora:rpm:import:all
+```
 
-`rake "database:import_rpms[batch, 50, 10]"` to import rpms in batches, 50 per batch, 10 seconds delay.
+Please take note that the importing process can take a long time, depending
+on your network connection as well as the server load. Try to use batch mode
+to import and set reasonably small batch numbers, in order to lessen the
+burden to the servers.
 
-Or, import them in one go (not recommended).
+## Updating
 
-`rake database:import_gems[all]` to import all gems.
+If you already have gems and/or rpms imported, and only want to update them,
+run the following commands:
 
-`rake database:import_rpms[all]` to import all rpms.
+```bash
+# Update rpms whose last update time was earlier than 7 days ago.
+rake "fedora:rpm:update:rpms[7]"
 
-Please take note that the importing process can take a long time, depending on your network connection as well as the server load. Try to use batch mode to import and set reasonably small batch numbers, in order to lessen the burden to the servers.
+# Update gems whose last update time was earlier than 7 days ago.
+rake "fedora:gem:update:gems[7]"
+```
 
-### Step 3 ###
+## Rake tasks
 
-If you already have gems and/or rpms imported, and only want to update them, run the following commands.
+You can see what tasks are currently supported with the following command:
 
-`rake "database:update_gems[all, 7]"` to update gems whose last update time was earlier than 7 days ago.
+```
+rake -T | grep fedora
 
-`rake "database:update_rpms[all, 7]"` to update rpms whose last update time was earlier than 7 days ago.
+rake fedora:gem:import:all_names               # FEDORA | Import a list of names of ALL gems from rubygems.org
+rake fedora:gem:import:metadata[number,delay]  # FEDORA | Import gems metadata from rubygems.org
+rake fedora:gem:update:gems[age]               # FEDORA | Update gems metadata from rubygems.org
+rake fedora:rawhide:create                     # FEDORA | Create file containing Fedora rawhide(development) version
+rake fedora:rawhide:version                    # FEDORA | Get Fedora rawhide(development) version
+rake fedora:rpm:import:all[number,delay]       # FEDORA | Import ALL rpm metadata (time consuming)
+rake fedora:rpm:import:bugs[rpm_name]          # FEDORA | Import bugs of a given rubygem package
+rake fedora:rpm:import:commits[rpm_name]       # FEDORA | Import commits of a given rubygem package
+rake fedora:rpm:import:deps[rpm_name]          # FEDORA | Import dependencies of a given rubygem package
+rake fedora:rpm:import:gem[rpm_name]           # FEDORA | Import respective gem of a given rubygem package
+rake fedora:rpm:import:koji_builds[rpm_name]   # FEDORA | Import koji builds of a given rubygem package
+rake fedora:rpm:import:names                   # FEDORA | Import a list of names of all rubygems from apps.fedoraproject.org
+rake fedora:rpm:import:versions[rpm_name]      # FEDORA | Import versions of a given rubygem package
+rake fedora:rpm:update:oldest_rpms[number]     # FEDORA | Update oldest <n> rpms
+rake fedora:rpm:update:rpms[age]               # FEDORA | Update rpms metadata
+```
 
-## Please Contribute! ##
+## Contribute
 
-As this project is still in its early stage, please feel free to contribute any code or ideas to make it better.
+Your best shot to contribute is to report bugs! The application is still at
+its early stages so any help is welcome!
