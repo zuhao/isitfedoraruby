@@ -1,0 +1,136 @@
+/* Base styles (regardless of theme) */
+.bs-callout {
+padding: 20px;
+    padding-top: 20px;
+    padding-right-value: 20px;
+    padding-bottom: 20px;
+    padding-left-value: 20px;
+    padding-left-ltr-source: physical;
+    padding-left-rtl-source: physical;
+    padding-right-ltr-source: physical;
+    padding-right-rtl-source: physical;
+margin: 20px 0px;
+    margin-top: 20px;
+    margin-right-value: 0px;
+    margin-bottom: 20px;
+    margin-left-value: 0px;
+    margin-left-ltr-source: physical;
+    margin-left-rtl-source: physical;
+    margin-right-ltr-source: physical;
+    margin-right-rtl-source: physical;
+border-width: 1px 1px 1px 5px;
+    border-top-width: 1px;
+    border-right-width-value: 1px;
+    border-bottom-width: 1px;
+    border-left-width-value: 5px;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+border-style: solid;
+    border-top-style: solid;
+    border-right-style-value: solid;
+    border-bottom-style: solid;
+    border-left-style-value: solid;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+border-color: rgb(238, 238, 238);
+    border-top-color: rgb(238, 238, 238);
+    border-right-color-value: rgb(238, 238, 238);
+    border-bottom-color: rgb(238, 238, 238);
+    border-left-color-value: rgb(238, 238, 238);
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+-moz-border-top-colors: none;
+-moz-border-right-colors: none;
+-moz-border-bottom-colors: none;
+-moz-border-left-colors: none;
+border-image: none;
+    border-image-source: none;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-width: 1 1 1 1;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+border-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.bs-callout h1,
+.bs-callout h2,
+.bs-callout h3,
+.bs-callout h4,
+.bs-callout h5,
+.bs-callout h6 {
+margin-top: 0;
+}
+
+.bs-callout-danger h1,
+.bs-callout-danger h2,
+.bs-callout-danger h3,
+.bs-callout-danger h4,
+.bs-callout-danger h5,
+.bs-callout-danger h6 {
+color: #B94A48;
+}
+
+.bs-callout-warning h1,
+.bs-callout-warning h2,
+.bs-callout-warning h3,
+.bs-callout-warning h4,
+.bs-callout-warning h5,
+.bs-callout-warning h6 {
+color: #C09853;
+}
+
+.bs-callout-info h1,
+.bs-callout-info h2,
+.bs-callout-info h3,
+.bs-callout-info h4,
+.bs-callout-info h5,
+.bs-callout-info h6 {
+color: #3A87AD;
+}
+
+.bs-callout-success h1,
+.bs-callout-success h2,
+.bs-callout-success h3,
+.bs-callout-success h4,
+.bs-callout-success h5,
+.bs-callout-success h6 {
+color: #3C763D;
+}
+
+.bs-callout p:last-child {
+margin-bottom: 0;
+}
+
+.bs-callout code,
+.bs-callout .highlight {
+background-color: #fff;
+}
+
+/* Themes for different contexts */
+.bs-callout-danger {
+background-color: #fcf2f2;
+border-color: #dFb5b4;
+}
+.bs-callout-warning {
+background-color: #fefbed;
+border-color: #f1e7bc;
+}
+.bs-callout-info {
+border-left-color: rgb(91, 192, 222);
+border-left-color-value: rgb(91, 192, 222);
+border-left-color-ltr-source: physical;
+border-left-color-rtl-source: physical;
+}
+.bs-callout-success {
+background-color: #dff0d8;
+border-color: #d6e9c6;
+}

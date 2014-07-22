@@ -1,148 +1,157 @@
-%h1= @rpm.name
-
-- unless @rpm.summary.blank?
-  %h2= "(#{@rpm.summary})"
-
-%h2
-  = link_to _('Dependency Tree'), :controller => 'fedorarpms', :action => 'full_deps'
-  |
-  = link_to _('Timeline (Bugs and Versions)'), stats_path + "/" + @name + "/timeline"
-
-- unless @rpm.ruby_gem.nil?
-  = button_to "#{@rpm.ruby_gem.name}.gem", rubygem_path(@rpm.ruby_gem.name),
-  :class => 'button btn btn-success', :type => 'button', :method => :get
-
-%div.info
-  %h3 RPM Information
+.bs-callout-info.bs-callout
+  %h4= @rpm.name
   %p
-    Up to date:
-    - if @rpm.up_to_date?
-      %span.label.label-success= _('Yes')
+  - unless @rpm.summary.blank?
+    = "#{@rpm.summary}"
+
+-#  = link_to _('Timeline (Bugs and Versions)'), stats_path + "/" + @name + "/timeline"
+
+.span12.well
+  %ul.nav.nav-pills#fedorarpm-show{role: 'tablist'}
+    %li.active
+      = link_to 'Basic info', '#info', { data: {toggle: 'tab'}, role: 'tab' }
+    %li
+      = link_to 'Versions', '#versions', { data: {toggle: 'tab'}, role: 'tab' }
+    %li
+      = link_to 'Dependencies', '#dependencies', { data: {toggle: 'tab'}, role: 'tab' }
+    %li
+      = link_to 'Bugs', '#bugs', { data: {toggle: 'tab'}, role: 'tab' }
+    %li
+      = link_to 'Builds', '#builds', { data: {toggle: 'tab'}, role: 'tab' }
+
+.tab-content.span12.well#rpm
+  .tab-pane.fade.in.active#info
+    - unless @rpm.ruby_gem.nil?
+      = button_to "#{@rpm.ruby_gem.name}.gem", rubygem_path(@rpm.ruby_gem.name),
+      :class => 'button btn btn-success', :type => 'button', :method => :get
+    %br
+    %p
+      Up to date:
+      - if @rpm.up_to_date?
+        %span.label.label-success= _('Yes')
+      - else
+        %span.label.label-danger= _('No')
+    %p
+      Package Source Code:
+      = link_to @rpm.source_uri, @rpm.source_uri
+    - unless @rpm.homepage.blank? || @rpm.homepage == @rpm.source_uri
+      %p
+        Upstream url:
+        = link_to @rpm.homepage, @rpm.homepage
+    - unless @rpm.owner.blank?
+      %p
+        Maintainer:
+        = link_to @rpm.owner,
+        fedorarpm_path(@rpm.owner + "/by_owner")
+    %p
+      Git Commits: <strong>#{@rpm.commits}</strong>
+    - unless @rpm.last_committer.blank?
+      %p
+        Last packager: <strong>#{@rpm.last_committer}</strong>
+    - unless @rpm.last_commit_message.blank?
+      %p
+        Last commit message: <strong>#{@rpm.last_commit_message}</strong>
+    - unless @rpm.last_commit_date.blank?
+      %p
+        Last commit date: <strong>#{@rpm.last_commit_date.to_s(:long)}</strong>
+    - unless @rpm.description.blank?
+      %p
+        Description:
+        =@rpm.description
+
+  .tab-pane.fade#versions
+    %table.table.table-striped.table-condensed.table-bordered
+      %thead
+        %tr
+          -FedoraRpm.fedora_versions.each do |t, g|
+            %th= t
+          %th= _('Gem Version')
+      %tbody
+        %tr
+          -FedoraRpm.fedora_versions.each do |t, g|
+            %td= @rpm.version_for(t)
+          %td= @rpm.ruby_gem.version
+
+  .tab-pane.fade#dependencies
+    %h2
+      = link_to _('Dependency Tree'), :controller => 'fedorarpms', :action => 'full_deps'
+    .row
+      %div.col-md-6
+        - if @dependencies.blank?
+          %label= _('No dependencies')
+        - else
+          %label= _('Dependencies:')
+
+          %table.table.table-striped.table-condensed.table-bordered
+            %thead
+              %tr
+                %th= _('Package')
+                -FedoraRpm.fedora_versions.each do |t, g|
+                  - if g == 'master'
+                    %th= 'Rawhide'
+                  - else
+                    %th= g
+                %th= _('Upstream')
+            %tbody
+              - @dependencies.each do |d|
+                %tr
+                  %td= link_to d.name, fedorarpm_path(d.name)
+                  -FedoraRpm.fedora_versions.each do |t, g|
+                    %td= d.version_for(t)
+                  %td= d.ruby_gem.version
+      %div.col-md-6
+        - if @dependents.blank?
+          %label= _('No dependents')
+        - else
+          %label= _('Dependents:')
+
+          %table.table.table-striped.table-condensed.table-bordered
+            %thead
+              %tr
+                %th= _('Package')
+                -FedoraRpm.fedora_versions.each do |t, g|
+                  - if g == 'master'
+                    %th= 'Rawhide'
+                  - else
+                    %th= g
+                %th= _('Upstream')
+            %tbody
+              - @dependents.each do |d|
+                %tr
+                  %td= link_to d.name, fedorarpm_path(d.name)
+                  -FedoraRpm.fedora_versions.each do |t, g|
+                    %td= d.version_for(t)
+                  %td= d.ruby_gem.version
+
+  .tab-pane.fade#bugs
+    - if @rpm.bugs.blank?
+      %h4 No bugs found!
     - else
-      %span.label.label-danger= _('No')
-  %p
-    Package Source Code:
-    = link_to @rpm.source_uri, @rpm.source_uri
-  - unless @rpm.homepage.blank? || @rpm.homepage == @rpm.source_uri
-    %p
-      Upstream url:
-      = link_to @rpm.homepage, @rpm.homepage
-  - unless @rpm.owner.blank?
-    %p
-      Maintainer:
-      = link_to @rpm.owner,
-      fedorarpm_path(@rpm.owner + "/by_owner")
-  %p
-    Git Commits: <strong>#{@rpm.commits}</strong>
-  - unless @rpm.last_committer.blank?
-    %p
-      Last packager: <strong>#{@rpm.last_committer}</strong>
-  - unless @rpm.last_commit_message.blank?
-    %p
-      Last commit message: <strong>#{@rpm.last_commit_message}</strong>
-  - unless @rpm.last_commit_date.blank?
-    %p
-      Last commit date: <strong>#{@rpm.last_commit_date.to_s(:long)}</strong>
-  - unless @rpm.description.blank?
-    %p
-      Description:
-      =@rpm.description
-
-  %div.row
-    %div.col-md-6
       %h2
-      = _('Versions:')
+      = _('Bugs:')
       %table.table.table-striped.table-condensed.table-bordered
         %thead
           %tr
-            -FedoraRpm.fedora_versions.each do |t, g|
-              %th= t
-            %th= _('Gem Version')
-        %tbody
-          %tr
-            -FedoraRpm.fedora_versions.each do |t, g|
-              %td= @rpm.version_for(t)
-            %td= @rpm.ruby_gem.version
-  %div.row
-    %div.col-md-6
-      - if @dependencies.blank?
-        %label= _('No dependencies')
-      - else
-        %label= _('Dependencies:')
-
-        %table.table.table-striped.table-condensed.table-bordered
-          %thead
-            %tr
-              %th= _('Package')
-              -FedoraRpm.fedora_versions.each do |t, g|
-                - if g == 'master'
-                  %th= 'Rawhide'
-                - else
-                  %th= g
-              %th= _('Upstream')
-          %tbody
-            - @dependencies.each do |d|
-              %tr
-                %td= link_to d.name, fedorarpm_path(d.name)
-                -FedoraRpm.fedora_versions.each do |t, g|
-                  %td= d.version_for(t)
-                %td= d.ruby_gem.version
-    %div.col-md-6
-      - if @dependents.blank?
-        %label= _('No dependents')
-      - else
-        %label= _('Dependents:')
-
-        %table.table.table-striped.table-condensed.table-bordered
-          %thead
-            %tr
-              %th= _('Package')
-              -FedoraRpm.fedora_versions.each do |t, g|
-                - if g == 'master'
-                  %th= 'Rawhide'
-                - else
-                  %th= g
-              %th= _('Upstream')
-          %tbody
-            - @dependents.each do |d|
-              %tr
-                %td= link_to d.name, fedorarpm_path(d.name)
-                -FedoraRpm.fedora_versions.each do |t, g|
-                  %td= d.version_for(t)
-                %td= d.ruby_gem.version
-  %div.row
-    %div.col-md-6
-      - if @rpm.bugs.blank?
-        %h4 No bugs found!
-      - else
-        %h2
-        = _('Bugs:')
-        %table.table.table-striped.table-condensed.table-bordered
-          %thead
-            %tr
-              %th= _('ID')
-              %th= _('Title')
-          %tbody
-            - @rpm.bugs.each do |b|
-              %tr
-                %td
-                  = link_to b.bz_id, b.url
-                %td
-                  = b.name.truncate(60)
-
-    %div.col-md-6
-      %h2
-      = _('Builds:')
-      %table.table.table-striped.table-condensed.table-bordered
-        %thead
-          %tr
-            %th= _('Build ID')
+            %th= _('ID')
             %th= _('Title')
         %tbody
-          - @rpm.koji_builds.each do |b|
+          - @rpm.bugs.each do |b|
             %tr
               %td
-                = link_to b.build_id, b.build_url
+                = link_to b.bz_id, b.url
               %td
                 = b.name.truncate(60)
 
+  .tab-pane.fade#builds
+    %table.table.table-striped.table-condensed.table-bordered
+      %thead
+        %tr
+          %th= _('Build ID')
+          %th= _('Title')
+      %tbody
+        - @rpm.koji_builds.each do |b|
+          %tr
+            %td
+              = link_to b.build_id, b.build_url
+            %td
+              = b.name.truncate(60)
