@@ -1,6 +1,11 @@
 %footer.footer
   %small
-    = link_to _('Is It Fedora Ruby on Github'), 'http://github.com/zuhao/isitfedoraruby'
+    Version
+    = Git::VERSION
+    @
+  %small
+    = link_to Git::REVISION,
+      "https://github.com/axilleas/isitfedoraruby/commit/#{Git::REVISION}"
   %nav
     %ul
       %li= link_to _('Contact'), contact_path

@@ -1,34 +1,39 @@
 %h1= @gem.name
+
+- unless @gem.fedora_rpm.nil?
+  = button_to "#{@gem.fedora_rpm.name}.rpm", fedorarpm_path(@gem.fedora_rpm.name),
+  :class => 'button btn btn-primary', :type => 'button', :method => :get
+
 %div.info
-  %label= link_to 'Homepage URI', @gem.homepage if @gem.homepage != nil
-  %label= link_to 'Source Code URI', @gem.source_uri if @gem.source_uri != nil
-  - if @gem.fedora_rpm != nil
-    %span.label.label-info= link_to 'Fedora Rpm', fedorarpm_path(@gem.fedora_rpm.name)
-  %label= _('Wantedness: %{gem_wantedness}') % { :gem_wantedness => @gem.wantedness }
-  %label= _('Version: %{gem_version}') % { :gem_version => @gem.version}
-  %label= _('Total Downloads: %{total_downloads_number}') % { :total_downloads_number => number_with_delimiter(@gem.downloads) }
-  %label= _('Description:')
-  %label= @gem.description.blank? ? _('%{gem_name} does not have a description yet') % { :gem_name => @gem.name} : @gem.description
+  %h3 Gem Information
+  %p
+    Homepage:
+    =link_to @gem.homepage, @gem.homepage
+  - unless @gem.source_uri.blank? || @gem.source_uri == @gem.homepage
+    %p
+      Source Code:
+      =link_to @gem.source_uri, @gem.source_uri
+  %p
+    Version: <strong>#{@gem.version}</strong>
+  %p
+    Total Downloads: #{number_with_delimiter(@gem.downloads)}
+  %p
+    Description:
+    =@gem.description_string
 
-  - if @dependencies.blank?
-    %label= _('No dependencies')
-  - else
-    %label= _('Depends on:')
-
-    %table.table.table-striped.table-condensed.dependency
+  - unless @dependencies.blank?
+    %h3 Depends on:
+    %table.table.table-striped.table-condensed.table-bordered.dependency
       %thead
         %tr
-          %th= _('Package')
-          %th= _('Gem Version')
-          -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+          %th Package
+          %th Gem Version
+          - FedoraRpm.fedora_versions.each do |t, g|
             %th= t
       %tbody
         - @dependencies.each do |d|
           %tr
             %td= link_to d.name, rubygem_path(d.name)
             %td= d.version
-            -FedoraRpm::FEDORA_VERSIONS.each do |t, g|
+            - FedoraRpm.fedora_versions.each do |t, g|
               %td= d.fedora_rpm.version_for(t)
-
-= render :partial => 'gemcomments/comments'
-= render :partial => 'gemcomments/new_comment'

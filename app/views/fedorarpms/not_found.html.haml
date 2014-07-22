@@ -1,9 +1,9 @@
-%h1 RPM Not Found 
+%h1 RPM Not Found
 
-Sorry, we couldn't find 
-%b=@rpm 
+Sorry, we couldn't find
+%b=@rpm
 as a Fedora RPM; please check your URL and try again.
-%br/ 
+%br/
 %br/
 - if @results != []
 
@@ -11,7 +11,7 @@ as a Fedora RPM; please check your URL and try again.
     %thead
       %tr
         %th Did you mean:
-       
+
     %tbody
       - @results.each do |r|
         %tr
